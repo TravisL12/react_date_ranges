@@ -1,0 +1,350 @@
+ul {
+  margin: 0;
+  padding: 0; }
+
+.january .month--name,
+.january .month--header {
+  color: cadetblue; }
+.january .week-1 .week--tile {
+  background: #568e90; }
+  .january .week-1 .week--tile:hover {
+    background: cadetblue; }
+.january .week-2 .week--tile {
+  background: #4c7e80; }
+  .january .week-2 .week--tile:hover {
+    background: cadetblue; }
+.january .week-3 .week--tile {
+  background: #436f70; }
+  .january .week-3 .week--tile:hover {
+    background: cadetblue; }
+.january .week-4 .week--tile {
+  background: #395f60; }
+  .january .week-4 .week--tile:hover {
+    background: cadetblue; }
+.january .week-5 .week--tile {
+  background: #304f50; }
+  .january .week-5 .week--tile:hover {
+    background: cadetblue; }
+
+.february .month--name,
+.february .month--header {
+  color: lightblue; }
+.february .week-1 .week--tile {
+  background: #99cfe0; }
+  .february .week-1 .week--tile:hover {
+    background: lightblue; }
+.february .week-2 .week--tile {
+  background: #86c5da; }
+  .february .week-2 .week--tile:hover {
+    background: lightblue; }
+.february .week-3 .week--tile {
+  background: #72bcd4; }
+  .february .week-3 .week--tile:hover {
+    background: lightblue; }
+.february .week-4 .week--tile {
+  background: #5fb3ce; }
+  .february .week-4 .week--tile:hover {
+    background: lightblue; }
+.february .week-5 .week--tile {
+  background: #4baac8; }
+  .february .week-5 .week--tile:hover {
+    background: lightblue; }
+
+.march .month--name,
+.march .month--header {
+  color: lime; }
+.march .week-1 .week--tile {
+  background: #00e600; }
+  .march .week-1 .week--tile:hover {
+    background: lime; }
+.march .week-2 .week--tile {
+  background: #00cc00; }
+  .march .week-2 .week--tile:hover {
+    background: lime; }
+.march .week-3 .week--tile {
+  background: #00b300; }
+  .march .week-3 .week--tile:hover {
+    background: lime; }
+.march .week-4 .week--tile {
+  background: #009900; }
+  .march .week-4 .week--tile:hover {
+    background: lime; }
+.march .week-5 .week--tile {
+  background: green; }
+  .march .week-5 .week--tile:hover {
+    background: lime; }
+
+.april .month--name,
+.april .month--header {
+  color: magenta; }
+.april .week-1 .week--tile {
+  background: #e600e6; }
+  .april .week-1 .week--tile:hover {
+    background: magenta; }
+.april .week-2 .week--tile {
+  background: #cc00cc; }
+  .april .week-2 .week--tile:hover {
+    background: magenta; }
+.april .week-3 .week--tile {
+  background: #b300b3; }
+  .april .week-3 .week--tile:hover {
+    background: magenta; }
+.april .week-4 .week--tile {
+  background: #990099; }
+  .april .week-4 .week--tile:hover {
+    background: magenta; }
+.april .week-5 .week--tile {
+  background: purple; }
+  .april .week-5 .week--tile:hover {
+    background: magenta; }
+
+.may .month--name,
+.may .month--header {
+  color: blue; }
+.may .week-1 .week--tile {
+  background: #0000e6; }
+  .may .week-1 .week--tile:hover {
+    background: blue; }
+.may .week-2 .week--tile {
+  background: #0000cc; }
+  .may .week-2 .week--tile:hover {
+    background: blue; }
+.may .week-3 .week--tile {
+  background: #0000b3; }
+  .may .week-3 .week--tile:hover {
+    background: blue; }
+.may .week-4 .week--tile {
+  background: #000099; }
+  .may .week-4 .week--tile:hover {
+    background: blue; }
+.may .week-5 .week--tile {
+  background: navy; }
+  .may .week-5 .week--tile:hover {
+    background: blue; }
+
+.june .month--name,
+.june .month--header {
+  color: darkorchid; }
+.june .week-1 .week--tile {
+  background: #8a2db8; }
+  .june .week-1 .week--tile:hover {
+    background: darkorchid; }
+.june .week-2 .week--tile {
+  background: #7a28a3; }
+  .june .week-2 .week--tile:hover {
+    background: darkorchid; }
+.june .week-3 .week--tile {
+  background: #6b238f; }
+  .june .week-3 .week--tile:hover {
+    background: darkorchid; }
+.june .week-4 .week--tile {
+  background: #5c1e7a; }
+  .june .week-4 .week--tile:hover {
+    background: darkorchid; }
+.june .week-5 .week--tile {
+  background: #4c1966; }
+  .june .week-5 .week--tile:hover {
+    background: darkorchid; }
+
+.july .month--name,
+.july .month--header {
+  color: burlywood; }
+.july .week-1 .week--tile {
+  background: #d9ac73; }
+  .july .week-1 .week--tile:hover {
+    background: burlywood; }
+.july .week-2 .week--tile {
+  background: #d3a05f; }
+  .july .week-2 .week--tile:hover {
+    background: burlywood; }
+.july .week-3 .week--tile {
+  background: #ce954b; }
+  .july .week-3 .week--tile:hover {
+    background: burlywood; }
+.july .week-4 .week--tile {
+  background: #c88937; }
+  .july .week-4 .week--tile:hover {
+    background: burlywood; }
+.july .week-5 .week--tile {
+  background: #b47b32; }
+  .july .week-5 .week--tile:hover {
+    background: burlywood; }
+
+.august .month--name,
+.august .month--header {
+  color: pink; }
+.august .week-1 .week--tile {
+  background: #ffa7b6; }
+  .august .week-1 .week--tile:hover {
+    background: pink; }
+.august .week-2 .week--tile {
+  background: #ff8da1; }
+  .august .week-2 .week--tile:hover {
+    background: pink; }
+.august .week-3 .week--tile {
+  background: #ff748c; }
+  .august .week-3 .week--tile:hover {
+    background: pink; }
+.august .week-4 .week--tile {
+  background: #ff5a77; }
+  .august .week-4 .week--tile:hover {
+    background: pink; }
+.august .week-5 .week--tile {
+  background: #ff4162; }
+  .august .week-5 .week--tile:hover {
+    background: pink; }
+
+.september .month--name,
+.september .month--header {
+  color: wheat; }
+.september .week-1 .week--tile {
+  background: #f2d49c; }
+  .september .week-1 .week--tile:hover {
+    background: wheat; }
+.september .week-2 .week--tile {
+  background: #efca86; }
+  .september .week-2 .week--tile:hover {
+    background: wheat; }
+.september .week-3 .week--tile {
+  background: #ecc16f; }
+  .september .week-3 .week--tile:hover {
+    background: wheat; }
+.september .week-4 .week--tile {
+  background: #e9b759; }
+  .september .week-4 .week--tile:hover {
+    background: wheat; }
+.september .week-5 .week--tile {
+  background: #e6ad42; }
+  .september .week-5 .week--tile:hover {
+    background: wheat; }
+
+.october .month--name,
+.october .month--header {
+  color: green; }
+.october .week-1 .week--tile {
+  background: #006700; }
+  .october .week-1 .week--tile:hover {
+    background: green; }
+.october .week-2 .week--tile {
+  background: #004d00; }
+  .october .week-2 .week--tile:hover {
+    background: green; }
+.october .week-3 .week--tile {
+  background: #003400; }
+  .october .week-3 .week--tile:hover {
+    background: green; }
+.october .week-4 .week--tile {
+  background: #001a00; }
+  .october .week-4 .week--tile:hover {
+    background: green; }
+.october .week-5 .week--tile {
+  background: #000100; }
+  .october .week-5 .week--tile:hover {
+    background: green; }
+
+.november .month--name,
+.november .month--header {
+  color: cyan; }
+.november .week-1 .week--tile {
+  background: #00e6e6; }
+  .november .week-1 .week--tile:hover {
+    background: cyan; }
+.november .week-2 .week--tile {
+  background: #00cccc; }
+  .november .week-2 .week--tile:hover {
+    background: cyan; }
+.november .week-3 .week--tile {
+  background: #00b3b3; }
+  .november .week-3 .week--tile:hover {
+    background: cyan; }
+.november .week-4 .week--tile {
+  background: #009999; }
+  .november .week-4 .week--tile:hover {
+    background: cyan; }
+.november .week-5 .week--tile {
+  background: teal; }
+  .november .week-5 .week--tile:hover {
+    background: cyan; }
+
+.december .month--name,
+.december .month--header {
+  color: coral; }
+.december .week-1 .week--tile {
+  background: #ff6c37; }
+  .december .week-1 .week--tile:hover {
+    background: coral; }
+.december .week-2 .week--tile {
+  background: #ff5a1d; }
+  .december .week-2 .week--tile:hover {
+    background: coral; }
+.december .week-3 .week--tile {
+  background: #ff4704; }
+  .december .week-3 .week--tile:hover {
+    background: coral; }
+.december .week-4 .week--tile {
+  background: #e93f00; }
+  .december .week-4 .week--tile:hover {
+    background: coral; }
+.december .week-5 .week--tile {
+  background: #d03800; }
+  .december .week-5 .week--tile:hover {
+    background: coral; }
+
+body {
+  width: 1200px;
+  margin: 10px auto;
+  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; }
+
+.calendar .month {
+  position: relative;
+  width: 1020px;
+  margin: 15px auto 0; }
+  .calendar .month .month--name {
+    font-size: 50px;
+    font-weight: bold;
+    text-align: right; }
+  .calendar .month .month--header {
+    margin-bottom: 5px; }
+    .calendar .month .month--header .month--header-day {
+      display: inline-block;
+      font-weight: bold;
+      width: 140px;
+      margin-right: 5px;
+      padding: 0 2px;
+      text-align: center;
+      box-sizing: border-box; }
+  .calendar .month .week .week--tile {
+    position: relative;
+    display: inline-block;
+    margin: 0 5px 5px 0;
+    padding: 2px 5px;
+    width: 140px;
+    height: 140px;
+    font-size: 14px;
+    border-radius: 3px;
+    box-sizing: border-box;
+    list-style: none;
+    vertical-align: middle;
+    transition: 0.15s linear all; }
+    .calendar .month .week .week--tile:hover {
+      border-radius: 0; }
+    .calendar .month .week .week--tile.none, .calendar .month .week .week--tile.none:hover {
+      background: transparent; }
+    .calendar .month .week .week--tile .week--tile-day {
+      font-weight: 600;
+      color: white;
+      position: absolute;
+      font-size: 75px;
+      text-align: center;
+      margin-left: auto;
+      margin-right: auto;
+      transform: translateY(-50%);
+      top: 50%;
+      left: 0;
+      right: 0; }
+    .calendar .month .week .week--tile .week--tile-year {
+      position: absolute;
+      bottom: 2px;
+      right: 4px; }
+
+/*# sourceMappingURL=application.css.map */
