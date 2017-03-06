@@ -1,6 +1,6 @@
 import React from 'react';
 import Month from './Month.jsx';
-import DateTile from './DateTile.jsx';
+import Day from './Day.jsx';
 
 export default class App extends React.Component {
     constructor (props) {
@@ -34,9 +34,9 @@ export default class App extends React.Component {
         return dates;
     }
 
-    renderDateTile(date) {
+    renderDay(date) {
         date = new Date(date);
-        return <DateTile
+        return <Day
                     day   = {date.getDate()}
                     dow   = {date.getDay()}
                     month = {date.getMonth()}
@@ -64,7 +64,7 @@ export default class App extends React.Component {
 
         let daysOfYear = {};
         for (let date = start; date <= end; date.setDate(date.getDate() + 1)) {
-            let tile = this.renderDateTile(date);
+            let tile = this.renderDay(date);
 
             if (!daysOfYear.hasOwnProperty(tile.props.year)) {
                 daysOfYear[tile.props.year] = {};
