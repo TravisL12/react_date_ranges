@@ -2,22 +2,32 @@ import React from 'react';
 import Month from './Month.jsx';
 import Day from './Day.jsx';
 
+function formatDate(date) {
+    return [date.getMonth() + 1, date.getDate(), date.getFullYear()].join('/')
+}
+
 export default class App extends React.Component {
     constructor (props) {
         super(props);
+
+        let today = new Date();
+
         this.state = {
             start: '1/1/2016',
-            end: '1/1/2017'
+            end: formatDate(today)
         }
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
+    componentDidMount() {
+        this.handleSubmit();
+    }
+
     handleChange(event) {
-        const target = event.target;
-        const value = target.value;
-        const name = target.name;
+        const value = event.target.value;
+        const name  = event.target.name;
 
         this.setState({
           [name]: value
@@ -46,8 +56,7 @@ export default class App extends React.Component {
                 />
     }
 
-    handleSubmit(event) {
-        event.preventDefault();
+    handleSubmit() {
 
         let start = new Date(this.state.start),
             end   = new Date(this.state.end);
