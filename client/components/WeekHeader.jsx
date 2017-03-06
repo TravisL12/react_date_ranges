@@ -7,7 +7,7 @@ export default function WeekHeader() {
         <div className="month--header">
             {dayNames.map((day, idx) => {
                 return (
-                    <div key={idx} className="month--header-day">{day}</div>
+                    <div key={idx.toString()} className="month--header-day">{day}</div>
                 );
             })}
         </div>

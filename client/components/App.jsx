@@ -39,7 +39,7 @@ export default class App extends React.Component {
         let year  = dates[0].props.year;
         dates = this.padWeeks(dates);
 
-        return <Month
+        return <Month key={month.toString() + year.toString()}
                     month = {month}
                     year  = {year}
                     dates = {dates}
@@ -54,7 +54,7 @@ export default class App extends React.Component {
 
         let daysOfYear = {};
         for (let date = start; date <= end; date.setDate(date.getDate() + 1)) {
-            let tile = <Day
+            let tile = <Day key={start.toString()}
                 day   = {date.getDate()}
                 dow   = {date.getDay()}
                 month = {date.getMonth()}
