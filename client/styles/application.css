@@ -23,7 +23,11 @@ ul {
     background: cadetblue; }
 .january .week-5 .week--tile {
   background: #304f50; }
+.january .week-6 .week--tile {
+  background: #304f50; }
   .january .week-5 .week--tile:hover {
+    background: cadetblue; }
+.january .week-6 .week--tile:hover {
     background: cadetblue; }
 
 .february .month--name,
@@ -47,7 +51,11 @@ ul {
     background: lightblue; }
 .february .week-5 .week--tile {
   background: #4baac8; }
+.february .week-6 .week--tile {
+  background: #4baac8; }
   .february .week-5 .week--tile:hover {
+    background: lightblue; }
+.february .week-6 .week--tile:hover {
     background: lightblue; }
 
 .march .month--name,
@@ -71,7 +79,11 @@ ul {
     background: lime; }
 .march .week-5 .week--tile {
   background: green; }
+.march .week-6 .week--tile {
+  background: green; }
   .march .week-5 .week--tile:hover {
+    background: lime; }
+.march .week-6 .week--tile:hover {
     background: lime; }
 
 .april .month--name,
@@ -95,7 +107,11 @@ ul {
     background: magenta; }
 .april .week-5 .week--tile {
   background: purple; }
+.april .week-6 .week--tile {
+  background: purple; }
   .april .week-5 .week--tile:hover {
+    background: magenta; }
+.april .week-6 .week--tile:hover {
     background: magenta; }
 
 .may .month--name,
@@ -119,7 +135,11 @@ ul {
     background: blue; }
 .may .week-5 .week--tile {
   background: navy; }
+.may .week-6 .week--tile {
+  background: navy; }
   .may .week-5 .week--tile:hover {
+    background: blue; }
+.may .week-6 .week--tile:hover {
     background: blue; }
 
 .june .month--name,
@@ -143,7 +163,11 @@ ul {
     background: darkorchid; }
 .june .week-5 .week--tile {
   background: #4c1966; }
+.june .week-6 .week--tile {
+  background: #4c1966; }
   .june .week-5 .week--tile:hover {
+    background: darkorchid; }
+.june .week-6 .week--tile:hover {
     background: darkorchid; }
 
 .july .month--name,
@@ -167,7 +191,11 @@ ul {
     background: burlywood; }
 .july .week-5 .week--tile {
   background: #b47b32; }
+.july .week-6 .week--tile {
+  background: #b47b32; }
   .july .week-5 .week--tile:hover {
+    background: burlywood; }
+.july .week-6 .week--tile:hover {
     background: burlywood; }
 
 .august .month--name,
@@ -191,7 +219,11 @@ ul {
     background: pink; }
 .august .week-5 .week--tile {
   background: #ff4162; }
+.august .week-6 .week--tile {
+  background: #ff4162; }
   .august .week-5 .week--tile:hover {
+    background: pink; }
+.august .week-6 .week--tile:hover {
     background: pink; }
 
 .september .month--name,
@@ -215,7 +247,11 @@ ul {
     background: wheat; }
 .september .week-5 .week--tile {
   background: #e6ad42; }
+.september .week-6 .week--tile {
+  background: #e6ad42; }
   .september .week-5 .week--tile:hover {
+    background: wheat; }
+.september .week-6 .week--tile:hover {
     background: wheat; }
 
 .october .month--name,
@@ -239,7 +275,11 @@ ul {
     background: green; }
 .october .week-5 .week--tile {
   background: #000100; }
+.october .week-6 .week--tile {
+  background: #000100; }
   .october .week-5 .week--tile:hover {
+    background: green; }
+.october .week-6 .week--tile:hover {
     background: green; }
 
 .november .month--name,
@@ -263,7 +303,11 @@ ul {
     background: cyan; }
 .november .week-5 .week--tile {
   background: teal; }
+.november .week-6 .week--tile {
+  background: teal; }
   .november .week-5 .week--tile:hover {
+    background: cyan; }
+.november .week-6 .week--tile:hover {
     background: cyan; }
 
 .december .month--name,
@@ -287,7 +331,11 @@ ul {
     background: coral; }
 .december .week-5 .week--tile {
   background: #d03800; }
+.december .week-6 .week--tile {
+  background: #d03800; }
   .december .week-5 .week--tile:hover {
+    background: coral; }
+.december .week-6 .week--tile:hover {
     background: coral; }
 
 body {
