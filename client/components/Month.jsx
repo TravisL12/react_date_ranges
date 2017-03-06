@@ -19,12 +19,6 @@ function chunkWeeks(dates) {
 }
 
 export default class Month extends React.Component {
-    constructor (props) {
-        super(props);
-        this.state = {
-            monthName: monthNames[this.props.month]
-        };
-    }
 
     renderHeader () {
         return (
@@ -50,9 +44,11 @@ export default class Month extends React.Component {
     }
 
     render () {
+        let monthName = monthNames[this.props.month];
+
         return (
-            <div key={this.state.monthName + this.props.year} className={"month " + this.state.monthName.toLowerCase()}>
-                <div className="month--name">{this.state.monthName + ' ' + this.props.year}</div>
+            <div key={monthName + this.props.year} className={"month " + monthName.toLowerCase()}>
+                <div className="month--name">{monthName + ' ' + this.props.year}</div>
                 <div className="month--header">{this.renderHeader()}</div>
                 <div className="month--weeks">{this.renderWeeks()}</div>
             </div>

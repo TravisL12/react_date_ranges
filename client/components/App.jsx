@@ -37,7 +37,6 @@ export default class App extends React.Component {
     renderDateTile(date) {
         date = new Date(date);
         return <DateTile
-                    date  = {date}
                     day   = {date.getDate()}
                     dow   = {date.getDay()}
                     month = {date.getMonth()}
