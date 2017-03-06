@@ -34,16 +34,6 @@ export default class App extends React.Component {
         return dates;
     }
 
-    renderDay(date) {
-        date = new Date(date);
-        return <Day
-                    day   = {date.getDate()}
-                    dow   = {date.getDay()}
-                    month = {date.getMonth()}
-                    year  = {date.getFullYear()}
-                />;
-    }
-
     renderMonth(dates) {
         let month = dates[0].props.month;
         let year  = dates[0].props.year;
@@ -64,7 +54,12 @@ export default class App extends React.Component {
 
         let daysOfYear = {};
         for (let date = start; date <= end; date.setDate(date.getDate() + 1)) {
-            let tile = this.renderDay(date);
+            let tile = <Day
+                day   = {date.getDate()}
+                dow   = {date.getDay()}
+                month = {date.getMonth()}
+                year  = {date.getFullYear()}
+            />;
 
             if (!daysOfYear.hasOwnProperty(tile.props.year)) {
                 daysOfYear[tile.props.year] = {};
@@ -98,7 +93,7 @@ export default class App extends React.Component {
                         <input type='text' name='end' value={this.state.end} onChange={this.handleChange}></input>
                         <button type='submit' id='submit-dates' onClick={this.handleSubmit}>Get Range</button>
                 </div>
-                <div className='calendar' id='json-dates'>{this.state.calendar}</div>
+                <div className='calendar'>{this.state.calendar}</div>
             </div>
         )
     }

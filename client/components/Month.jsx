@@ -18,21 +18,22 @@ function chunkWeeks(dates) {
     return weeks;
 }
 
-export default class Month extends React.Component {
-
-    renderHeader () {
-        return (
-            dayNames.map((day) => {
+function WeekHeader() {
+    return (
+        <div className="month--header">
+            {dayNames.map((day, idx) => {
                 return (
-                    <div key={day.toString()} className="month--header-day">{day}</div>
+                    <div key={idx} className="month--header-day">{day}</div>
                 );
-            })
-        )
-    }
+            })}
+        </div>
+    )
+}
 
-    renderWeeks () {
-        return chunkWeeks(this.props.dates).reduce((pMonth, cMonth, i) => {
-            let weekHtml = cMonth.reduce((pDate, cDate) => {
+function Week(props) {
+    return (
+        <div className="month--weeks">{chunkWeeks(props.dates).reduce((pMonth, cMonth, i) => {
+            let weekHtml = cMonth.reduce((pDate, cDate, j) => {
                 let week = cDate === null ? <li className="week--tile none"></li> : cDate;
                 pDate.push(week);
                 return pDate;
@@ -40,17 +41,20 @@ export default class Month extends React.Component {
 
             pMonth.push(<ul className={"week week-" + (i + 1)}>{weekHtml}</ul>);
             return pMonth;
-        }, []);
-    }
+        }, [])}
+        </div>
+    )
+}
 
+export default class Month extends React.Component {
     render () {
         let monthName = monthNames[this.props.month];
 
         return (
             <div key={monthName + this.props.year} className={"month " + monthName.toLowerCase()}>
                 <div className="month--name">{monthName + ' ' + this.props.year}</div>
-                <div className="month--header">{this.renderHeader()}</div>
-                <div className="month--weeks">{this.renderWeeks()}</div>
+                <WeekHeader/>
+                <Week dates={this.props.dates}/>
             </div>
         )
     }
