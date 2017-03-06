@@ -47,7 +47,7 @@ export default class App extends React.Component {
     renderMonth(dates) {
         let month = dates[0].props.month;
         let year  = dates[0].props.year;
-        dates = this.padWeeks(dates);
+        dates     = this.padWeeks(dates);
 
         return <Month key={month.toString() + year.toString()}
                     month = {month}
