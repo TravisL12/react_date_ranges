@@ -5,6 +5,8 @@ import Day from './Day.jsx';
 import axios from 'axios';
 import finances from '../js/compileFinances.js';
 
+require('../styles/application.scss');
+
 function formatDate(date) {
     return [date.getMonth() + 1, date.getDate(), date.getFullYear()].join('/')
 }

@@ -1,9 +1,19 @@
-ul {
-    margin: 0;
-    padding: 0;
-}
+$light-gray: #bdbdbd;
+$tile-width: 140px;
+// Colors for tiles of months
+$january:   cadetblue;
+$february:  lightblue;
+$march:     lime;
+$april:     magenta;
+$may:       blue;
+$june:      darkorchid;
+$july:      burlywood;
+$august:    pink;
+$september: wheat;
+$october:   cyan;
+$november:  gold;
+$december:  coral;
 
-$light-gray: #fbfbfb;
 @mixin loop-colors($color) {
     .month--name,
     .month--header {
@@ -20,20 +30,6 @@ $light-gray: #fbfbfb;
     }
 }
 
-// Colors for tiles of months
-$january:   cadetblue;
-$february:  lightblue;
-$march:     lime;
-$april:     magenta;
-$may:       blue;
-$june:      darkorchid;
-$july:      burlywood;
-$august:    pink;
-$september: wheat;
-$october:   cyan;
-$november:  gold;
-$december:  coral;
-
 .january   { @include loop-colors($january); }
 .february  { @include loop-colors($february); }
 .march     { @include loop-colors($march); }
@@ -47,7 +43,11 @@ $december:  coral;
 .november  { @include loop-colors($november); }
 .december  { @include loop-colors($december); }
 
-$tile-width: 140px;
+ul {
+    margin: 0;
+    padding: 0;
+}
+
 body {
     width: 1200px;
     margin: 10px auto;
@@ -109,10 +109,23 @@ body {
             right: 0;
         }
 
-        .week--tile-year {
+        .week--tile-amount {
+            color: white;
+        }
+
+        .week--tile-count {
             position: absolute;
             bottom: 2px;
-            right: 4px;
+            li {
+                display: inline-block;
+                width: 8px;
+                height: 8px;
+                background: white;
+                margin-right: 2px;
+                &:nth-child(5n) {
+                    background: $light-gray;
+                }
+            }
         }
     }
 }

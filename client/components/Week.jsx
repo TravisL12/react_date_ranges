@@ -13,7 +13,7 @@ function chunkWeeks(dates) {
     return weeks;
 }
 
-export default function Week(props) {
+export default function Week (props) {
     return (
         <div className="month--weeks">{chunkWeeks(props.dates).reduce((pMonth, cMonth, i) => {
             let weekHtml = cMonth.reduce((pDate, cDate, j) => {

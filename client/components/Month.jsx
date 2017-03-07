@@ -7,16 +7,14 @@ const monthNames = [
     "August", "September", "October", "November", "December"
 ];
 
-export default class Month extends React.Component {
-    render () {
-        let monthName = monthNames[this.props.month];
+export default function Month (props) {
+    let monthName = monthNames[props.month];
 
-        return (
-            <div key={monthName + this.props.year} className={"month " + monthName.toLowerCase()}>
-                <div className="month--name">{monthName + ' ' + this.props.year}</div>
-                <WeekHeader/>
-                <Week dates={this.props.dates}/>
-            </div>
-        )
-    }
+    return (
+        <div key={monthName + props.year} className={"month " + monthName.toLowerCase()}>
+            <div className="month--name">{monthName + ' ' + props.year}</div>
+            <WeekHeader/>
+            <Week dates={props.dates}/>
+        </div>
+    )
 }
