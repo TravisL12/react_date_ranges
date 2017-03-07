@@ -28,9 +28,8 @@ export default class App extends React.Component {
         let url = 'https://spreadsheets.google.com/feeds/list/1X05BAK1GSF4rbr-tSPWh2GBFk1zqg3jUPxrDcGivw9s/1/public/values?alt=json';
         axios.get(url).then(res => {
             this.setState({
-                spending: finances.constructSpending(res)
+                rawSpending: finances.rawSpending(res)
             })
-            console.log(this.state.spending);
             this.handleSubmit();
         })
     }
@@ -66,7 +65,7 @@ export default class App extends React.Component {
                 />
     }
 
-    getDay (date) {
+    getDay (date, spending) {
         let day   = date.getDate();
         let dow   = date.getDay();
         let month = date.getMonth();
@@ -76,18 +75,19 @@ export default class App extends React.Component {
             dow   = {dow}
             month = {month}
             year  = {year}
-            spending = {this.state.spending[year].month[month+1].day[day]}
+            spending = {spending[year].month[month+1].day[day]}
         />
     }
 
     handleSubmit() {
 
         let start = new Date(this.state.start),
-            end   = new Date(this.state.end);
+            end   = new Date(this.state.end),
+            spending = finances.buildSpending(this.state.rawSpending, start, end),
+            daysOfYear = {};
 
-        let daysOfYear = {};
         for (let date = start; date <= end; date.setDate(date.getDate() + 1)) {
-            let tile = this.getDay(date);
+            let tile = this.getDay(date, spending);
 
             if (!daysOfYear.hasOwnProperty(tile.props.year)) {
                 daysOfYear[tile.props.year] = {};

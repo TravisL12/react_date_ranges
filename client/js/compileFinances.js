@@ -27,7 +27,7 @@ function Day () {
 
 var Finances = {
 
-    constructSpending (data) {
+    rawSpending (data) {
         let spending = data.data.feed.entry.map(function(obj) {
             return {
                 category:    obj.gsx$subcategory.$t || obj.gsx$category.$t,
@@ -36,17 +36,22 @@ var Finances = {
                 amount:      obj.gsx$amount.$t
             };
         });
-        return this.buildSpending(spending);
+        return spending;
     },
 
-    buildSpending (data) {
+    buildSpending (data, start, end) {
         let spending = {};
         let categories = {};
-
         for (var i in data) {
-            var transaction = data[i];
-            transaction.amount      = parseFloat(transaction.amount);
-            transaction.date        = this.parseDate(transaction);
+            let transaction = data[i];
+            transaction.date = this.parseDate(transaction);
+
+            let date = new Date(transaction.date);
+            if (date < start || date > end) {
+                continue;
+            }
+
+            transaction.amount = parseFloat(transaction.amount);
             transaction.description = this.parseDescription(transaction);
 
             if (categories[transaction.category] === undefined) {
@@ -57,10 +62,9 @@ var Finances = {
                 };
             }
 
-            var date  = new Date(transaction.date),
-            year  = date.getFullYear(),
-            month = date.getMonth() + 1,
-            day   = date.getDate();
+            let year  = date.getFullYear();
+            let month = date.getMonth() + 1;
+            let day   = date.getDate();
 
             spending[year] = spending[year] || new Year();
             
