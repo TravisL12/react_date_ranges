@@ -2,25 +2,14 @@ import React from 'react';
 import Week from './Week.jsx';
 import WeekHeader from './WeekHeader.jsx';
 
+import chunkWeeks from '../js/chunkWeeks.js';
+
 const monthNames = [
     'January', 'February', 'March', 'April', 'May', 'June', 'July',
     'August', 'September', 'October', 'November', 'December'
 ];
 
 const dayNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-
-function chunkWeeks (dates) {
-    let weeks = [],
-        daysInWeek = 7,
-        weekCount = Math.ceil(dates.length / daysInWeek);
-
-    for (var i = 0; i < weekCount; i++) {
-        let weekIdx = i * daysInWeek;
-        let days = dates.slice(weekIdx, weekIdx + daysInWeek);
-        weeks.push(days);
-    }
-    return weeks;
-}
 
 export default function Month (props) {
     let monthName = monthNames[props.month];
