@@ -18,7 +18,7 @@ export default class App extends React.Component {
         let today = new Date();
 
         this.state = {
-            start: '1/1/2016',
+            start: formatDate(new Date(today.getFullYear(), '0', '1')),
             end: formatDate(today)
         }
 

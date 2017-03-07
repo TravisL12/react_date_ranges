@@ -15,16 +15,17 @@ function chunkWeeks(dates) {
 
 export default function Week (props) {
     return (
-        <div className='month--weeks'>{chunkWeeks(props.dates).reduce((pMonth, cMonth, i) => {
-            let weekHtml = cMonth.reduce((pDate, cDate, j) => {
-                let week = cDate === null ? <li key={j + i} className='week--tile none'></li> : cDate;
-                pDate.push(week);
-                return pDate;
-            }, [])
+        <div className='month--weeks'>{
+            chunkWeeks(props.dates).map((month, i) => {
+                let weekHtml = month.map((date, j) => {
+                    return date === null ? <li key={j + i} className='week--tile none'></li> : date;
+                })
 
-            pMonth.push(<ul key={i.toString()} className={'week week-' + (i + 1)}>{weekHtml}</ul>);
-            return pMonth;
-        }, [])}
+                return (
+                    <ul key={i.toString()} className={'week week-' + (i + 1)}>{weekHtml}</ul>
+                );
+            })
+        }
         </div>
     )
 }
