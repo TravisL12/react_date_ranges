@@ -27,10 +27,10 @@ export default class Date extends React.Component {
 
     render () {
         return (
-            <li key={this.props.day} className="week--tile">
-                <div className="week--tile-day">{this.props.day}</div>
-                <div className="week--tile-amount">{this.displayTotal()}</div>
-                <ul className="week--tile-count">{this.displayCount()}</ul>
+            <li key={this.props.day} className='week--tile'>
+                <div className='week--tile-day'>{this.props.day}</div>
+                <div className='week--tile-amount'>{this.displayTotal()}</div>
+                <ul className='week--tile-transasction-square'>{this.displayCount()}</ul>
             </li>
         )
     }

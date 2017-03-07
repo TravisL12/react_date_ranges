@@ -1,15 +1,7 @@
 import React from 'react';
 
-const dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-
-export default function WeekHeader() {
+export default function WeekHeader(props) {
     return (
-        <div className="month--header">
-            {dayNames.map((day, idx) => {
-                return (
-                    <div key={idx.toString()} className="month--header-day">{day}</div>
-                );
-            })}
-        </div>
+        <div className='month--header-day'>{props.day}</div>
     )
 }
