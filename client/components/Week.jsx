@@ -1,11 +1,13 @@
 import React from 'react';
 
 function chunkWeeks(dates) {
-    let weeks = [];
-    let weekCount = Math.ceil(dates.length / 7);
+    let weeks = [],
+        daysInWeek = 7,
+        weekCount = Math.ceil(dates.length / daysInWeek);
+
     for (var i = 0; i < weekCount; i++) {
-        let weekIdx = i * 7;
-        let days = dates.slice(weekIdx, weekIdx + 7);
+        let weekIdx = i * daysInWeek;
+        let days = dates.slice(weekIdx, weekIdx + daysInWeek);
         weeks.push(days);
     }
     return weeks;

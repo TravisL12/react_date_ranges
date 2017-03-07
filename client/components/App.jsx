@@ -2,6 +2,9 @@ import React from 'react';
 import Month from './Month.jsx';
 import Day from './Day.jsx';
 
+import axios from 'axios';
+import finances from '../js/compileFinances.js';
+
 function formatDate(date) {
     return [date.getMonth() + 1, date.getDate(), date.getFullYear()].join('/')
 }
@@ -22,7 +25,14 @@ export default class App extends React.Component {
     }
 
     componentDidMount() {
-        this.handleSubmit();
+        let url = 'https://spreadsheets.google.com/feeds/list/1X05BAK1GSF4rbr-tSPWh2GBFk1zqg3jUPxrDcGivw9s/1/public/values?alt=json';
+        axios.get(url).then(res => {
+            this.setState({
+                spending: finances.constructSpending(res)
+            })
+            console.log(this.state.spending);
+            this.handleSubmit();
+        })
     }
 
     handleChange(event) {
@@ -56,6 +66,20 @@ export default class App extends React.Component {
                 />
     }
 
+    getDay (date) {
+        let day   = date.getDate();
+        let dow   = date.getDay();
+        let month = date.getMonth();
+        let year  = date.getFullYear();
+        return <Day key={date.toString()}
+            day   = {day}
+            dow   = {dow}
+            month = {month}
+            year  = {year}
+            spending = {this.state.spending[year].month[month+1].day[day]}
+        />
+    }
+
     handleSubmit() {
 
         let start = new Date(this.state.start),
@@ -63,12 +87,7 @@ export default class App extends React.Component {
 
         let daysOfYear = {};
         for (let date = start; date <= end; date.setDate(date.getDate() + 1)) {
-            let tile = <Day key={start.toString()}
-                day   = {date.getDate()}
-                dow   = {date.getDay()}
-                month = {date.getMonth()}
-                year  = {date.getFullYear()}
-            />;
+            let tile = this.getDay(date);
 
             if (!daysOfYear.hasOwnProperty(tile.props.year)) {
                 daysOfYear[tile.props.year] = {};
