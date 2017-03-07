@@ -1,5 +1,5 @@
 $tile-width: 140px;
-$trans-square: 8px;
+$trans-square: 10px;
 $light-gray: #bdbdbd;
 $white: #f9f9f9;
 // Colors for tiles of months
@@ -15,6 +15,17 @@ $september: wheat;
 $october:   cyan;
 $november:  gold;
 $december:  coral;
+
+@mixin vertical-center() {
+    position: absolute;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    transform: translateY(-50%);
+    top: 50%;
+    left: 0;
+    right: 0;
+}
 
 @mixin loop-colors($color) {
     .month--name,
@@ -101,25 +112,28 @@ body {
         .week--tile-day {
             position: absolute;
             font-weight: 600;
-            font-size: 75px;
-            text-align: center;
-            margin-left: auto;
-            margin-right: auto;
-            transform: translateY(-50%);
-            top: 50%;
-            left: 0;
-            right: 0;
+            font-size: 24px;
+            top: 2px;
+            right: 10px;
+            text-rendering: optimizeLegibility;
+        }
+
+        .week--tile-amount {
+            @include vertical-center;
+            font-size: 24px
         }
 
         .week--tile-transasction-square {
             position: absolute;
             bottom: 2px;
+            line-height: 12px;
             li {
                 display: inline-block;
                 width: $trans-square;
                 height: $trans-square;
                 background: $white;
-                margin-right: 2px;
+                margin-right: 3px;
+                border-radius: 1px;
                 &:nth-child(5n) {
                     background: $light-gray;
                 }

@@ -6,33 +6,28 @@ function TransactionSquare (props) {
     )
 }
 
-export default class Date extends React.Component {
-
-    displayCount () {
-        let transactions = this.props.spending.transactions;
-        let square = [];
-        if (transactions.length) {
-            for (let i = 0; i < transactions.length; i++) {
-                square.push(<TransactionSquare key={i} data={transactions[i]}/>);
-            }
+function displayCount (transactions) {
+    let square = [];
+    if (transactions.length) {
+        for (let i = 0; i < transactions.length; i++) {
+            square.push(<TransactionSquare key={i} data={transactions[i]}/>);
         }
-
-        return square;
     }
 
-    displayTotal () {
-        let total = this.props.spending.total;
-        return total > 0 ? '$' + Math.round(Math.round(total * 100) / 100) : '';
-    }
+    return square;
+}
 
-    render () {
-        return (
-            <li key={this.props.day} className='week--tile'>
-                <div className='week--tile-day'>{this.props.day}</div>
-                <div className='week--tile-amount'>{this.displayTotal()}</div>
-                <ul className='week--tile-transasction-square'>{this.displayCount()}</ul>
-            </li>
-        )
-    }
+function displayTotal (total) {
+    let num = total > 0 ? '$' + Math.round(Math.round(total * 100) / 100) : '';
+    return num.replace(/(\d)(?=(\d{3})+$)/g, '$1,');
+}
 
+export default function Date (props) {
+    return (
+        <li key={props.day} className='week--tile'>
+            <div className='week--tile-day'>{props.day}</div>
+            <div className='week--tile-amount'>{displayTotal(props.spending.total)}</div>
+            <ul className='week--tile-transasction-square'>{displayCount(props.spending.transactions)}</ul>
+        </li>
+    )
 }
