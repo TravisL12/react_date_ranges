@@ -54,9 +54,10 @@ export default class App extends React.Component {
     }
 
     renderMonth(dates) {
-        let month = dates[0].props.month;
-        let year  = dates[0].props.year;
-        dates     = this.padWeeks(dates);
+        let month = dates[0].props.month,
+            year  = dates[0].props.year;
+
+        dates = this.padWeeks(dates);
 
         return <Month key={month.toString() + year.toString()}
                     month = {month}
@@ -66,17 +67,18 @@ export default class App extends React.Component {
     }
 
     getDay (date, spending) {
-        let day   = date.getDate();
-        let dow   = date.getDay();
-        let month = date.getMonth();
-        let year  = date.getFullYear();
+        let day   = date.getDate(),
+            dow   = date.getDay(),
+            month = date.getMonth(),
+            year  = date.getFullYear();
+
         return <Day key={date.toString()}
-            day   = {day}
-            dow   = {dow}
-            month = {month}
-            year  = {year}
-            spending = {spending[year].month[month+1].day[day]}
-        />
+                    day   = {day}
+                    dow   = {dow}
+                    month = {month}
+                    year  = {year}
+                    spending = {spending[year].month[month+1].day[day]}
+                />
     }
 
     handleSubmit() {
