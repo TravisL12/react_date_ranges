@@ -1,6 +1,6 @@
 import React from 'react';
 
-function chunkWeeks(dates) {
+function chunkWeeks (dates) {
     let weeks = [],
         daysInWeek = 7,
         weekCount = Math.ceil(dates.length / daysInWeek);
@@ -13,19 +13,20 @@ function chunkWeeks(dates) {
     return weeks;
 }
 
+function buildDays (month) {
+    return month.map((date, j) => {
+        return date === null ? <li key={j} className='week--tile none'></li> : date;
+    });
+}
+
+function buildWeeks (dates) {
+    return chunkWeeks(dates).map((month, i) => {
+        return <ul key={i} className={'week week-' + (i + 1)}>{buildDays(month)}</ul>;
+    });
+}
+
 export default function Week (props) {
     return (
-        <div className='month--weeks'>{
-            chunkWeeks(props.dates).map((month, i) => {
-                let weekHtml = month.map((date, j) => {
-                    return date === null ? <li key={j + i} className='week--tile none'></li> : date;
-                })
-
-                return (
-                    <ul key={i.toString()} className={'week week-' + (i + 1)}>{weekHtml}</ul>
-                );
-            })
-        }
-        </div>
+        <div className='month--weeks'>{buildWeeks(props.dates)}</div>
     )
 }
