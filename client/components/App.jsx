@@ -18,7 +18,7 @@ export default class App extends React.Component {
         let today = new Date();
 
         this.state = {
-            start: formatDate(new Date(today.getFullYear(), '0', '1')),
+            start: formatDate(new Date('2016', '0', '1')),
             end: formatDate(today)
         }
 
@@ -89,6 +89,8 @@ export default class App extends React.Component {
             end   = new Date(this.state.end),
             spending = finances.buildSpending(this.state.rawSpending, start, end),
             daysOfYear = {};
+
+        console.log(spending);
 
         for (let date = start; date <= end; date.setDate(date.getDate() + 1)) {
             let tile = this.getDay(date, spending);

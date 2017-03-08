@@ -7,5 +7,5 @@ function buildDays (dates) {
 }
 
 export default function Week (props) {
-    return <ul key={props.idx} className={'week week-' + (props.idx + 1)}>{buildDays(props.dates)}</ul>
+    return <ul key={props.idx} className='week'>{buildDays(props.dates)}</ul>
 }

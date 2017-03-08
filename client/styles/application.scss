@@ -2,6 +2,7 @@ $tile-width: 140px;
 $trans-square: 10px;
 $light-gray: #bdbdbd;
 $white: #f9f9f9;
+
 // Colors for tiles of months
 $january:   cadetblue;
 $february:  lightblue;
@@ -32,9 +33,12 @@ $december:  coral;
     .month--header {
         color: $color;
     }
-    @for $i from 1 through 6 {
-        .week-#{$i} .week--tile {
-            $background: darken($color, $i * 5);
+    .week--tile.percent-0 {
+        background: lighten($color, 10%);
+    }
+    @for $i from 1 through 10 {
+        .week--tile.percent-#{$i}  {
+            $background: darken($color, $i * 3);
             background: $background;
             &:hover {
                 background: $color;
@@ -102,8 +106,6 @@ body {
         list-style: none;
         vertical-align: middle;
         transition: 0.15s linear all;
-        &:hover { border-radius: 0; }
-
         &.none,
         &.none:hover {
             background: transparent;

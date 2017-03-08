@@ -22,9 +22,15 @@ function displayTotal (total) {
     return num.replace(/(\d)(?=(\d{3})+$)/g, '$1,');
 }
 
+function findTotalPercent (total) {
+    if (!total) { return 0; }
+    let maxTotal = 1000;
+    return total >= maxTotal ? 10 : Math.ceil((total/maxTotal) * 10);
+}
+
 export default function Date (props) {
     return (
-        <li key={props.day} className='week--tile'>
+        <li key={props.day} className={'week--tile percent-' + findTotalPercent(props.spending.total)}>
             <div className='week--tile-day'>{props.day}</div>
             <div className='week--tile-amount'>{displayTotal(props.spending.total)}</div>
             <ul className='week--tile-transasction-square'>{displayCount(props.spending.transactions)}</ul>
