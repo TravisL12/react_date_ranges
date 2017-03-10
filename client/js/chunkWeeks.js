@@ -1,6 +1,6 @@
 'use strict';
 
-function chunkWeeks (dates) {
+export default function (dates) {
     let weeks = [],
         daysInWeek = 7,
         weekCount = Math.ceil(dates.length / daysInWeek);
@@ -12,5 +12,3 @@ function chunkWeeks (dates) {
     }
     return weeks;
 }
-
-export default chunkWeeks;

@@ -1,0 +1,12 @@
+.header {
+    display: inline-block;
+    width: 100%;
+    padding: 20px;
+    background: lightblue;
+
+    .header--container {
+        h1 { margin: 0; }
+        width: 1020px;
+        margin: 10px auto;
+    }
+}

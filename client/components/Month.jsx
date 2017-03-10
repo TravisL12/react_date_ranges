@@ -1,15 +1,15 @@
 import React from 'react';
 import Week from './Week.jsx';
-import WeekHeader from './WeekHeader.jsx';
 
 import chunkWeeks from '../js/chunkWeeks.js';
+const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+const dayNames   = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
-const monthNames = [
-    'January', 'February', 'March', 'April', 'May', 'June', 'July',
-    'August', 'September', 'October', 'November', 'December'
-];
-
-const dayNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+function WeekHeader(props) {
+    return (
+        <div className='month--header-day'>{props.day}</div>
+    )
+}
 
 export default function Month (props) {
     let monthName = monthNames[props.month];

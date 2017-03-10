@@ -3,21 +3,21 @@ function Year () {
     this.month  = {};
     this.maxDay = 0;
     this.maxMonth = 0;
-    this.buildMonths();
-}
 
-Year.prototype.buildMonths = function () {
-    for (var i = 1; i <= 12; i++) {
+    // build months
+    for (let i = 1; i <= 12; i++) {
         this.month[i] = new Month();
-        for (var k = 1; k <= 31; k++) {
-            this.month[i].day[k] = new Day();
-        }
     }
-};
+}
 
 function Month () {
     this.total = 0;
     this.day = {};
+
+    // build days
+    for (let i = 1; i <= 31; i++) {
+        this.day[i] = new Day();
+    }
 }
 
 function Day () {
@@ -36,21 +36,15 @@ var Finances = {
                 amount:      obj.gsx$amount.$t
             };
         });
-        return spending;
+        return this.buildSpending(spending);
     },
 
-    buildSpending (data, start, end) {
+    buildSpending (data) {
         let spending = {};
         let categories = {};
         for (var i in data) {
             let transaction = data[i];
             transaction.date = this.parseDate(transaction);
-
-            let date = new Date(transaction.date);
-            if (date < start || date > end) {
-                continue;
-            }
-
             transaction.amount = parseFloat(transaction.amount);
             transaction.description = this.parseDescription(transaction);
 
@@ -62,6 +56,7 @@ var Finances = {
                 };
             }
 
+            let date = new Date(transaction.date);
             let year  = date.getFullYear();
             let month = date.getMonth() + 1;
             let day   = date.getDate();

@@ -1,6 +1,7 @@
 import React from 'react';
 import Month from './Month.jsx';
 import Day from './Day.jsx';
+import Header from './Header.jsx';
 
 import axios from 'axios';
 import finances from '../js/compileFinances.js';
@@ -16,7 +17,6 @@ export default class App extends React.Component {
         super(props);
 
         let today = new Date();
-
         this.state = {
             start: formatDate(new Date('2016', '0', '1')),
             end: formatDate(today)
@@ -30,19 +30,10 @@ export default class App extends React.Component {
         let url = 'https://spreadsheets.google.com/feeds/list/1X05BAK1GSF4rbr-tSPWh2GBFk1zqg3jUPxrDcGivw9s/1/public/values?alt=json';
         axios.get(url).then(res => {
             this.setState({
-                rawSpending: finances.rawSpending(res)
+                spending: finances.rawSpending(res)
             })
             this.handleSubmit();
         })
-    }
-
-    handleChange(event) {
-        const value = event.target.value;
-        const name  = event.target.name;
-
-        this.setState({
-          [name]: value
-        });
     }
 
     padWeeks (dates) {
@@ -68,7 +59,7 @@ export default class App extends React.Component {
                 />
     }
 
-    getDay (date, spending) {
+    getDay (date) {
         let day   = date.getDate(),
             dow   = date.getDay(),
             month = date.getMonth(),
@@ -79,21 +70,22 @@ export default class App extends React.Component {
                     dow   = {dow}
                     month = {month}
                     year  = {year}
-                    spending = {spending[year].month[month+1].day[day]}
+                    spending = {this.state.spending[year].month[month+1].day[day]}
                 />
+    }
+
+    handleChange(data) {
+        this.setState(data);
     }
 
     handleSubmit() {
 
         let start = new Date(this.state.start),
             end   = new Date(this.state.end),
-            spending = finances.buildSpending(this.state.rawSpending, start, end),
             daysOfYear = {};
 
-        console.log(spending);
-
         for (let date = start; date <= end; date.setDate(date.getDate() + 1)) {
-            let tile = this.getDay(date, spending);
+            let tile = this.getDay(date);
 
             if (!daysOfYear.hasOwnProperty(tile.props.year)) {
                 daysOfYear[tile.props.year] = {};
@@ -121,12 +113,7 @@ export default class App extends React.Component {
     render () {
         return (
             <div>
-                <div className='enter-dates'>
-                    <h1>Enter a date range!</h1>
-                        <input type='text' name='start' value={this.state.start} onChange={this.handleChange}></input>
-                        <input type='text' name='end' value={this.state.end} onChange={this.handleChange}></input>
-                        <button type='submit' id='submit-dates' onClick={this.handleSubmit}>Get Range</button>
-                </div>
+                <Header start={this.state.start} end={this.state.end} change={this.handleChange} submit={this.handleSubmit}/>
                 <div className='calendar'>{this.state.calendar}</div>
             </div>
         )
