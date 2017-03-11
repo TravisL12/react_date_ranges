@@ -1,14 +1,13 @@
 import React from 'react';
-
-require('../styles/header.scss');
+import monthNames from '../js/monthNames.js';
 
 export default class Header extends React.Component {
     constructor (props) {
         super(props);
 
         this.state = {
-            start: this.props.start,
-            end:   this.props.end
+            month: this.props.month + 1,
+            year: this.props.year
         }
 
         this.change = this.change.bind(this);
@@ -31,21 +30,26 @@ export default class Header extends React.Component {
     }
 
     render () {
+        let monthName = monthNames[this.props.month];
         return (
-            <div className='header'>
+            <div className={'header ' + monthName.toLowerCase()}>
                 <div className='header--container'>
 
-                    <div className='header--container-date-input start'>
-                        <label>Start Date:</label>
-                        <input type='text' name='start' value={this.state.start} onChange={this.change}></input>
+                    <div className='header--container-date-input'>
+                        <div className='month'>
+                            <label>Month:</label>
+                            <input type='text' name='month' value={this.state.month} onChange={this.change}></input>
+                        </div>
+
+                        <div className='year'>
+                            <label>Year Date:</label>
+                            <input type='text' name='year' value={this.state.year} onChange={this.change}></input>
+                        </div>
+
+                        <button type='submit' id='submit-dates' onClick={this.submit}>Get Range</button>
                     </div>
 
-                    <div className='header--container-date-input end'>
-                        <label>End Date:</label>
-                        <input type='text' name='end' value={this.state.end} onChange={this.change}></input>
-                    </div>
-
-                    <button type='submit' id='submit-dates' onClick={this.submit}>Get Range</button>
+                    <div className='month--name'>{monthName + ' ' + this.props.year}</div>
 
                 </div>
             </div>

@@ -5,22 +5,23 @@ function Year () {
     this.maxMonth = 0;
 
     // build months
-    for (let i = 1; i <= 12; i++) {
+    for (let i = 0; i <= 11; i++) {
         this.month[i] = new Month();
     }
 }
 
 function Month () {
     this.total = 0;
-    this.day = {};
+    this.day = [];
 
     // build days
     for (let i = 1; i <= 31; i++) {
-        this.day[i] = new Day();
+        this.day.push(new Day(i));
     }
 }
 
-function Day () {
+function Day (day) {
+    this.day = day;
     this.total = 0;
     this.transactions = [];
 }
@@ -58,8 +59,8 @@ var Finances = {
 
             let date = new Date(transaction.date);
             let year  = date.getFullYear();
-            let month = date.getMonth() + 1;
-            let day   = date.getDate();
+            let month = date.getMonth();
+            let day   = date.getDate() - 1;
 
             spending[year] = spending[year] || new Year();
             

@@ -29,7 +29,6 @@ $december:  coral;
 }
 
 @mixin loop-colors($color) {
-    .month--name,
     .month--header {
         color: $color;
     }
@@ -70,15 +69,51 @@ body {
     font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
 }
 
+.header {
+
+    &.january   { background: $january };
+    &.february  { background: $february };
+    &.march     { background: $march };
+    &.april     { background: $april };
+    &.may       { background: $may };
+    &.june      { background: $june };
+    &.july      { background: $july };
+    &.august    { background: $august };
+    &.september { background: $september };
+    &.october   { background: $october };
+    &.november  { background: $november };
+    &.december  { background: $december };
+
+    display: inline-block;
+    width: 100%;
+    padding: 20px;
+    color: $white;
+    box-sizing: border-box;
+
+    .header--container {
+        h1 { margin: 0; }
+        width: 1020px;
+        margin: 10px auto;
+
+        .header--container-date-input {
+            display: inline-block;
+            label {
+                display: inline-block;
+                width: 100px;
+            }
+        }
+        .month--name {
+            display: inline-block;
+            float: right;
+            font-size: 54px;
+        }
+    }
+}
+
 .calendar .month {
     position: relative;
     width: 1020px;
     margin: 15px auto 0;
-    .month--name {
-        font-size: 50px;
-        font-weight: bold;
-        text-align: right;
-    }
     .month--header {
         margin-bottom: 5px;
         .month--header-day {

@@ -8,18 +8,14 @@ import finances from '../js/compileFinances.js';
 
 require('../styles/application.scss');
 
-function formatDate(date) {
-    return [date.getMonth() + 1, date.getDate(), date.getFullYear()].join('/')
-}
-
 export default class App extends React.Component {
     constructor (props) {
         super(props);
 
         let today = new Date();
         this.state = {
-            start: formatDate(new Date('2016', '0', '1')),
-            end: formatDate(today)
+            month: today.getMonth(),
+            year: today.getFullYear()
         }
 
         this.handleChange = this.handleChange.bind(this);
@@ -59,8 +55,9 @@ export default class App extends React.Component {
                 />
     }
 
-    getDay(date) {
+    getDay(date, spending) {
         let day   = date.getDate(),
+            dayIdx = day - 1,
             dow   = date.getDay(),
             month = date.getMonth(),
             year  = date.getFullYear();
@@ -70,7 +67,7 @@ export default class App extends React.Component {
                     dow   = {dow}
                     month = {month}
                     year  = {year}
-                    spending = {this.state.spending[year].month[month+1].day[day]}
+                    spending = {spending.day[dayIdx]}
                 />
     }
 
@@ -80,12 +77,15 @@ export default class App extends React.Component {
 
     handleSubmit() {
 
-        let start = new Date(this.state.start),
-            end   = new Date(this.state.end),
-            daysOfYear = {};
+        let month = this.state.month,
+            year  = this.state.year,
+            daysOfYear = {},
+            thisMonthSpending = this.state.spending[year].month[month],
+            start = new Date(year, month, 1),
+            end   = new Date(year, month, thisMonthSpending.day.length);
 
         for (let date = start; date <= end; date.setDate(date.getDate() + 1)) {
-            let tile = this.getDay(date);
+            let tile = this.getDay(date, thisMonthSpending);
 
             if (!daysOfYear.hasOwnProperty(tile.props.year)) {
                 daysOfYear[tile.props.year] = {};
@@ -98,13 +98,7 @@ export default class App extends React.Component {
             daysOfYear[tile.props.year][tile.props.month].push(tile);
         }
 
-        let calYears = Object.keys(daysOfYear).map((year) => {
-            let output = [];
-            for (let i in daysOfYear[year]) {
-                output.push(this.renderMonth(daysOfYear[year][i]));
-            }
-            return output;
-        });
+        let calYears = this.renderMonth(daysOfYear[this.state.year][this.state.month]);
 
         this.setState({
           calendar: calYears
@@ -114,7 +108,7 @@ export default class App extends React.Component {
     render () {
         return (
             <div>
-                <Header start={this.state.start} end={this.state.end} change={this.handleChange} submit={this.handleSubmit}/>
+                <Header month={this.state.month} year={this.state.year} change={this.handleChange} submit={this.handleSubmit}/>
                 <div className='calendar'>{this.state.calendar}</div>
             </div>
         )
