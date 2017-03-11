@@ -36,7 +36,7 @@ export default class App extends React.Component {
         })
     }
 
-    padWeeks (dates) {
+    padWeeks(dates) {
         let dow = dates[0].props.dow;
         if (dow > 0) {
             let weekPad = new Array(dow).fill(null);
@@ -59,7 +59,7 @@ export default class App extends React.Component {
                 />
     }
 
-    getDay (date) {
+    getDay(date) {
         let day   = date.getDate(),
             dow   = date.getDay(),
             month = date.getMonth(),
@@ -98,12 +98,13 @@ export default class App extends React.Component {
             daysOfYear[tile.props.year][tile.props.month].push(tile);
         }
 
-        let calYears = Object.keys(daysOfYear).reduce((output, year) => {
+        let calYears = Object.keys(daysOfYear).map((year) => {
+            let output = [];
             for (let i in daysOfYear[year]) {
                 output.push(this.renderMonth(daysOfYear[year][i]));
             }
             return output;
-        }, []);
+        });
 
         this.setState({
           calendar: calYears

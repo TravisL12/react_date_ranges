@@ -3,10 +3,18 @@
     width: 100%;
     padding: 20px;
     background: lightblue;
+    box-sizing: border-box;
 
     .header--container {
         h1 { margin: 0; }
         width: 1020px;
         margin: 10px auto;
+
+        .header--container-date-input {
+            label {
+                display: inline-block;
+                width: 100px;
+            }
+        }
     }
 }

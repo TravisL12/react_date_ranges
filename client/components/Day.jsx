@@ -2,7 +2,7 @@ import React from 'react';
 
 function TransactionSquare (props) {
     return (
-        <li className='transaction-square' title={props.description}></li>
+        <li className='transaction-square' title={props.data.description}></li>
     )
 }
 
