@@ -7,7 +7,7 @@ export default class Header extends React.Component {
 
         this.state = {
             month: this.props.month + 1,
-            year: this.props.year
+            year:  this.props.year
         }
 
         this.change = this.change.bind(this);
@@ -22,11 +22,10 @@ export default class Header extends React.Component {
         };
 
         this.setState(data);
-        this.props.change(data);
     }
 
     submit () {
-        this.props.submit();
+        this.props.submit(this.state.month - 1, this.state.year);
     }
 
     render () {

@@ -15,10 +15,9 @@ export default class App extends React.Component {
         let today = new Date();
         this.state = {
             month: today.getMonth(),
-            year: today.getFullYear()
+            year:  today.getFullYear()
         }
 
-        this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
@@ -28,7 +27,7 @@ export default class App extends React.Component {
             this.setState({
                 spending: finances.rawSpending(res)
             })
-            this.handleSubmit();
+            this.handleSubmit(this.state.month, this.state.year);
         })
     }
 
@@ -71,15 +70,8 @@ export default class App extends React.Component {
                 />
     }
 
-    handleChange(data) {
-        this.setState(data);
-    }
-
-    handleSubmit() {
-
-        let month = this.state.month,
-            year  = this.state.year,
-            daysOfYear = {},
+    handleSubmit(month, year) {
+        let daysOfYear = {},
             thisMonthSpending = this.state.spending[year].month[month],
             start = new Date(year, month, 1),
             end   = new Date(year, month, thisMonthSpending.day.length);
@@ -98,17 +90,19 @@ export default class App extends React.Component {
             daysOfYear[tile.props.year][tile.props.month].push(tile);
         }
 
-        let calYears = this.renderMonth(daysOfYear[this.state.year][this.state.month]);
+        let calYears = this.renderMonth(daysOfYear[year][month]);
 
         this.setState({
-          calendar: calYears
+            month: month,
+            year: year,
+            calendar: calYears
         });
     }
 
     render () {
         return (
             <div>
-                <Header month={this.state.month} year={this.state.year} change={this.handleChange} submit={this.handleSubmit}/>
+                <Header month={this.state.month} year={this.state.year} submit={this.handleSubmit}/>
                 <div className='calendar'>{this.state.calendar}</div>
             </div>
         )
