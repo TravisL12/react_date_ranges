@@ -4,176 +4,237 @@ $light-gray: #bdbdbd;
 $white: #f9f9f9;
 
 // Colors for tiles of months
-$january:   cadetblue;
-$february:  lightblue;
-$march:     lime;
-$april:     magenta;
-$may:       blue;
-$june:      darkorchid;
-$july:      burlywood;
-$august:    pink;
-$september: wheat;
-$october:   cyan;
-$november:  gold;
-$december:  coral;
+$january: cadetblue;
+$february: lightblue;
+$march: lime;
+$april: magenta;
+$may: blue;
+$june: darkorchid;
+$july: burlywood;
+$august: pink;
+$september: orchid;
+$october: cyan;
+$november: gold;
+$december: coral;
 
 @mixin vertical-center() {
-    position: absolute;
-    text-align: center;
-    margin-left: auto;
-    margin-right: auto;
-    transform: translateY(-50%);
-    top: 50%;
-    left: 0;
-    right: 0;
+  position: absolute;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  transform: translateY(-50%);
+  top: 50%;
+  left: 0;
+  right: 0;
 }
 
 @mixin loop-colors($color) {
-    .month--header {
-        color: $color;
+  .month--header {
+    color: $color;
+  }
+
+  .week--tile.percent-0 {
+    background: lighten($color, 10%);
+  }
+
+  @for $i from 1 through 10 {
+    .week--tile.percent-#{$i} {
+      $background: darken($color, $i * 3);
+      background: $background;
+      &:hover {
+        background: $color;
+      }
     }
-    .week--tile.percent-0 {
-        background: lighten($color, 10%);
-    }
-    @for $i from 1 through 10 {
-        .week--tile.percent-#{$i}  {
-            $background: darken($color, $i * 3);
-            background: $background;
-            &:hover {
-                background: $color;
-            }
-        }
-    }
+  }
 }
 
-.january   { @include loop-colors($january); }
-.february  { @include loop-colors($february); }
-.march     { @include loop-colors($march); }
-.april     { @include loop-colors($april); }
-.may       { @include loop-colors($may); }
-.june      { @include loop-colors($june); }
-.july      { @include loop-colors($july); }
-.august    { @include loop-colors($august); }
-.september { @include loop-colors($september); }
-.october   { @include loop-colors($october); }
-.november  { @include loop-colors($november); }
-.december  { @include loop-colors($december); }
+.january {
+  @include loop-colors($january);
+}
+
+.february {
+  @include loop-colors($february);
+}
+
+.march {
+  @include loop-colors($march);
+}
+
+.april {
+  @include loop-colors($april);
+}
+
+.may {
+  @include loop-colors($may);
+}
+
+.june {
+  @include loop-colors($june);
+}
+
+.july {
+  @include loop-colors($july);
+}
+
+.august {
+  @include loop-colors($august);
+}
+
+.september {
+  @include loop-colors($september);
+}
+
+.october {
+  @include loop-colors($october);
+}
+
+.november {
+  @include loop-colors($november);
+}
+
+.december {
+  @include loop-colors($december);
+}
 
 ul {
-    margin: 0;
-    padding: 0;
+  margin: 0;
+  padding: 0;
 }
 
 body {
-    margin: 0;
-    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+  margin: 0;
+  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue",
+    Helvetica, Arial, "Lucida Grande", sans-serif;
 }
 
 .header {
+  &.january {
+    background: $january;
+  }
+  &.february {
+    background: $february;
+  }
+  &.march {
+    background: $march;
+  }
+  &.april {
+    background: $april;
+  }
+  &.may {
+    background: $may;
+  }
+  &.june {
+    background: $june;
+  }
+  &.july {
+    background: $july;
+  }
+  &.august {
+    background: $august;
+  }
+  &.september {
+    background: $september;
+  }
+  &.october {
+    background: $october;
+  }
+  &.november {
+    background: $november;
+  }
+  &.december {
+    background: $december;
+  }
 
-    &.january   { background: $january };
-    &.february  { background: $february };
-    &.march     { background: $march };
-    &.april     { background: $april };
-    &.may       { background: $may };
-    &.june      { background: $june };
-    &.july      { background: $july };
-    &.august    { background: $august };
-    &.september { background: $september };
-    &.october   { background: $october };
-    &.november  { background: $november };
-    &.december  { background: $december };
+  position: fixed;
+  max-width: 500px;
+  padding: 20px;
+  box-sizing: border-box;
+  color: $white;
+  box-sizing: border-box;
 
+  .header--container-date-input {
     display: inline-block;
-    width: 100%;
-    padding: 20px;
-    color: $white;
-    box-sizing: border-box;
-
-    .header--container {
-        h1 { margin: 0; }
-        width: 1020px;
-        margin: 10px auto;
-
-        .header--container-date-input {
-            display: inline-block;
-            label {
-                display: inline-block;
-                width: 100px;
-            }
-        }
-        .month--name {
-            display: inline-block;
-            float: right;
-            font-size: 54px;
-        }
+    label {
+      display: inline-block;
+      width: 100px;
     }
+  }
+  .month--name {
+    font-size: 30px;
+  }
 }
 
 .calendar .month {
+  position: relative;
+  width: 1020px;
+  margin: 0 auto;
+  padding-top: 15px;
+
+  .month--header {
+    margin-bottom: 15px;
+
+    .month--header-day {
+      display: inline-block;
+      font-weight: bold;
+      width: $tile-width;
+      margin-right: 5px;
+      padding: 0 2px;
+      text-align: center;
+      box-sizing: border-box;
+    }
+  }
+
+  .week .week--tile {
     position: relative;
-    width: 1020px;
-    margin: 15px auto 0;
-    .month--header {
-        margin-bottom: 5px;
-        .month--header-day {
-            display: inline-block;
-            font-weight: bold;
-            width: $tile-width;
-            margin-right: 5px;
-            padding: 0 2px;
-            text-align: center;
-            box-sizing: border-box;
-        }
+    display: inline-block;
+    color: $white;
+    margin: 0 5px 5px 0;
+    padding: 2px 5px;
+    width: $tile-width;
+    height: $tile-width;
+    font-size: 14px;
+    border-radius: 3px;
+    box-sizing: border-box;
+    list-style: none;
+    vertical-align: middle;
+    transition: 0.15s linear all;
+
+    &.none,
+    &.none:hover {
+      background: transparent;
     }
-    .week .week--tile {
-        position: relative;
+
+    .week--tile-day {
+      position: absolute;
+      font-weight: 600;
+      font-size: 24px;
+      top: 2px;
+      right: 10px;
+      text-rendering: optimizeLegibility;
+    }
+
+    .week--tile-amount {
+      @include vertical-center;
+      font-size: 24px;
+    }
+
+    .week--tile-transasction-square {
+      position: absolute;
+      bottom: 2px;
+      line-height: 12px;
+
+      li {
         display: inline-block;
-        color: $white;
-        margin: 0 5px 5px 0;
-        padding: 2px 5px;
-        width: $tile-width;
-        height: $tile-width;
-        font-size: 14px;
-        border-radius: 3px;
-        box-sizing: border-box;
-        list-style: none;
-        vertical-align: middle;
-        transition: 0.15s linear all;
-        &.none,
-        &.none:hover {
-            background: transparent;
-        }
+        width: $trans-square;
+        height: $trans-square;
+        background: $white;
+        margin-right: 3px;
+        border-radius: 1px;
 
-        .week--tile-day {
-            position: absolute;
-            font-weight: 600;
-            font-size: 24px;
-            top: 2px;
-            right: 10px;
-            text-rendering: optimizeLegibility;
+        &:nth-child(5n) {
+          background: $light-gray;
         }
-
-        .week--tile-amount {
-            @include vertical-center;
-            font-size: 24px
-        }
-
-        .week--tile-transasction-square {
-            position: absolute;
-            bottom: 2px;
-            line-height: 12px;
-            li {
-                display: inline-block;
-                width: $trans-square;
-                height: $trans-square;
-                background: $white;
-                margin-right: 3px;
-                border-radius: 1px;
-                &:nth-child(5n) {
-                    background: $light-gray;
-                }
-            }
-        }
+      }
     }
+  }
 }
