@@ -1,3 +1,5 @@
+import monthNames from "../js/monthNames.js";
+
 function Year() {
   this.total = 0;
   this.month = {};
@@ -6,11 +8,13 @@ function Year() {
 
   // build months
   for (let i = 0; i <= 11; i++) {
-    this.month[i] = new Month();
+    this.month[i] = new Month(i);
   }
 }
 
-function Month() {
+function Month(month) {
+  this.month = month + 1;
+  this.name = monthNames[month];
   this.total = 0;
   this.day = [];
 
@@ -51,11 +55,13 @@ class Transaction {
   parseDate() {
     const re = new RegExp(/((^\d{1,2}|\s\d{1,2})\/\d{2}\s)/);
     const newDate = this.data.description.match(re);
+
     if (newDate) {
       const date = new Date(this.data.date);
       const year = date.getYear() - 100;
       return newDate[0] + "/" + year;
     }
+
     return this.data.date;
   }
 }
