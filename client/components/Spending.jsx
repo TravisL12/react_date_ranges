@@ -7,7 +7,7 @@ import finances from "../js/compileFinances.js";
 
 require("../styles/application.scss");
 
-export default class Spending extends React.Component {
+class Spending extends React.Component {
   constructor(props) {
     super(props);
 
@@ -18,18 +18,18 @@ export default class Spending extends React.Component {
       year: today.getFullYear()
     };
 
-    this.handleSubmit = this.handleSubmit.bind(this);
+    this.submitDates = this.submitDates.bind(this);
   }
 
   componentDidMount() {
     const url =
       "https://spreadsheets.google.com/feeds/list/1X05BAK1GSF4rbr-tSPWh2GBFk1zqg3jUPxrDcGivw9s/1/public/values?alt=json";
     axios.get(url).then(res => {
-      this.setState({ spending: finances.rawSpending(res) }, this.handleSubmit);
+      this.setState({ spending: finances.rawSpending(res) }, this.submitDates);
     });
   }
 
-  handleSubmit(month = this.state.month, year = this.state.year) {
+  submitDates(month = this.state.month, year = this.state.year) {
     this.setState({
       month,
       year
@@ -49,9 +49,11 @@ export default class Spending extends React.Component {
 
     return (
       <div>
-        <Header {...this.state} submit={this.handleSubmit} />
+        <Header {...this.state} submitDates={this.submitDates} />
         <div className="calendar">{monthView}</div>
       </div>
     );
   }
 }
+
+export default Spending;

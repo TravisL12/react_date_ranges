@@ -17,7 +17,7 @@ function findTotalPercent(total) {
   return total >= maxTotal ? 10 : Math.ceil((total / maxTotal) * 10);
 }
 
-export default function Date(props) {
+function Day(props) {
   const { day, daySpendingData } = props;
 
   return (
@@ -39,3 +39,5 @@ export default function Date(props) {
     </li>
   );
 }
+
+export default Day;

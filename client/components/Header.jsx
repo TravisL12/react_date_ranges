@@ -1,11 +1,11 @@
 import React from "react";
 import monthNames from "../js/monthNames.js";
 
-export default class Header extends React.Component {
+class Header extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = { month: this.props.month + 1, year: this.props.year };
+    this.state = { displayMonth: this.props.month + 1, year: this.props.year };
 
     this.change = this.change.bind(this);
     this.submit = this.submit.bind(this);
@@ -21,27 +21,37 @@ export default class Header extends React.Component {
   }
 
   submit() {
-    this.props.submit(this.state.month - 1, this.state.year);
+    this.props.submitDates(this.state.displayMonth - 1, this.state.year);
   }
 
   previousMonth() {
-    const month = this.state.month - 1 < 1 ? 12 : this.state.month - 1;
+    const displayMonth =
+      this.state.displayMonth - 1 < 1 ? 12 : this.state.displayMonth - 1;
     const year =
-      this.state.month - 1 < 1 ? this.state.year - 1 : this.state.year;
+      this.state.displayMonth - 1 < 1 ? this.state.year - 1 : this.state.year;
 
-    this.setState({ month, year }, this.submit);
+    this.setState({ displayMonth, year }, this.submit);
   }
 
   nextMonth() {
-    const month = this.state.month + 1 > 12 ? 1 : this.state.month + 1;
+    const displayMonth =
+      this.state.displayMonth + 1 > 12 ? 1 : this.state.displayMonth + 1;
     const year =
-      this.state.month + 1 > 12 ? this.state.year + 1 : this.state.year;
+      this.state.displayMonth + 1 > 12 ? this.state.year + 1 : this.state.year;
 
-    this.setState({ month, year }, this.submit);
+    this.setState({ displayMonth, year }, this.submit);
+  }
+
+  isFutureDate() {
+    const today = new Date();
+    const newDate = new Date(this.state.year, this.state.displayMonth, 1);
+
+    return newDate.getTime() > today.getTime();
   }
 
   render() {
     const monthName = monthNames[this.props.month];
+    const isNextDisabled = this.isFutureDate();
 
     return (
       <div className={`header ${monthName.toLowerCase()}`}>
@@ -50,7 +60,11 @@ export default class Header extends React.Component {
           <button type="button" onClick={this.previousMonth}>
             Prev
           </button>
-          <button type="button" onClick={this.nextMonth}>
+          <button
+            type="button"
+            onClick={this.nextMonth}
+            disabled={isNextDisabled}
+          >
             Next
           </button>
         </div>
@@ -60,7 +74,7 @@ export default class Header extends React.Component {
             <input
               type="text"
               name="month"
-              value={this.state.month}
+              value={this.state.displayMonth}
               onChange={this.change}
             />
           </div>
@@ -83,3 +97,5 @@ export default class Header extends React.Component {
     );
   }
 }
+
+export default Header;

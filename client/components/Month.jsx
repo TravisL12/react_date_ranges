@@ -1,8 +1,6 @@
 import React from "react";
 import Day from "./Day.jsx";
-import Week from "./Week.jsx";
 import monthNames from "../js/monthNames.js";
-import chunkWeeks from "../js/chunkWeeks.js";
 
 const dayNames = [
   "Sunday",
@@ -14,8 +12,17 @@ const dayNames = [
   "Saturday"
 ];
 
-function WeekHeader(props) {
-  return <div className="month--header-day">{props.day}</div>;
+function chunkWeeks(dates) {
+  const weeks = [];
+  const daysInWeek = 7;
+  const weekCount = Math.ceil(dates.length / daysInWeek);
+
+  for (var i = 0; i < weekCount; i++) {
+    let weekIdx = i * daysInWeek;
+    let days = dates.slice(weekIdx, weekIdx + daysInWeek);
+    weeks.push(days);
+  }
+  return weeks;
 }
 
 function renderDay(date, spending) {
@@ -32,29 +39,24 @@ function renderDay(date, spending) {
 
 function padWeeks(dates, props) {
   const dow = new Date(props.year, props.month, 1).getDay();
+  const weekPad = new Array(dow).fill(null);
 
-  if (dow > 0) {
-    const weekPad = new Array(dow).fill(null);
-
-    dates = weekPad.concat(dates);
-  }
-  return dates;
+  return weekPad.concat(dates);
 }
 
 function buildDates(props) {
   const { month, year, monthSpendingData } = props;
   const daysOfYear = [];
-  const start = new Date(year, month, 1);
-  const end = new Date(year, month, monthSpendingData.day.length);
 
-  for (let date = start; date <= end; date.setDate(date.getDate() + 1)) {
+  for (let i = 1; i <= monthSpendingData.day.length; i++) {
+    const date = new Date(year, month, i);
     daysOfYear.push(renderDay(date, monthSpendingData));
   }
 
   return padWeeks(daysOfYear, props);
 }
 
-export default function Month(props) {
+function Month(props) {
   const monthName = monthNames[props.month];
   const dates = buildDates(props);
 
@@ -65,14 +67,26 @@ export default function Month(props) {
     >
       <div className="month--header">
         {dayNames.map(day => {
-          return <WeekHeader key={day} day={day} />;
+          return (
+            <div key={day} className="month--header-day">
+              {day}
+            </div>
+          );
         })}
       </div>
       <div className="month--weeks">
         {chunkWeeks(dates).map((week, i) => {
-          return <Week key={i} dates={week} idx={i} />;
+          return (
+            <ul key={i} className="week">
+              {week.map((date, j) => {
+                return date ? date : <li key={j} className="week--tile none" />;
+              })}
+            </ul>
+          );
         })}
       </div>
     </div>
   );
 }
+
+export default Month;
