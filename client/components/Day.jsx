@@ -1,7 +1,13 @@
 import React from "react";
 
 function TransactionSquare(props) {
-  return <li className="transaction-square" title={props.data.description} />;
+  return (
+    <li className="transaction-square" title={props.data.description}>
+      <span className="transaction-square--description">
+        {props.data.description} ${props.data.amount}
+      </span>
+    </li>
+  );
 }
 
 function displayTotal(total) {
