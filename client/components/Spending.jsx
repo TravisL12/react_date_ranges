@@ -11,8 +11,9 @@ export default class Spending extends React.Component {
   constructor(props) {
     super(props);
 
-    let today = new Date();
+    const today = new Date();
     this.state = {
+      spending: undefined,
       month: today.getMonth(),
       year: today.getFullYear()
     };
@@ -21,15 +22,23 @@ export default class Spending extends React.Component {
   }
 
   componentDidMount() {
-    let url =
+    const url =
       "https://spreadsheets.google.com/feeds/list/1X05BAK1GSF4rbr-tSPWh2GBFk1zqg3jUPxrDcGivw9s/1/public/values?alt=json";
     axios.get(url).then(res => {
       this.setState({ spending: finances.rawSpending(res) }, this.handleSubmit);
     });
   }
 
-  renderMonth(month, year) {
-    return (
+  handleSubmit(month = this.state.month, year = this.state.year) {
+    this.setState({
+      month,
+      year
+    });
+  }
+
+  render() {
+    const { month, year } = this.state;
+    const monthView = this.state.spending && (
       <Month
         key={`${month.toString()} ${year.toString()}`}
         month={month}
@@ -37,21 +46,11 @@ export default class Spending extends React.Component {
         monthSpendingData={this.state.spending[year].month[month]}
       />
     );
-  }
 
-  handleSubmit(month = this.state.month, year = this.state.year) {
-    this.setState({
-      calendar: this.renderMonth(month, year),
-      month,
-      year
-    });
-  }
-
-  render() {
     return (
       <div>
         <Header {...this.state} submit={this.handleSubmit} />
-        <div className="calendar">{this.state.calendar}</div>
+        <div className="calendar">{monthView}</div>
       </div>
     );
   }
