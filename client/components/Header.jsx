@@ -1,5 +1,6 @@
 import React from "react";
 import monthNames from "../js/monthNames.js";
+import { Link } from "react-router-dom";
 
 class Header extends React.Component {
   constructor(props) {
@@ -30,7 +31,7 @@ class Header extends React.Component {
     const year =
       this.state.displayMonth - 1 < 1 ? this.state.year - 1 : this.state.year;
 
-    this.setState({ displayMonth, year }, this.submit);
+    return `/year/${year}/month/${displayMonth}`;
   }
 
   nextMonth() {
@@ -39,7 +40,7 @@ class Header extends React.Component {
     const year =
       this.state.displayMonth + 1 > 12 ? this.state.year + 1 : this.state.year;
 
-    this.setState({ displayMonth, year }, this.submit);
+    return `/year/${year}/month/${displayMonth}`;
   }
 
   isFutureDate() {
@@ -51,29 +52,23 @@ class Header extends React.Component {
 
   render() {
     const monthName = monthNames[this.props.month];
+    const nextMonth = this.nextMonth();
+    const previousMonth = this.previousMonth();
     const isNextDisabled = this.isFutureDate();
 
     return (
       <div className={`header ${monthName.toLowerCase()}`}>
         <div className="month--name">{`${monthName} ${this.props.year}`}</div>
         <div className="month-buttons">
-          <button type="button" onClick={this.previousMonth}>
-            Prev
-          </button>
-          <button
-            type="button"
-            onClick={this.nextMonth}
-            disabled={isNextDisabled}
-          >
-            Next
-          </button>
+          <Link to={previousMonth}>Prev</Link>
+          <Link to={nextMonth}>Next</Link>
         </div>
         <div className="header--container-date-input">
           <div className="month">
             <label>Month:</label>
             <input
               type="text"
-              name="month"
+              name="displayMonth"
               value={this.state.displayMonth}
               onChange={this.change}
             />

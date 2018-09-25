@@ -29,8 +29,10 @@ $december: coral;
 }
 
 @mixin loop-colors($color) {
+  color: $color;
+
   .month--header {
-    color: $color;
+    color: inherit;
   }
 
   .week--tile.percent-0 {
@@ -164,7 +166,7 @@ body {
   }
 }
 
-.calendar .month {
+.month {
   position: relative;
   width: 1020px;
   margin: 0 auto;

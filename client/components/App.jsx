@@ -1,8 +1,10 @@
 import React from "react";
-import Spending from "./Spending.jsx";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import Month from "./Month.jsx";
+import { BrowserRouter as Router, Route } from "react-router-dom";
 import axios from "axios";
 import finances from "../js/compileFinances.js";
+
+require("../styles/application.scss");
 
 class App extends React.Component {
   constructor(props) {
@@ -22,15 +24,53 @@ class App extends React.Component {
 
   render() {
     return (
-      <BrowserRouter>
-        <Switch>
+      <Router>
+        <div>
+          <Route exact path="/" render={() => <h1>Cash Calendar</h1>} />
+
           <Route
             exact
-            path="/"
-            render={() => <Spending spending={this.state.spending} />}
+            path="/:year"
+            render={props => {
+              return <h1>Year {props.match.params.year}</h1>;
+            }}
           />
-        </Switch>
-      </BrowserRouter>
+
+          <Route
+            exact
+            path="/:year/:month"
+            render={props => {
+              const { month, year } = props.match.params;
+
+              if (!this.state.spending) {
+                return <h1>Loading ...</h1>;
+              }
+
+              return (
+                <Month
+                  {...props}
+                  month={+month - 1}
+                  year={year}
+                  monthSpendingData={this.state.spending[year].month[month]}
+                />
+              );
+            }}
+          />
+
+          <Route
+            exact
+            path="/:year/:month/:day"
+            render={props => {
+              const { day, month, year } = props.match.params;
+              return (
+                <h1>
+                  {month}/{day}/{year}
+                </h1>
+              );
+            }}
+          />
+        </div>
+      </Router>
     );
   }
 }

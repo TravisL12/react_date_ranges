@@ -65,6 +65,9 @@ function Month(props) {
       key={monthName + props.year}
       className={"month " + monthName.toLowerCase()}
     >
+      <h1 className={monthName.toLowerCase()}>
+        {monthName} {props.year}
+      </h1>
       <div className="month--header">
         {dayNames.map(day => {
           return (
