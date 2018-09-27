@@ -1,5 +1,4 @@
 import React from "react";
-import monthNames from "../js/monthNames.js";
 import { Link } from "react-router-dom";
 
 class Header extends React.Component {
@@ -51,7 +50,7 @@ class Header extends React.Component {
   }
 
   render() {
-    const monthName = monthNames[this.props.month];
+    const monthName = this.props.month.name;
     const nextMonth = this.nextMonth();
     const previousMonth = this.previousMonth();
     const isNextDisabled = this.isFutureDate();

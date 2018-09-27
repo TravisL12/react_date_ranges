@@ -1,5 +1,8 @@
 import React from "react";
-import Month from "./Month.jsx";
+import LandingPage from "./LandingPage";
+import Month from "./Month";
+import Year from "./Year";
+
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import axios from "axios";
 import finances from "../js/compileFinances.js";
@@ -23,16 +26,34 @@ class App extends React.Component {
   }
 
   render() {
+    if (!this.state.spending) {
+      return <h1>Loading ...</h1>;
+    }
+
     return (
       <Router>
         <div>
-          <Route exact path="/" render={() => <h1>Cash Calendar</h1>} />
+          <Route
+            exact
+            path="/"
+            render={() => {
+              return <LandingPage spending={this.state.spending} />;
+            }}
+          />
 
           <Route
             exact
             path="/:year"
             render={props => {
-              return <h1>Year {props.match.params.year}</h1>;
+              const { year } = props.match.params;
+
+              return (
+                <Year
+                  {...props}
+                  year={year}
+                  yearSpending={this.state.spending[year]}
+                />
+              );
             }}
           />
 
@@ -42,16 +63,12 @@ class App extends React.Component {
             render={props => {
               const { month, year } = props.match.params;
 
-              if (!this.state.spending) {
-                return <h1>Loading ...</h1>;
-              }
-
               return (
                 <Month
                   {...props}
                   month={+month - 1}
                   year={year}
-                  monthSpendingData={this.state.spending[year].month[month]}
+                  monthSpending={this.state.spending[year].months[month]}
                 />
               );
             }}

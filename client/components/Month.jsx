@@ -1,6 +1,5 @@
 import React from "react";
-import Day from "./Day.jsx";
-import monthNames from "../js/monthNames.js";
+import DayTile from "./DayTile";
 
 const dayNames = [
   "Sunday",
@@ -29,10 +28,10 @@ function renderDay(date, spending) {
   const day = date.getDate();
 
   return (
-    <Day
+    <DayTile
       key={date.toString()}
       day={day}
-      daySpendingData={spending.day[day - 1]}
+      daySpending={spending.day[day - 1]}
     />
   );
 }
@@ -45,19 +44,19 @@ function padWeeks(dates, props) {
 }
 
 function buildDates(props) {
-  const { month, year, monthSpendingData } = props;
+  const { month, year, monthSpending } = props;
   const daysOfYear = [];
 
-  for (let i = 1; i <= monthSpendingData.day.length; i++) {
+  for (let i = 1; i <= monthSpending.day.length; i++) {
     const date = new Date(year, month, i);
-    daysOfYear.push(renderDay(date, monthSpendingData));
+    daysOfYear.push(renderDay(date, monthSpending));
   }
 
   return padWeeks(daysOfYear, props);
 }
 
 function Month(props) {
-  const monthName = monthNames[props.month];
+  const monthName = props.monthSpending.name;
   const dates = buildDates(props);
 
   return (

@@ -1,14 +1,27 @@
-import monthNames from "../js/monthNames.js";
+const monthNames = [
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December"
+];
 
 function Year() {
   this.total = 0;
-  this.month = {};
+  this.months = [];
   this.maxDay = 0;
   this.maxMonth = 0;
 
   // build months
   for (let i = 0; i <= 11; i++) {
-    this.month[i] = new Month(i);
+    this.months[i] = new Month(i);
   }
 }
 
@@ -101,10 +114,10 @@ const Finances = {
       spending[year] = spending[year] || new Year();
 
       spending[year].total += transaction.amount;
-      spending[year].month[month].total += transaction.amount;
-      spending[year].month[month].day[day].total += transaction.amount;
+      spending[year].months[month].total += transaction.amount;
+      spending[year].months[month].day[day].total += transaction.amount;
 
-      spending[year].month[month].day[day].transactions.push(transaction);
+      spending[year].months[month].day[day].transactions.push(transaction);
     }
 
     return spending;

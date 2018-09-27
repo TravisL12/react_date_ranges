@@ -23,22 +23,18 @@ function findTotalPercent(total) {
   return total >= maxTotal ? 10 : Math.ceil((total / maxTotal) * 10);
 }
 
-function Day(props) {
-  const { day, daySpendingData } = props;
+function DayTile(props) {
+  const { day, daySpending } = props;
 
   return (
     <li
       key={props.day}
-      className={
-        "week--tile percent-" + findTotalPercent(daySpendingData.total)
-      }
+      className={"week--tile percent-" + findTotalPercent(daySpending.total)}
     >
       <div className="week--tile-day">{day}</div>
-      <div className="week--tile-amount">
-        {displayTotal(daySpendingData.total)}
-      </div>
+      <div className="week--tile-amount">{displayTotal(daySpending.total)}</div>
       <ul className="week--tile-transasction-square">
-        {daySpendingData.transactions.map((transaction, i) => {
+        {daySpending.transactions.map((transaction, i) => {
           return <TransactionSquare key={i} data={transaction} />;
         })}
       </ul>
@@ -46,4 +42,4 @@ function Day(props) {
   );
 }
 
-export default Day;
+export default DayTile;
