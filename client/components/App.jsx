@@ -62,13 +62,14 @@ class App extends React.Component {
             path="/:year/:month"
             render={props => {
               const { month, year } = props.match.params;
+              const monthZeroIdx = +month - 1;
 
               return (
                 <Month
                   {...props}
-                  month={+month - 1}
+                  month={monthZeroIdx}
                   year={year}
-                  monthSpending={this.state.spending[year].months[month]}
+                  monthSpending={this.state.spending[year].months[monthZeroIdx]}
                 />
               );
             }}
