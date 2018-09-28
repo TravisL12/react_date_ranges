@@ -45,37 +45,36 @@ function Day(day) {
 
 class Transaction {
   constructor(data) {
-    this.data = data;
     this.category = data.category;
-    this.date = this.parseDate();
+    this.date = this.parseDate(data);
     this.amount = parseFloat(data.amount);
-    this.description = this.parseDescription();
+    this.description = this.parseDescription(data);
   }
 
-  parseDescription() {
+  parseDescription(data) {
     const purchaseRE = new RegExp(/(purchase\s*authorized\s*on\s*)/i);
     const rand16RE = new RegExp(/\S{16} (card) \d{4,}/i);
     const leadDatesRE = new RegExp(/\d{2}\/\d{2}\s*/i);
     const randomNumRE = new RegExp(/[\S]*\d{3,}/gi);
 
-    return this.data.description
+    return data.description
       .replace(purchaseRE, "")
       .replace(rand16RE, "")
       .replace(leadDatesRE, "")
       .replace(randomNumRE, "");
   }
 
-  parseDate() {
+  parseDate(data) {
     const re = new RegExp(/((^\d{1,2}|\s\d{1,2})\/\d{2}\s)/);
-    const newDate = this.data.description.match(re);
+    const newDate = data.description.match(re);
 
     if (newDate) {
-      const date = new Date(this.data.date);
+      const date = new Date(data.date);
       const year = date.getYear() - 100;
       return newDate[0] + "/" + year;
     }
 
-    return this.data.date;
+    return data.date;
   }
 }
 
@@ -110,12 +109,13 @@ const Finances = {
       const year = date.getFullYear();
       const month = date.getMonth();
       const day = date.getDate() - 1;
+      const amount = transaction.amount;
 
       spending[year] = spending[year] || new Year();
 
-      spending[year].total += transaction.amount;
-      spending[year].months[month].total += transaction.amount;
-      spending[year].months[month].day[day].total += transaction.amount;
+      spending[year].total += amount;
+      spending[year].months[month].total += amount;
+      spending[year].months[month].day[day].total += amount;
 
       spending[year].months[month].day[day].transactions.push(transaction);
     }

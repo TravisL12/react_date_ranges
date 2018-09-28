@@ -1,5 +1,6 @@
 import React from "react";
 import LandingPage from "./LandingPage";
+import Day from "./Day";
 import Month from "./Month";
 import Year from "./Year";
 
@@ -67,8 +68,8 @@ class App extends React.Component {
               return (
                 <Month
                   {...props}
-                  month={monthZeroIdx}
                   year={year}
+                  month={monthZeroIdx}
                   monthSpending={this.state.spending[year].months[monthZeroIdx]}
                 />
               );
@@ -80,10 +81,18 @@ class App extends React.Component {
             path="/:year/:month/:day"
             render={props => {
               const { day, month, year } = props.match.params;
+              const monthZeroIdx = +month - 1;
+
               return (
-                <h1>
-                  {month}/{day}/{year}
-                </h1>
+                <Day
+                  {...props}
+                  year={year}
+                  month={monthZeroIdx}
+                  day={day}
+                  daySpending={
+                    this.state.spending[year].months[monthZeroIdx].day[+day - 1]
+                  }
+                />
               );
             }}
           />

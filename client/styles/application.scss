@@ -1,3 +1,22 @@
+ul {
+  margin: 0;
+  padding: 0;
+}
+
+li {
+  list-style: none;
+}
+
+body {
+  margin: 0;
+  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue",
+    Helvetica, Arial, "Lucida Grande", sans-serif;
+}
+
+th {
+  text-align: left;
+}
+
 $tile-width: 140px;
 $trans-square: 10px;
 $light-gray: #bdbdbd;
@@ -50,6 +69,13 @@ $december: coral;
   }
 }
 
+.container {
+  position: relative;
+  width: 1020px;
+  margin: 0 auto;
+  padding-top: 15px;
+}
+
 .january {
   @include loop-colors($january);
 }
@@ -96,17 +122,6 @@ $december: coral;
 
 .december {
   @include loop-colors($december);
-}
-
-ul {
-  margin: 0;
-  padding: 0;
-}
-
-body {
-  margin: 0;
-  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue",
-    Helvetica, Arial, "Lucida Grande", sans-serif;
 }
 
 .header {
@@ -166,100 +181,93 @@ body {
   }
 }
 
-.month {
+.month--header {
+  margin-bottom: 15px;
+
+  .month--header-day {
+    display: inline-block;
+    font-weight: bold;
+    width: $tile-width;
+    margin-right: 5px;
+    padding: 0 2px;
+    text-align: center;
+    box-sizing: border-box;
+  }
+}
+
+.week .week--tile {
   position: relative;
-  width: 1020px;
-  margin: 0 auto;
-  padding-top: 15px;
+  display: inline-block;
+  color: $white;
+  margin: 0 5px 5px 0;
+  padding: 2px 5px;
+  width: $tile-width;
+  height: $tile-width;
+  font-size: 14px;
+  border-radius: 3px;
+  box-sizing: border-box;
+  list-style: none;
+  vertical-align: middle;
+  transition: 0.15s linear all;
 
-  .month--header {
-    margin-bottom: 15px;
-
-    .month--header-day {
-      display: inline-block;
-      font-weight: bold;
-      width: $tile-width;
-      margin-right: 5px;
-      padding: 0 2px;
-      text-align: center;
-      box-sizing: border-box;
-    }
+  &.none,
+  &.none:hover {
+    background: transparent;
   }
 
-  .week .week--tile {
-    position: relative;
-    display: inline-block;
-    color: $white;
-    margin: 0 5px 5px 0;
-    padding: 2px 5px;
-    width: $tile-width;
-    height: $tile-width;
-    font-size: 14px;
-    border-radius: 3px;
-    box-sizing: border-box;
-    list-style: none;
-    vertical-align: middle;
-    transition: 0.15s linear all;
+  .week--tile-day {
+    position: absolute;
+    font-weight: 600;
+    font-size: 24px;
+    top: 2px;
+    right: 10px;
+    text-rendering: optimizeLegibility;
+  }
 
-    &.none,
-    &.none:hover {
-      background: transparent;
-    }
+  .week--tile-amount {
+    @include vertical-center;
+    font-size: 24px;
+  }
 
-    .week--tile-day {
-      position: absolute;
-      font-weight: 600;
-      font-size: 24px;
-      top: 2px;
-      right: 10px;
-      text-rendering: optimizeLegibility;
-    }
+  .week--tile-transasction-square {
+    position: absolute;
+    display: flex;
+    flex-wrap: wrap;
+    bottom: 2px;
+    line-height: 12px;
 
-    .week--tile-amount {
-      @include vertical-center;
-      font-size: 24px;
-    }
+    .transaction-square {
+      position: relative;
+      width: $trans-square;
+      height: $trans-square;
+      background: $white;
+      margin: 0 3px 3px 0;
+      border-radius: 1px;
+      cursor: pointer;
+      list-style: none;
 
-    .week--tile-transasction-square {
-      position: absolute;
-      display: flex;
-      flex-wrap: wrap;
-      bottom: 2px;
-      line-height: 12px;
+      &:nth-child(5n) {
+        background: $light-gray;
+      }
 
-      .transaction-square {
-        position: relative;
-        width: $trans-square;
-        height: $trans-square;
-        background: $white;
-        margin: 0 3px 3px 0;
-        border-radius: 1px;
-        cursor: pointer;
-        list-style: none;
-
-        &:nth-child(5n) {
-          background: $light-gray;
-        }
-
-        &:hover {
-          background: lightgreen;
-          .transaction-square--description {
-            visibility: visible;
-          }
-        }
-
+      &:hover {
+        background: lightgreen;
         .transaction-square--description {
-          visibility: hidden;
-          position: absolute;
-          bottom: 120%;
-          padding: 8px;
-          border-radius: 3px;
-          min-width: 200px;
-          max-width: 500px;
-          z-index: 1;
-          background: $light-gray;
-          box-shadow: -2px 2px 10px rgba(0, 0, 0, 0.2);
+          visibility: visible;
         }
+      }
+
+      .transaction-square--description {
+        visibility: hidden;
+        position: absolute;
+        bottom: 120%;
+        padding: 8px;
+        border-radius: 3px;
+        min-width: 200px;
+        max-width: 500px;
+        z-index: 1;
+        background: $light-gray;
+        box-shadow: -2px 2px 10px rgba(0, 0, 0, 0.2);
       }
     }
   }
