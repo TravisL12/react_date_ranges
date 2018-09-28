@@ -1,5 +1,6 @@
 import React from "react";
 import DayTile from "./DayTile";
+import Tile from "./Tile";
 import { Link } from "react-router-dom";
 
 const dayNames = [
@@ -70,7 +71,7 @@ class Month extends React.Component {
     return (
       <div
         key={monthName + this.props.year}
-        className={"month " + monthName.toLowerCase()}
+        className={"month-view " + monthName.toLowerCase()}
       >
         <h1 className={monthName.toLowerCase()}>
           {monthName} {this.props.year}
@@ -84,18 +85,14 @@ class Month extends React.Component {
             );
           })}
         </div>
-        <div className="month--weeks">
+        <div className="month-calender">
           {this.chunkWeeks(dates).map((week, i) => {
             return (
-              <ul key={i} className="week">
+              <div key={i} className="week">
                 {week.map((date, j) => {
-                  return date ? (
-                    date
-                  ) : (
-                    <li key={j} className="week--tile none" />
-                  );
+                  return date ? date : <Tile key={j} className="none" />;
                 })}
-              </ul>
+              </div>
             );
           })}
         </div>

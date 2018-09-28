@@ -1,0 +1,65 @@
+.week {
+  display: flex;
+
+  .week--tile {
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    justify-content: space-between;
+
+    .week--tile-day {
+      align-self: flex-end;
+      font-weight: 600;
+      font-size: 24px;
+      top: 2px;
+      right: 10px;
+      text-rendering: optimizeLegibility;
+    }
+
+    .week--tile-amount {
+      font-size: 24px;
+      align-self: center;
+    }
+  }
+}
+
+.week--tile-transasction-square {
+  display: flex;
+  flex-wrap: wrap;
+  bottom: 2px;
+  line-height: 12px;
+
+  .transaction-square {
+    position: relative;
+    width: $trans-square;
+    height: $trans-square;
+    background: $white;
+    margin: 0 3px 3px 0;
+    border-radius: 1px;
+    cursor: pointer;
+    list-style: none;
+
+    &:nth-child(5n) {
+      background: $light-gray;
+    }
+
+    &:hover {
+      background: lightgreen;
+      .transaction-square--description {
+        visibility: visible;
+      }
+    }
+
+    .transaction-square--description {
+      visibility: hidden;
+      bottom: 120%;
+      padding: 8px;
+      border-radius: 3px;
+      min-width: 200px;
+      max-width: 500px;
+      z-index: 1;
+      background: $light-gray;
+      box-shadow: -2px 2px 10px rgba(0, 0, 0, 0.2);
+    }
+  }
+}

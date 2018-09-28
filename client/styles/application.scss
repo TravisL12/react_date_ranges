@@ -1,73 +1,5 @@
-ul {
-  margin: 0;
-  padding: 0;
-}
-
-li {
-  list-style: none;
-}
-
-body {
-  margin: 0;
-  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue",
-    Helvetica, Arial, "Lucida Grande", sans-serif;
-}
-
-th {
-  text-align: left;
-}
-
-$tile-width: 140px;
-$trans-square: 10px;
-$light-gray: #bdbdbd;
-$white: #f9f9f9;
-
-// Colors for tiles of months
-$january: cadetblue;
-$february: lightblue;
-$march: lime;
-$april: magenta;
-$may: blue;
-$june: darkorchid;
-$july: burlywood;
-$august: pink;
-$september: orchid;
-$october: cyan;
-$november: gold;
-$december: coral;
-
-@mixin vertical-center() {
-  position: absolute;
-  text-align: center;
-  margin-left: auto;
-  margin-right: auto;
-  transform: translateY(-50%);
-  top: 50%;
-  left: 0;
-  right: 0;
-}
-
-@mixin loop-colors($color) {
-  color: $color;
-
-  .month--header {
-    color: inherit;
-  }
-
-  .week--tile.percent-0 {
-    background: lighten($color, 10%);
-  }
-
-  @for $i from 1 through 10 {
-    .week--tile.percent-#{$i} {
-      $background: darken($color, $i * 3);
-      background: $background;
-      &:hover {
-        background: $color;
-      }
-    }
-  }
-}
+@import "reset";
+@import "variables";
 
 .container {
   position: relative;
@@ -124,80 +56,10 @@ $december: coral;
   @include loop-colors($december);
 }
 
-.header {
-  &.january {
-    background: $january;
-  }
-  &.february {
-    background: $february;
-  }
-  &.march {
-    background: $march;
-  }
-  &.april {
-    background: $april;
-  }
-  &.may {
-    background: $may;
-  }
-  &.june {
-    background: $june;
-  }
-  &.july {
-    background: $july;
-  }
-  &.august {
-    background: $august;
-  }
-  &.september {
-    background: $september;
-  }
-  &.october {
-    background: $october;
-  }
-  &.november {
-    background: $november;
-  }
-  &.december {
-    background: $december;
-  }
-
-  position: fixed;
-  max-width: 500px;
-  padding: 20px;
-  box-sizing: border-box;
-  color: $white;
-  box-sizing: border-box;
-
-  .header--container-date-input {
-    display: inline-block;
-    label {
-      display: inline-block;
-      width: 100px;
-    }
-  }
-  .month--name {
-    font-size: 30px;
-  }
-}
-
-.month--header {
-  margin-bottom: 15px;
-
-  .month--header-day {
-    display: inline-block;
-    font-weight: bold;
-    width: $tile-width;
-    margin-right: 5px;
-    padding: 0 2px;
-    text-align: center;
-    box-sizing: border-box;
-  }
-}
-
-.week .week--tile {
+.tile {
   position: relative;
   display: inline-block;
+  background: $light-gray;
   color: $white;
   margin: 0 5px 5px 0;
   padding: 2px 5px;
@@ -210,65 +72,18 @@ $december: coral;
   vertical-align: middle;
   transition: 0.15s linear all;
 
-  &.none,
-  &.none:hover {
-    background: transparent;
-  }
-
-  .week--tile-day {
-    position: absolute;
-    font-weight: 600;
-    font-size: 24px;
-    top: 2px;
-    right: 10px;
-    text-rendering: optimizeLegibility;
-  }
-
-  .week--tile-amount {
-    @include vertical-center;
-    font-size: 24px;
-  }
-
-  .week--tile-transasction-square {
-    position: absolute;
-    display: flex;
-    flex-wrap: wrap;
-    bottom: 2px;
-    line-height: 12px;
-
-    .transaction-square {
-      position: relative;
-      width: $trans-square;
-      height: $trans-square;
-      background: $white;
-      margin: 0 3px 3px 0;
-      border-radius: 1px;
-      cursor: pointer;
-      list-style: none;
-
-      &:nth-child(5n) {
-        background: $light-gray;
-      }
-
-      &:hover {
-        background: lightgreen;
-        .transaction-square--description {
-          visibility: visible;
-        }
-      }
-
-      .transaction-square--description {
-        visibility: hidden;
-        position: absolute;
-        bottom: 120%;
-        padding: 8px;
-        border-radius: 3px;
-        min-width: 200px;
-        max-width: 500px;
-        z-index: 1;
-        background: $light-gray;
-        box-shadow: -2px 2px 10px rgba(0, 0, 0, 0.2);
-      }
-    }
+  &.none {
+    background: #ffffff;
   }
 }
+
+.total-view {
+  .year-tiles {
+    display: flex;
+    flex-wrap: wrap;
+  }
+}
+
+@import "week-view";
+@import "month-view";
+@import "year-view";

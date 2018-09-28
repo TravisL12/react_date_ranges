@@ -1,19 +1,20 @@
 import React from "react";
+import Tile from "./Tile";
 import { Link } from "react-router-dom";
 
 function LandingPage(props) {
   const years = Object.keys(props.spending).map((year, idx) => {
     return (
-      <li key={idx}>
-        <Link to={`/${year}`}>{year}</Link>
-      </li>
+      <Link key={idx} to={`/${year}`}>
+        <Tile>{year}</Tile>
+      </Link>
     );
   });
 
   return (
-    <div>
+    <div className="total-view">
       <h1>Cash Calendar</h1>
-      <ul>{years}</ul>
+      <div className="year-tiles">{years}</div>
     </div>
   );
 }

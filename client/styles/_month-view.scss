@@ -1,0 +1,13 @@
+.month--header {
+  margin-bottom: 15px;
+
+  .month--header-day {
+    display: inline-block;
+    font-weight: bold;
+    width: $tile-width;
+    margin-right: 5px;
+    padding: 0 2px;
+    text-align: center;
+    box-sizing: border-box;
+  }
+}

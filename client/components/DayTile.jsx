@@ -1,4 +1,5 @@
 import React from "react";
+import Tile from "./Tile";
 
 function TransactionSquare(props) {
   return (
@@ -27,9 +28,9 @@ function DayTile(props) {
   const { day, daySpending } = props;
 
   return (
-    <li
+    <Tile
       key={props.day}
-      className={"week--tile percent-" + findTotalPercent(daySpending.total)}
+      className={`week--tile percent-${findTotalPercent(daySpending.total)}`}
     >
       <div className="week--tile-day">{day}</div>
       <div className="week--tile-amount">{displayTotal(daySpending.total)}</div>
@@ -38,7 +39,7 @@ function DayTile(props) {
           return <TransactionSquare key={i} data={transaction} />;
         })}
       </ul>
-    </li>
+    </Tile>
   );
 }
 
