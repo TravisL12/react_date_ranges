@@ -35,12 +35,12 @@ $december: coral;
     color: inherit;
   }
 
-  .week--tile.percent-0 {
+  .day--tile.percent-0 {
     background: lighten($color, 10%);
   }
 
   @for $i from 1 through 10 {
-    .week--tile.percent-#{$i} {
+    .day--tile.percent-#{$i} {
       $background: darken($color, $i * 3);
       background: $background;
       &:hover {

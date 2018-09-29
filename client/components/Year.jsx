@@ -1,19 +1,19 @@
 import React from "react";
 import Tile from "./Tile";
-import { Link } from "react-router-dom";
+import Breadcrumbs from "./Breadcrumbs";
 
 function Year(props) {
   const months = props.yearSpending.months.map((monthData, idx) => {
     return (
-      <Link key={idx} to={`/${props.year}/${monthData.month}`}>
-        <Tile>{monthData.name}</Tile>
-      </Link>
+      <Tile key={idx} link={`/${props.year}/${monthData.month}`}>
+        {monthData.name}
+      </Tile>
     );
   });
 
   return (
     <div className="year-view">
-      <h1>{props.year}</h1>
+      <Breadcrumbs {...props} />
       <div className="month-tiles">{months}</div>
     </div>
   );

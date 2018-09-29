@@ -1,29 +1,25 @@
-.week {
+.day--tile {
   display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  justify-content: space-between;
 
-  .week--tile {
-    display: flex;
-    flex-direction: column;
-    box-sizing: border-box;
-    justify-content: space-between;
+  .day--tile-day {
+    align-self: flex-end;
+    font-weight: 600;
+    font-size: 24px;
+    top: 2px;
+    right: 10px;
+    text-rendering: optimizeLegibility;
+  }
 
-    .week--tile-day {
-      align-self: flex-end;
-      font-weight: 600;
-      font-size: 24px;
-      top: 2px;
-      right: 10px;
-      text-rendering: optimizeLegibility;
-    }
-
-    .week--tile-amount {
-      font-size: 24px;
-      align-self: center;
-    }
+  .day--tile-amount {
+    font-size: 24px;
+    align-self: center;
   }
 }
 
-.week--tile-transasction-square {
+.day--tile-transasction-square {
   display: flex;
   flex-wrap: wrap;
   bottom: 2px;

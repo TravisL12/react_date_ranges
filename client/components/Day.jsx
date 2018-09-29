@@ -1,11 +1,10 @@
 import React from "react";
+import Breadcrumbs from "./Breadcrumbs";
 
 function Day(props) {
   return (
     <div>
-      <h1>
-        {props.month}/{props.day}/{props.year}
-      </h1>
+      <Breadcrumbs {...props} />
       <table>
         <thead>
           <tr>

@@ -1,7 +1,7 @@
 import React from "react";
 import DayTile from "./DayTile";
 import Tile from "./Tile";
-import { Link } from "react-router-dom";
+import Breadcrumbs from "./Breadcrumbs";
 
 const dayNames = [
   "Sunday",
@@ -36,12 +36,12 @@ class Month extends React.Component {
     const displayMonth = this.props.month + 1;
 
     return (
-      <Link
+      <DayTile
         key={date.toString()}
-        to={`/${this.props.year}/${displayMonth}/${day}`}
-      >
-        <DayTile day={day} daySpending={spending.day[day - 1]} />
-      </Link>
+        day={day}
+        link={`/${this.props.year}/${displayMonth}/${day}`}
+        daySpending={spending.day[day - 1]}
+      />
     );
   }
 
@@ -69,13 +69,12 @@ class Month extends React.Component {
     const dates = this.buildDates(this.props);
 
     return (
-      <div
-        key={monthName + this.props.year}
-        className={"month-view " + monthName.toLowerCase()}
-      >
-        <h1 className={monthName.toLowerCase()}>
+      <div className={"month-view " + monthName.toLowerCase()}>
+        <Breadcrumbs {...this.props} monthName={monthName} />
+        {/* <h1 className={monthName.toLowerCase()}>
           {monthName} {this.props.year}
-        </h1>
+        </h1> */}
+
         <div className="month--header">
           {dayNames.map(day => {
             return (
@@ -85,15 +84,10 @@ class Month extends React.Component {
             );
           })}
         </div>
-        <div className="month-calender">
-          {this.chunkWeeks(dates).map((week, i) => {
-            return (
-              <div key={i} className="week">
-                {week.map((date, j) => {
-                  return date ? date : <Tile key={j} className="none" />;
-                })}
-              </div>
-            );
+
+        <div className="month--calender">
+          {dates.map((date, i) => {
+            return date ? date : <Tile key={i} className="none" />;
           })}
         </div>
       </div>

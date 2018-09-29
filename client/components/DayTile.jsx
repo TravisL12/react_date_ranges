@@ -30,11 +30,12 @@ function DayTile(props) {
   return (
     <Tile
       key={props.day}
-      className={`week--tile percent-${findTotalPercent(daySpending.total)}`}
+      link={props.link}
+      className={`day--tile percent-${findTotalPercent(daySpending.total)}`}
     >
-      <div className="week--tile-day">{day}</div>
-      <div className="week--tile-amount">{displayTotal(daySpending.total)}</div>
-      <ul className="week--tile-transasction-square">
+      <div className="day--tile-day">{day}</div>
+      <div className="day--tile-amount">{displayTotal(daySpending.total)}</div>
+      <ul className="day--tile-transasction-square">
         {daySpending.transactions.map((transaction, i) => {
           return <TransactionSquare key={i} data={transaction} />;
         })}

@@ -58,7 +58,6 @@
 
 .tile {
   position: relative;
-  display: inline-block;
   background: $light-gray;
   color: $white;
   margin: 0 5px 5px 0;
@@ -68,8 +67,6 @@
   font-size: 14px;
   border-radius: 3px;
   box-sizing: border-box;
-  list-style: none;
-  vertical-align: middle;
   transition: 0.15s linear all;
 
   &.none {
@@ -84,6 +81,6 @@
   }
 }
 
-@import "week-view";
+@import "day-tile";
 @import "month-view";
 @import "year-view";
