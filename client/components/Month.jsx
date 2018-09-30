@@ -70,10 +70,7 @@ class Month extends React.Component {
 
     return (
       <div className={"month-view " + monthName.toLowerCase()}>
-        <Breadcrumbs {...this.props} monthName={monthName} />
-        {/* <h1 className={monthName.toLowerCase()}>
-          {monthName} {this.props.year}
-        </h1> */}
+        <Breadcrumbs {...this.props} />
 
         <div className="month--header">
           {dayNames.map(day => {

@@ -74,6 +74,14 @@
   }
 }
 
+.breadcrumbs {
+  color: black;
+
+  a {
+    color: inherit;
+  }
+}
+
 .total-view {
   .year-tiles {
     display: flex;
