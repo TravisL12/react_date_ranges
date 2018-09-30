@@ -1,20 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-
-const monthNames = [
-  "January",
-  "February",
-  "March",
-  "April",
-  "May",
-  "June",
-  "July",
-  "August",
-  "September",
-  "October",
-  "November",
-  "December"
-];
+import monthNames from "../js/monthNames";
 
 function Breadcrumbs(props) {
   const { year, month, day } = props;
