@@ -1,5 +1,6 @@
 @import "reset";
 @import "variables";
+@import "month-colors";
 
 .container {
   position: relative;
@@ -8,56 +9,13 @@
   padding-top: 15px;
 }
 
-.january {
-  @include loop-colors($january);
-}
-
-.february {
-  @include loop-colors($february);
-}
-
-.march {
-  @include loop-colors($march);
-}
-
-.april {
-  @include loop-colors($april);
-}
-
-.may {
-  @include loop-colors($may);
-}
-
-.june {
-  @include loop-colors($june);
-}
-
-.july {
-  @include loop-colors($july);
-}
-
-.august {
-  @include loop-colors($august);
-}
-
-.september {
-  @include loop-colors($september);
-}
-
-.october {
-  @include loop-colors($october);
-}
-
-.november {
-  @include loop-colors($november);
-}
-
-.december {
-  @include loop-colors($december);
-}
-
 .tile {
   position: relative;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  justify-content: space-between;
+
   background: $light-gray;
   color: $white;
   margin: 0 5px 5px 0;
@@ -68,6 +26,20 @@
   border-radius: 3px;
   box-sizing: border-box;
   transition: 0.15s linear all;
+
+  .tile-date {
+    align-self: flex-end;
+    font-weight: 600;
+    font-size: 22px;
+    top: 2px;
+    right: 10px;
+    text-rendering: optimizeLegibility;
+  }
+
+  .tile-amount {
+    font-size: 20px;
+    align-self: center;
+  }
 
   &.none {
     background: #ffffff;

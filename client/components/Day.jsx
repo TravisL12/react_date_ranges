@@ -1,4 +1,5 @@
 import React from "react";
+import currency from "../js/currencyFormat";
 import Breadcrumbs from "./Breadcrumbs";
 
 function Day(props) {
@@ -19,13 +20,13 @@ function Day(props) {
             <tr key={idx}>
               <td>{trans.category}</td>
               <td>{trans.date}</td>
-              <td>${trans.amount}</td>
+              <td>{currency(trans.amount)}</td>
               <td>{trans.description}</td>
             </tr>
           ))}
           <tr key={"total"}>
-            <td>Total</td>
-            <td>${props.daySpending.total}</td>
+            <td colSpan="2">Total</td>
+            <td>{currency(props.daySpending.total)}</td>
           </tr>
         </tbody>
       </table>

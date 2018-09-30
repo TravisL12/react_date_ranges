@@ -1,5 +1,6 @@
 import React from "react";
 import Tile from "./Tile";
+import currency from "../js/currencyFormat";
 
 function TransactionSquare(props) {
   return (
@@ -9,11 +10,6 @@ function TransactionSquare(props) {
       </span>
     </li>
   );
-}
-
-function displayTotal(total) {
-  let num = total > 0 ? "$" + Math.round(Math.round(total * 100) / 100) : "";
-  return num.replace(/(\d)(?=(\d{3})+$)/g, "$1,");
 }
 
 function findTotalPercent(total) {
@@ -31,10 +27,12 @@ function DayTile(props) {
     <Tile
       key={props.day}
       link={props.link}
-      className={`day--tile percent-${findTotalPercent(daySpending.total)}`}
+      className={`percent-${findTotalPercent(daySpending.total)}`}
     >
-      <div className="day--tile-day">{day}</div>
-      <div className="day--tile-amount">{displayTotal(daySpending.total)}</div>
+      <div className="tile-date">{day}</div>
+      <div className="tile-amount">
+        {daySpending.total > 0 && currency(daySpending.total)}
+      </div>
       <ul className="day--tile-transasction-square">
         {daySpending.transactions.map((transaction, i) => {
           return <TransactionSquare key={i} data={transaction} />;

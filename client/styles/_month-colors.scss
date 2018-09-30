@@ -1,0 +1,47 @@
+.january {
+  @include loop-colors($january);
+}
+
+.february {
+  @include loop-colors($february);
+}
+
+.march {
+  @include loop-colors($march);
+}
+
+.april {
+  @include loop-colors($april);
+}
+
+.may {
+  @include loop-colors($may);
+}
+
+.june {
+  @include loop-colors($june);
+}
+
+.july {
+  @include loop-colors($july);
+}
+
+.august {
+  @include loop-colors($august);
+}
+
+.september {
+  @include loop-colors($september);
+}
+
+.october {
+  @include loop-colors($october);
+}
+
+.november {
+  @include loop-colors($november);
+}
+
+.december {
+  @include loop-colors($december);
+}
