@@ -1,6 +1,15 @@
 .year-view {
   .month-tiles {
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    grid-gap: 5px;
+  }
+
+  .tile {
+    @extend %tile-default;
+    .tile-date,
+    .tile-amount {
+      font-size: 14px;
+    }
   }
 }
