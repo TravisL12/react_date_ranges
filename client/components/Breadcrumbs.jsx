@@ -5,9 +5,10 @@ import monthNames from "../js/monthNames";
 function Breadcrumbs(props) {
   const { year, month, day } = props;
   const yearLink = year ? <Link to={`/${year}`}>{year}</Link> : null;
-  const monthLink = month ? (
-    <Link to={`/${year}/${month + 1}`}>{monthNames[month]}</Link>
-  ) : null;
+  const monthLink =
+    month >= 0 ? (
+      <Link to={`/${year}/${month + 1}`}>{monthNames[month]}</Link>
+    ) : null;
 
   const crumbs = [yearLink, monthLink];
 

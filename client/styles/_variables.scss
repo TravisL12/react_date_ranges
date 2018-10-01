@@ -17,22 +17,15 @@ $october: cyan;
 $november: gold;
 $december: coral;
 
-@mixin vertical-center() {
-  position: absolute;
-  text-align: center;
-  margin-left: auto;
-  margin-right: auto;
-  transform: translateY(-50%);
-  top: 50%;
-  left: 0;
-  right: 0;
-}
-
 @mixin loop-colors($color) {
   color: $color;
 
   .month--header {
     color: inherit;
+  }
+
+  &.tile {
+    background: $color;
   }
 
   .tile.percent-0 {

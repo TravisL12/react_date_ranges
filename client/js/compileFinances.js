@@ -1,25 +1,25 @@
 import monthNames from "./monthNames";
 
-function Year() {
+function Year(year) {
+  this.year = year;
   this.total = 0;
   this.months = [];
-  this.maxDay = 0;
-  this.maxMonth = 0;
 
   // build months
   for (let i = 0; i <= 11; i++) {
-    this.months[i] = new Month(i);
+    this.months[i] = new Month(i, year);
   }
 }
 
-function Month(month) {
+function Month(month, year) {
   this.month = month + 1;
   this.name = monthNames[month];
   this.total = 0;
   this.day = [];
 
+  const totalDays = new Date(year, this.month, 0).getDate();
   // build days
-  for (let i = 1; i <= 31; i++) {
+  for (let i = 1; i <= totalDays; i++) {
     this.day.push(new Day(i));
   }
 }
@@ -32,6 +32,7 @@ function Day(day) {
 
 class Transaction {
   constructor(data) {
+    this.data = data;
     this.category = data.category;
     this.date = this.parseDate(data);
     this.amount = parseFloat(data.amount);
@@ -57,8 +58,8 @@ class Transaction {
 
     if (newDate) {
       const date = new Date(data.date);
-      const year = date.getYear() - 100;
-      return newDate[0] + "/" + year;
+      const year = date.getFullYear();
+      return [newDate[0].trim(), year].join("/");
     }
 
     return data.date;
@@ -98,7 +99,7 @@ const Finances = {
       const day = date.getDate() - 1;
       const amount = transaction.amount;
 
-      spending[year] = spending[year] || new Year();
+      spending[year] = spending[year] || new Year(year);
 
       spending[year].total += amount;
       spending[year].months[month].total += amount;
