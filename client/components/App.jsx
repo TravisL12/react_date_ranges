@@ -21,8 +21,10 @@ class App extends React.Component {
   componentDidMount() {
     const url =
       "https://spreadsheets.google.com/feeds/list/1X05BAK1GSF4rbr-tSPWh2GBFk1zqg3jUPxrDcGivw9s/1/public/values?alt=json";
-    axios.get(url).then(res => {
-      this.setState({ spending: finances.rawSpending(res) });
+    axios.get(url).then(({ data: { feed: { entry } } }) => {
+      this.setState({
+        spending: finances.rawSpending(entry)
+      });
     });
   }
 

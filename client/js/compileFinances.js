@@ -68,7 +68,7 @@ class Transaction {
 
 const Finances = {
   rawSpending(data) {
-    let spending = data.data.feed.entry.map(function(obj) {
+    const spending = data.map(function(obj) {
       return {
         category: obj.gsx$subcategory.$t || obj.gsx$category.$t,
         date: obj.gsx$date.$t,
