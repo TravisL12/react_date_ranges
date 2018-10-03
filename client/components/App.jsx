@@ -45,7 +45,6 @@ class App extends React.Component {
           />
 
           <Route
-            exact
             path="/:year"
             render={props => {
               const { year } = props.match.params;
@@ -54,25 +53,7 @@ class App extends React.Component {
                 <Year
                   {...props}
                   year={year}
-                  yearSpending={this.state.spending[year]}
-                />
-              );
-            }}
-          />
-
-          <Route
-            exact
-            path="/:year/:month"
-            render={props => {
-              const { month, year } = props.match.params;
-              const monthZeroIdx = +month - 1;
-
-              return (
-                <Month
-                  {...props}
-                  year={year}
-                  month={monthZeroIdx}
-                  monthSpending={this.state.spending[year].months[monthZeroIdx]}
+                  spending={this.state.spending[year]}
                 />
               );
             }}
