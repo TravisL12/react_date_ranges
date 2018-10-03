@@ -2,6 +2,7 @@ import React from "react";
 import DayTile from "./DayTile";
 import Tile from "./Tile";
 import Breadcrumbs from "./Breadcrumbs";
+import monthNames from "../js/monthNames";
 
 const dayNames = [
   "Sunday",
@@ -18,58 +19,37 @@ class Month extends React.Component {
     super(props);
   }
 
-  chunkWeeks(dates) {
-    const weeks = [];
-    const daysInWeek = 7;
-    const weekCount = Math.ceil(dates.length / daysInWeek);
-
-    for (var i = 0; i < weekCount; i++) {
-      let weekIdx = i * daysInWeek;
-      let days = dates.slice(weekIdx, weekIdx + daysInWeek);
-      weeks.push(days);
-    }
-    return weeks;
-  }
-
-  renderDay(date, spending) {
-    const day = date.getDate();
-    const displayMonth = this.props.month + 1;
+  renderDay(day) {
+    const { month, year, monthSpending } = this.props;
+    const displayMonth = month + 1;
 
     return (
       <DayTile
-        key={date.toString()}
+        key={day}
         day={day}
-        link={`/${this.props.year}/${displayMonth}/${day}`}
-        daySpending={spending.day[day - 1]}
+        link={`/${year}/${displayMonth}/${day}`}
+        daySpending={monthSpending.days[day - 1]}
       />
     );
   }
 
-  padWeeks(dates) {
-    const dow = new Date(this.props.year, this.props.month, 1).getDay();
-    const weekPad = new Array(dow).fill(null);
-
-    return weekPad.concat(dates);
-  }
-
   buildDates() {
-    const { month, year, monthSpending } = this.props;
-    const daysOfYear = [];
+    const { year, month, monthSpending } = this.props;
+    const startDOW = new Date(year, month, 1).getDay();
+    const dates = new Array(startDOW).fill(null); // pad start of month until first day of week
 
-    for (let i = 1; i <= monthSpending.day.length; i++) {
-      const date = new Date(year, month, i);
-      daysOfYear.push(this.renderDay(date, monthSpending));
+    for (let i = 1; i <= monthSpending.days.length; i++) {
+      dates.push(this.renderDay(i));
     }
 
-    return this.padWeeks(daysOfYear);
+    return dates;
   }
 
   render() {
-    const monthName = this.props.monthSpending.name;
-    const dates = this.buildDates(this.props);
-
     return (
-      <div className={"month-view " + monthName.toLowerCase()}>
+      <div
+        className={"month-view " + monthNames[this.props.month].toLowerCase()}
+      >
         <Breadcrumbs {...this.props} />
 
         <div className="month--header">
@@ -83,8 +63,8 @@ class Month extends React.Component {
         </div>
 
         <div className="month--calender">
-          {dates.map((date, i) => {
-            return date ? date : <Tile key={i} className="none" />;
+          {this.buildDates(this.props).map((date, i) => {
+            return date ? date : <Tile key={`none-${i}`} className="none" />;
           })}
         </div>
       </div>
