@@ -1,4 +1,4 @@
-import monthNames from "./monthNames";
+import { months as monthNames } from "./monthDayNames";
 
 function Year(year) {
   this.year = year;

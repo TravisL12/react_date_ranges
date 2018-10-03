@@ -1,4 +1,4 @@
-export default [
+export const months = [
   "January",
   "February",
   "March",
@@ -11,4 +11,14 @@ export default [
   "October",
   "November",
   "December"
+];
+
+export const days = [
+  "Sunday",
+  "Monday",
+  "Tuesday",
+  "Wednesday",
+  "Thursday",
+  "Friday",
+  "Saturday"
 ];

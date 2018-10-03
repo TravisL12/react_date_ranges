@@ -2,44 +2,27 @@ import React from "react";
 import DayTile from "./DayTile";
 import Tile from "./Tile";
 import Breadcrumbs from "./Breadcrumbs";
-import monthNames from "../js/monthNames";
-
-const dayNames = [
-  "Sunday",
-  "Monday",
-  "Tuesday",
-  "Wednesday",
-  "Thursday",
-  "Friday",
-  "Saturday"
-];
+import { months as monthNames, days as dayNames } from "../js/monthDayNames";
 
 class Month extends React.Component {
   constructor(props) {
     super(props);
   }
 
-  renderDay(day) {
-    const { month, year, monthSpending } = this.props;
-    const displayMonth = month + 1;
-
-    return (
-      <DayTile
-        key={day}
-        day={day}
-        link={`/${year}/${displayMonth}/${day}`}
-        daySpending={monthSpending.days[day - 1]}
-      />
-    );
-  }
-
   buildDates() {
-    const { year, month, monthSpending } = this.props;
+    const { year, month, monthSpending, match } = this.props;
     const startDOW = new Date(year, month, 1).getDay();
-    const dates = new Array(startDOW).fill(null); // pad start of month until first day of week
+    const dates = new Array(startDOW).fill(null); // pad start of month until first day of month
 
     for (let i = 1; i <= monthSpending.days.length; i++) {
-      dates.push(this.renderDay(i));
+      dates.push(
+        <DayTile
+          key={i}
+          day={i}
+          link={`${match.url}/${i}`}
+          daySpending={monthSpending.days[i - 1]}
+        />
+      );
     }
 
     return dates;
