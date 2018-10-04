@@ -47,8 +47,8 @@ class App extends React.Component {
           <Route
             exact
             path="/"
-            render={() => {
-              return <LandingPage spending={this.state.spending} />;
+            render={props => {
+              return <LandingPage {...props} spending={this.state.spending} />;
             }}
           />
 

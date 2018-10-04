@@ -42,33 +42,27 @@ $december: coral;
 }
 
 %tile-default {
-  position: relative;
   display: flex;
   flex-direction: column;
-  box-sizing: border-box;
   justify-content: space-between;
-
-  background: transparent;
-  color: $white;
-  padding: 2px 5px;
   width: $tile-width;
   height: $tile-width;
-  font-size: 14px;
+  padding: 2px 5px;
+  background: transparent;
+  color: $white;
   border-radius: 3px;
+  font-size: 14px;
   box-sizing: border-box;
   transition: 0.15s linear all;
+
+  .tile-amount {
+    align-self: center;
+    font-size: 20px;
+  }
 
   .tile-date {
     align-self: flex-end;
     font-weight: 600;
     font-size: 22px;
-    top: 2px;
-    right: 10px;
-    text-rendering: optimizeLegibility;
-  }
-
-  .tile-amount {
-    font-size: 20px;
-    align-self: center;
   }
 }
