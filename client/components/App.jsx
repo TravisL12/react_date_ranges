@@ -4,7 +4,7 @@ import Day from "./Day";
 import Month from "./Month";
 import Year from "./Year";
 
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { Route } from "react-router-dom";
 import axios from "axios";
 import finances from "../js/compileFinances.js";
 
@@ -30,17 +30,25 @@ class App extends React.Component {
 
   render() {
     if (!this.state.spending) {
-      return <h1>Loading ...</h1>;
+      return (
+        <div className="loading">
+          <h1>Loading ...</h1>
+        </div>
+      );
     }
 
     return (
-      <Router>
-        <div>
+      <div className="container">
+        <aside className="side-bar">
+          <h1>side bar</h1>
+        </aside>
+
+        <main className="spending-view">
           <Route
             exact
             path="/"
-            render={() => {
-              return <LandingPage spending={this.state.spending} />;
+            render={props => {
+              return <LandingPage {...props} spending={this.state.spending} />;
             }}
           />
 
@@ -100,8 +108,8 @@ class App extends React.Component {
               );
             }}
           />
-        </div>
-      </Router>
+        </main>
+      </div>
     );
   }
 }

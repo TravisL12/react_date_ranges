@@ -1,19 +1,17 @@
-.month--header {
-  margin-bottom: 15px;
+$month-tile-dimension: $tile-width;
+$grid-gap: 5px;
 
-  .month--header-day {
-    display: inline-block;
-    font-weight: bold;
-    width: $tile-width;
-    margin-right: 5px;
-    padding: 0 2px;
-    text-align: center;
-    box-sizing: border-box;
-  }
+.day-of-week {
+  margin-bottom: 15px;
+  display: inline-block;
+  font-weight: bold;
+  width: $tile-width;
+  margin-right: $grid-gap;
+  text-align: center;
 }
 
 .month--calender {
   display: grid;
-  grid-template-columns: repeat(7, 140px);
-  grid-gap: 5px;
+  grid-template-columns: repeat(7, $month-tile-dimension);
+  grid-gap: $grid-gap;
 }
