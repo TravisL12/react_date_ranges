@@ -4,46 +4,13 @@
 
 .container {
   position: relative;
-  width: 1020px;
+  width: 1400px;
   margin: 0 auto;
   padding-top: 15px;
 }
 
 .tile {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  box-sizing: border-box;
-  justify-content: space-between;
-
-  background: $light-gray;
-  color: $white;
-  margin: 0 5px 5px 0;
-  padding: 2px 5px;
-  width: $tile-width;
-  height: $tile-width;
-  font-size: 14px;
-  border-radius: 3px;
-  box-sizing: border-box;
-  transition: 0.15s linear all;
-
-  .tile-date {
-    align-self: flex-end;
-    font-weight: 600;
-    font-size: 22px;
-    top: 2px;
-    right: 10px;
-    text-rendering: optimizeLegibility;
-  }
-
-  .tile-amount {
-    font-size: 20px;
-    align-self: center;
-  }
-
-  &.none {
-    background: #ffffff;
-  }
+  @extend %tile-default;
 }
 
 .breadcrumbs {
@@ -56,8 +23,13 @@
 
 .total-view {
   .year-tiles {
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-rows: auto;
+
+    h2 {
+      margin-top: 4px;
+      margin-bottom: 0;
+    }
   }
 }
 

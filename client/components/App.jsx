@@ -92,7 +92,9 @@ class App extends React.Component {
                   month={monthZeroIdx}
                   day={day}
                   daySpending={
-                    this.state.spending[year].months[monthZeroIdx].day[+day - 1]
+                    this.state.spending[year].months[monthZeroIdx].days[
+                      +day - 1
+                    ]
                   }
                 />
               );

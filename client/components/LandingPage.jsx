@@ -1,16 +1,13 @@
 import React from "react";
-import Tile from "./Tile";
-import currency from "../js/currencyFormat";
+import Year from "./Year";
 
 function LandingPage(props) {
   const years = Object.keys(props.spending).map((year, idx) => {
     return (
-      <Tile key={idx} link={`/${year}`}>
-        <div className="tile-date">{year}</div>
-        <div className="tile-amount">
-          {currency(props.spending[year].total)}
-        </div>
-      </Tile>
+      <div key={idx}>
+        <h2>{year}</h2>
+        <Year yearSpending={props.spending[year]} year={year} />
+      </div>
     );
   });
 

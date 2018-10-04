@@ -5,23 +5,21 @@ $white: #f9f9f9;
 
 // Colors for tiles of months
 $january: cadetblue;
-$february: lightblue;
-$march: lime;
+$february: rgb(127, 163, 211);
+$march: rgb(0, 177, 0);
 $april: magenta;
 $may: blue;
 $june: darkorchid;
 $july: burlywood;
-$august: pink;
+$august: rgb(163, 113, 121);
 $september: orchid;
-$october: cyan;
-$november: gold;
+$october: rgb(0, 206, 206);
+$november: rgb(184, 196, 20);
 $december: coral;
 
 @mixin loop-colors($color) {
-  color: $color;
-
   .month--header {
-    color: inherit;
+    color: $color;
   }
 
   &.tile {
@@ -40,5 +38,41 @@ $december: coral;
         background: $color;
       }
     }
+  }
+}
+
+%tile-default {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  justify-content: space-between;
+
+  background: $light-gray;
+  color: $white;
+  padding: 2px 5px;
+  width: $tile-width;
+  height: $tile-width;
+  font-size: 14px;
+  border-radius: 3px;
+  box-sizing: border-box;
+  transition: 0.15s linear all;
+
+  .tile-date {
+    align-self: flex-end;
+    font-weight: 600;
+    font-size: 22px;
+    top: 2px;
+    right: 10px;
+    text-rendering: optimizeLegibility;
+  }
+
+  .tile-amount {
+    font-size: 20px;
+    align-self: center;
+  }
+
+  &.none {
+    background: #ffffff;
   }
 }

@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import monthNames from "../js/monthNames";
+import { months as monthNames } from "../js/monthDayNames";
 
 function Breadcrumbs(props) {
   const { year, month, day } = props;

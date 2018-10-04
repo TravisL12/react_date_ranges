@@ -1,13 +1,13 @@
 import React from "react";
 import Tile from "./Tile";
 import currency from "../js/currencyFormat";
-import Breadcrumbs from "./Breadcrumbs";
 
 function Year(props) {
   const months = props.yearSpending.months.map((monthData, idx) => {
     return (
       <Tile
         key={idx}
+        size={100}
         link={`/${props.year}/${monthData.month}`}
         className={monthData.name.toLowerCase()}
       >
@@ -19,7 +19,6 @@ function Year(props) {
 
   return (
     <div className="year-view">
-      <Breadcrumbs {...props} />
       <div className="month-tiles">{months}</div>
     </div>
   );

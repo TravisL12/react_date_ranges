@@ -1,4 +1,4 @@
-import monthNames from "./monthNames";
+import { months as monthNames } from "./monthDayNames";
 
 function Year(year) {
   this.year = year;
@@ -15,12 +15,12 @@ function Month(month, year) {
   this.month = month + 1;
   this.name = monthNames[month];
   this.total = 0;
-  this.day = [];
+  this.days = [];
 
   const totalDays = new Date(year, this.month, 0).getDate();
   // build days
   for (let i = 1; i <= totalDays; i++) {
-    this.day.push(new Day(i));
+    this.days.push(new Day(i));
   }
 }
 
@@ -103,9 +103,9 @@ const Finances = {
 
       spending[year].total += amount;
       spending[year].months[month].total += amount;
-      spending[year].months[month].day[day].total += amount;
+      spending[year].months[month].days[day].total += amount;
 
-      spending[year].months[month].day[day].transactions.push(transaction);
+      spending[year].months[month].days[day].transactions.push(transaction);
     }
 
     return spending;
