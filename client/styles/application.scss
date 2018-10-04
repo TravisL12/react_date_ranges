@@ -1,7 +1,6 @@
 @import "reset";
 @import "variables";
 @import "month-colors";
-@import "tile";
 @import "breadcrumbs";
 
 .container {
@@ -25,8 +24,19 @@
 .spending-view {
   grid-area: spending-view;
   box-sizing: border-box;
-  padding: 10px;
-  background: lightgray;
+  padding: 0 10px;
+  background: $white;
+}
+
+.tile {
+  @extend %tile-default;
+}
+
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
 }
 
 .year-tiles {
@@ -39,6 +49,5 @@
   }
 }
 
-@import "day-tile";
 @import "month-view";
 @import "year-view";

@@ -30,7 +30,11 @@ class App extends React.Component {
 
   render() {
     if (!this.state.spending) {
-      return <h1>Loading ...</h1>;
+      return (
+        <div className="loading">
+          <h1>Loading ...</h1>
+        </div>
+      );
     }
 
     return (
