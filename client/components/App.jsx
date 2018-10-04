@@ -4,7 +4,7 @@ import Day from "./Day";
 import Month from "./Month";
 import Year from "./Year";
 
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { Route } from "react-router-dom";
 import axios from "axios";
 import finances from "../js/compileFinances.js";
 
@@ -34,8 +34,12 @@ class App extends React.Component {
     }
 
     return (
-      <Router>
-        <div>
+      <div>
+        <div className="side-bar">
+          <h1>side bar</h1>
+        </div>
+
+        <div className="spending-view">
           <Route
             exact
             path="/"
@@ -101,7 +105,7 @@ class App extends React.Component {
             }}
           />
         </div>
-      </Router>
+      </div>
     );
   }
 }

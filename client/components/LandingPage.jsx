@@ -11,12 +11,7 @@ function LandingPage(props) {
     );
   });
 
-  return (
-    <div className="total-view">
-      <h1>Cash Calendar</h1>
-      <div className="year-tiles">{years}</div>
-    </div>
-  );
+  return <div className="year-tiles">{years}</div>;
 }
 
 export default LandingPage;
