@@ -9,12 +9,9 @@ class Month extends React.Component {
     super(props);
   }
 
-  findTotalPercent(total) {
-    if (!total) {
-      return 0;
-    }
-    const maxTotal = 1000;
-    return total >= maxTotal ? 10 : Math.ceil((total / maxTotal) * 10);
+  findTotalPercent(total = 0) {
+    const maxAmount = 1000;
+    return total >= maxAmount ? 10 : Math.ceil((total / maxAmount) * 10);
   }
 
   buildDates() {
@@ -22,19 +19,19 @@ class Month extends React.Component {
     const startDOW = new Date(year, month, 1).getDay();
     const dates = new Array(startDOW).fill(null); // pad start of month until first day of month
 
-    for (let i = 1; i <= monthSpending.days.length; i++) {
-      const spending = monthSpending.days[i - 1];
+    for (let day = 1; day <= monthSpending.days.length; day++) {
+      const { total, transactions } = monthSpending.days[day - 1];
+      const percentClass = this.findTotalPercent(total);
+
       dates.push(
         <Tile
-          key={i}
-          link={`${match.url}/${i}`}
-          className={`percent-${this.findTotalPercent(spending.total)}`}
+          key={day}
+          link={`${match.url}/${day}`}
+          className={`percent-${percentClass}`}
         >
-          <div className="tile-date">{i}</div>
-          <div className="tile-amount">
-            {spending.total > 0 && currency(spending.total)}
-          </div>
-          <div>{spending.transactions.length}</div>
+          <div className="tile-date">{day}</div>
+          <div className="tile-amount">{total > 0 && currency(total)}</div>
+          <div>{transactions.length}</div>
         </Tile>
       );
     }
@@ -49,10 +46,10 @@ class Month extends React.Component {
       >
         <Breadcrumbs {...this.props} />
 
-        <div className="month--header">
+        <div>
           {dayNames.map(day => {
             return (
-              <div key={day} className="month--header-day">
+              <div key={day} className="day-of-week">
                 {day}
               </div>
             );

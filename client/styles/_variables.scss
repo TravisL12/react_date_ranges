@@ -18,7 +18,7 @@ $november: rgb(184, 196, 20);
 $december: coral;
 
 @mixin loop-colors($color) {
-  .month--header {
+  .day-of-week {
     color: $color;
   }
 

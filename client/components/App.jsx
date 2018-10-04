@@ -39,11 +39,11 @@ class App extends React.Component {
 
     return (
       <div className="container">
-        <div className="side-bar">
+        <aside className="side-bar">
           <h1>side bar</h1>
-        </div>
+        </aside>
 
-        <div className="spending-view">
+        <main className="spending-view">
           <Route
             exact
             path="/"
@@ -108,7 +108,7 @@ class App extends React.Component {
               );
             }}
           />
-        </div>
+        </main>
       </div>
     );
   }

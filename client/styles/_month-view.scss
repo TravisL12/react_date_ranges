@@ -1,9 +1,8 @@
 $month-tile-dimension: $tile-width;
 
-.month--header {
-  margin-bottom: 15px;
-
-  .month--header-day {
+.month-view {
+  .day-of-week {
+    margin-bottom: 15px;
     display: inline-block;
     font-weight: bold;
     width: $tile-width;
@@ -12,52 +11,10 @@ $month-tile-dimension: $tile-width;
     text-align: center;
     box-sizing: border-box;
   }
-}
 
-.month--calender {
-  display: grid;
-  grid-template-columns: repeat(7, $month-tile-dimension);
-  grid-gap: 5px;
-
-  .day--tile-transasction-square {
-    display: flex;
-    flex-wrap: wrap;
-    bottom: 2px;
-    line-height: 12px;
-
-    .transaction-square {
-      position: relative;
-      width: $trans-square;
-      height: $trans-square;
-      background: $white;
-      margin: 0 3px 3px 0;
-      border-radius: 1px;
-      cursor: pointer;
-      list-style: none;
-
-      &:nth-child(5n) {
-        background: $light-gray;
-      }
-
-      &:hover {
-        background: lightgreen;
-        .transaction-square--description {
-          visibility: visible;
-        }
-      }
-
-      .transaction-square--description {
-        position: absolute;
-        visibility: hidden;
-        bottom: 120%;
-        padding: 8px;
-        border-radius: 3px;
-        min-width: 200px;
-        max-width: 500px;
-        z-index: 1;
-        background: $light-gray;
-        box-shadow: -2px 2px 10px rgba(0, 0, 0, 0.2);
-      }
-    }
+  .month--calender {
+    display: grid;
+    grid-template-columns: repeat(7, $month-tile-dimension);
+    grid-gap: 5px;
   }
 }
