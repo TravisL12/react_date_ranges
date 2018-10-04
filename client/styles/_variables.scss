@@ -48,7 +48,7 @@ $december: coral;
   box-sizing: border-box;
   justify-content: space-between;
 
-  background: $light-gray;
+  background: transparent;
   color: $white;
   padding: 2px 5px;
   width: $tile-width;
@@ -70,9 +70,5 @@ $december: coral;
   .tile-amount {
     font-size: 20px;
     align-self: center;
-  }
-
-  &.none {
-    background: #ffffff;
   }
 }

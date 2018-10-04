@@ -1,35 +1,41 @@
 @import "reset";
 @import "variables";
 @import "month-colors";
+@import "tile";
+@import "breadcrumbs";
 
 .container {
   position: relative;
-  width: 1400px;
-  margin: 0 auto;
-  padding-top: 15px;
+  display: grid;
+
+  grid-template-columns: 250px auto;
+  grid-template-areas: "side-bar spending-view";
 }
 
-.tile {
-  @extend %tile-default;
+.side-bar {
+  grid-area: side-bar;
+  height: 100%;
+  min-height: 100vh;
+  box-sizing: border-box;
+  padding: 10px;
+  background: lightblue;
+  color: $white;
 }
 
-.breadcrumbs {
-  color: black;
-
-  a {
-    color: inherit;
-  }
+.spending-view {
+  grid-area: spending-view;
+  box-sizing: border-box;
+  padding: 10px;
+  background: lightgray;
 }
 
-.total-view {
-  .year-tiles {
-    display: grid;
-    grid-template-rows: auto;
+.year-tiles {
+  display: grid;
+  grid-template-rows: auto;
 
-    h2 {
-      margin-top: 4px;
-      margin-bottom: 0;
-    }
+  h2 {
+    margin-top: 4px;
+    margin-bottom: 0;
   }
 }
 

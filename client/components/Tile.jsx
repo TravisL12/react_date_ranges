@@ -2,15 +2,8 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 function Tile(props) {
-  const size = props.size
-    ? { width: `${props.size}px`, height: `${props.size}px` }
-    : {};
   const body = (
-    <div
-      key={props.day}
-      className={`tile ${props.className || ""}`}
-      style={size}
-    >
+    <div key={props.day} className={`tile ${props.className || ""}`}>
       {props.children}
     </div>
   );

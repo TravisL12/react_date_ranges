@@ -7,7 +7,6 @@ function Year(props) {
     return (
       <Tile
         key={idx}
-        size={100}
         link={`/${props.year}/${monthData.month}`}
         className={monthData.name.toLowerCase()}
       >

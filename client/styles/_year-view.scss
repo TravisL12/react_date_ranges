@@ -1,12 +1,16 @@
+$year-tile-dimension: 80px;
+
 .year-view {
   .month-tiles {
     display: grid;
-    grid-template-columns: repeat(12, 1fr);
+    grid-template-columns: repeat(auto-fit, $year-tile-dimension);
     grid-gap: 5px;
   }
 
   .tile {
     @extend %tile-default;
+    width: $year-tile-dimension;
+    height: $year-tile-dimension;
     .tile-date,
     .tile-amount {
       font-size: 14px;

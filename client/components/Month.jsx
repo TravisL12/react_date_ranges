@@ -47,7 +47,7 @@ class Month extends React.Component {
 
         <div className="month--calender">
           {this.buildDates(this.props).map((date, i) => {
-            return date ? date : <Tile key={`none-${i}`} className="none" />;
+            return date ? date : <Tile key={`none-${i}`} />;
           })}
         </div>
       </div>
