@@ -14,12 +14,12 @@ class Month extends React.Component {
   }
 
   buildDates() {
-    const { year, month, monthSpending, match } = this.props;
+    const { year, month, spending, match } = this.props;
     const startDOW = new Date(year, month, 1).getDay();
     const dates = new Array(startDOW).fill(null); // pad start of month until first day of month
 
-    for (let day = 1; day <= monthSpending.days.length; day++) {
-      const { total, transactions } = monthSpending.days[day - 1];
+    for (let day = 1; day <= spending.days.length; day++) {
+      const { total, transactions } = spending.days[day - 1];
       const percentClass = this.findTotalPercent(total);
 
       dates.push(

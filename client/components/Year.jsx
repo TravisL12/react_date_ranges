@@ -3,7 +3,7 @@ import Tile from "./Tile";
 import currency from "../js/currencyFormat";
 
 function Year(props) {
-  const months = props.yearSpending.months.map((monthData, idx) => {
+  const months = props.spending.months.map((monthData, idx) => {
     return (
       <Tile
         key={idx}

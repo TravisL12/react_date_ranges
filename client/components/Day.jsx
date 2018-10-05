@@ -14,7 +14,7 @@ function Day(props) {
           </tr>
         </thead>
         <tbody>
-          {props.daySpending.transactions.map((trans, idx) => (
+          {props.spending.transactions.map((trans, idx) => (
             <tr key={idx}>
               <td>{trans.category}</td>
               <td>{trans.date}</td>
@@ -24,7 +24,7 @@ function Day(props) {
           ))}
           <tr key={"total"}>
             <td colSpan="2">Total</td>
-            <td>{currency(props.daySpending.total)}</td>
+            <td>{currency(props.spending.total)}</td>
           </tr>
         </tbody>
       </table>

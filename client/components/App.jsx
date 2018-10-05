@@ -65,7 +65,7 @@ class App extends React.Component {
                 <Year
                   {...props}
                   year={year}
-                  yearSpending={this.state.spending[year]}
+                  spending={this.state.spending[year]}
                 />
               );
             }}
@@ -83,7 +83,7 @@ class App extends React.Component {
                   {...props}
                   year={year}
                   month={monthZeroIdx}
-                  monthSpending={this.state.spending[year].months[monthZeroIdx]}
+                  spending={this.state.spending[year].months[monthZeroIdx]}
                 />
               );
             }}
@@ -102,7 +102,7 @@ class App extends React.Component {
                   year={year}
                   month={monthZeroIdx}
                   day={day}
-                  daySpending={
+                  spending={
                     this.state.spending[year].months[monthZeroIdx].days[
                       +day - 1
                     ]

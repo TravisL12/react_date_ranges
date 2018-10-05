@@ -8,7 +8,7 @@ function LandingPage(props) {
         return (
           <div key={idx}>
             <h2>{year}</h2>
-            <Year yearSpending={props.spending[year]} year={year} />
+            <Year spending={props.spending[year]} year={year} />
           </div>
         );
       })}

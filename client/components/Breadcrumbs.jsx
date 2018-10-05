@@ -10,25 +10,17 @@ function Breadcrumbs() {
       <Route
         path="/:year"
         render={props => {
-          return (
-            <Link to={`/${props.match.params.year}`}>
-              {" "}
-              > {props.match.params.year}
-            </Link>
-          );
+          const { year } = props.match.params;
+          return <Link to={`/${year}`}> > {year}</Link>;
         }}
       />
 
       <Route
         path="/:year/:month"
         render={props => {
+          const { month, year } = props.match.params;
           return (
-            <Link
-              to={`/${props.match.params.year}/${props.match.params.month}`}
-            >
-              {" "}
-              > {monthNames[props.match.params.month]}
-            </Link>
+            <Link to={`/${year}/${month}`}> > {monthNames[month - 1]}</Link>
           );
         }}
       />
