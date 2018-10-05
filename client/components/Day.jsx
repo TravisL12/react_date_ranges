@@ -1,11 +1,9 @@
 import React from "react";
 import currency from "../js/currencyFormat";
-import Breadcrumbs from "./Breadcrumbs";
 
 function Day(props) {
   return (
     <div>
-      <Breadcrumbs {...props} />
       <table>
         <thead>
           <tr>

@@ -1,6 +1,5 @@
 import React from "react";
 import Tile from "./Tile";
-import Breadcrumbs from "./Breadcrumbs";
 import currency from "../js/currencyFormat";
 import { months as monthNames, days as dayNames } from "../js/monthDayNames";
 
@@ -44,8 +43,6 @@ class Month extends React.Component {
       <div
         className={"month-view " + monthNames[this.props.month].toLowerCase()}
       >
-        <Breadcrumbs {...this.props} />
-
         <div>
           {dayNames.map(day => {
             return (

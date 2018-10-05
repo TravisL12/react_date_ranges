@@ -1,30 +1,44 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Route, Link } from "react-router-dom";
 import { months as monthNames } from "../js/monthDayNames";
 
-function Breadcrumbs(props) {
-  const { year, month, day } = props;
-  const yearLink = year ? <Link to={`/${year}`}>{year}</Link> : null;
-  const monthLink =
-    month >= 0 ? (
-      <Link to={`/${year}/${month + 1}`}>{monthNames[month]}</Link>
-    ) : null;
-
-  const crumbs = [yearLink, monthLink];
-
+function Breadcrumbs() {
   return (
     <h1 className="breadcrumbs">
       <Link to={"/"}>Cash Calendar</Link>
-      {crumbs.map((crumb, idx) => {
-        return (
-          <span key={idx}>
-            {crumb ? " >" : null} {crumb}
-          </span>
-        );
-      })}
-      <span>
-        {day ? " >" : null} {day}
-      </span>
+
+      <Route
+        path="/:year"
+        render={props => {
+          return (
+            <Link to={`/${props.match.params.year}`}>
+              {" "}
+              > {props.match.params.year}
+            </Link>
+          );
+        }}
+      />
+
+      <Route
+        path="/:year/:month"
+        render={props => {
+          return (
+            <Link
+              to={`/${props.match.params.year}/${props.match.params.month}`}
+            >
+              {" "}
+              > {monthNames[props.match.params.month]}
+            </Link>
+          );
+        }}
+      />
+
+      <Route
+        path="/:year/:month/:day"
+        render={props => {
+          return <span> > {props.match.params.day}</span>;
+        }}
+      />
     </h1>
   );
 }

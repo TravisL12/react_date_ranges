@@ -3,6 +3,7 @@ import LandingPage from "./LandingPage";
 import Day from "./Day";
 import Month from "./Month";
 import Year from "./Year";
+import Breadcrumbs from "./Breadcrumbs";
 
 import { Route } from "react-router-dom";
 import axios from "axios";
@@ -44,6 +45,8 @@ class App extends React.Component {
         </aside>
 
         <main className="spending-view">
+          <Breadcrumbs />
+
           <Route
             exact
             path="/"
