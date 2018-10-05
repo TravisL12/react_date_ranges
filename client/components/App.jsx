@@ -4,6 +4,7 @@ import Day from "./Day";
 import Month from "./Month";
 import Year from "./Year";
 import Breadcrumbs from "./Breadcrumbs";
+import SideBar from "./SideBar";
 
 import { Route } from "react-router-dom";
 import axios from "axios";
@@ -40,9 +41,7 @@ class App extends React.Component {
 
     return (
       <div className="container">
-        <aside className="side-bar">
-          <h1>side bar</h1>
-        </aside>
+        <SideBar spending={this.state.spending} />
 
         <main className="spending-view">
           <Breadcrumbs />
