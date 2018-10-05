@@ -15,9 +15,13 @@ function sumCategories(daysSpending) {
     });
   });
 
-  return Object.keys(categories).map(name => {
-    return { name, amount: categories[name] };
-  });
+  return Object.keys(categories)
+    .map(name => {
+      return { name, amount: categories[name] };
+    })
+    .sort((a, b) => {
+      return b.amount - a.amount;
+    });
 }
 
 function SideBar(props) {
@@ -34,7 +38,7 @@ function SideBar(props) {
             props.spending[year].months[month].days
           );
           return (
-            <ul>
+            <ul className="side-bar--categories-list">
               {categories.map((category, idx) => {
                 return (
                   <li key={idx}>
