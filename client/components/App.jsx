@@ -8,13 +8,14 @@ import SideBar from "./SideBar";
 
 import { Route } from "react-router-dom";
 import axios from "axios";
-import finances from "../js/compileFinances.js";
+import Finance from "../js/compileFinances.js";
 
 require("../styles/application.scss");
 
 class App extends React.Component {
   constructor(props) {
     super(props);
+    this.finances = new Finance();
     this.state = {
       spending: undefined
     };
@@ -24,18 +25,15 @@ class App extends React.Component {
     const url =
       "https://spreadsheets.google.com/feeds/list/1X05BAK1GSF4rbr-tSPWh2GBFk1zqg3jUPxrDcGivw9s/1/public/values?alt=json";
     axios.get(url).then(({ data: { feed: { entry } } }) => {
-      this.setState({
-        spending: finances.rawSpending(entry)
-      });
+      this.finances.rawSpending(entry);
+      this.setState({ spending: this.finances.buildSpending() });
     });
   }
 
-  updateCategories(event, monthSpending) {
-    const category = monthSpending.categories[event.target.id];
-    category.visible = !category.visible;
+  updateCategories(event) {
+    this.finances.excludedCategories.push(event.target.id);
 
-    const spending = monthSpending.updateDays();
-    // this.setState({ spending });
+    this.setState({ spending: this.finances.buildSpending() });
   }
 
   render() {

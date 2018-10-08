@@ -47,18 +47,6 @@ class Month {
         return b.amount - a.amount;
       });
   }
-
-  updateDays() {
-    const excludeCategories = this.listCategories().filter(category => {
-      return !category.visible;
-    });
-
-    console.table(excludeCategories);
-
-    // this.days.forEach((day) => {
-    //   day.update(excludeCategories);
-    // })
-  }
 }
 
 function Day(day) {
@@ -103,23 +91,31 @@ class Transaction {
   }
 }
 
-const Finances = {
+class Finance {
+  constructor() {
+    this.excludedCategories = [];
+    this.transactions = [];
+  }
+
   rawSpending(data) {
-    const spending = data.map(function(obj) {
-      return {
+    this.transactions = data.map(function(obj) {
+      return new Transaction({
         category: obj.gsx$subcategory.$t || obj.gsx$category.$t,
         date: obj.gsx$date.$t,
         description: obj.gsx$payee.$t || obj.gsx$description.$t,
         amount: obj.gsx$amount.$t
-      };
+      });
     });
-    return this.buildSpending(spending);
-  },
 
-  buildSpending(data) {
-    const spending = {};
-    for (const i in data) {
-      const transaction = new Transaction(data[i]);
+    return;
+  }
+
+  buildSpending() {
+    return this.transactions.reduce((spending, transaction) => {
+      if (this.excludedCategories.includes(transaction.category)) {
+        return spending;
+      }
+
       const date = new Date(transaction.date);
       const year = date.getFullYear();
       const month = date.getMonth();
@@ -134,10 +130,10 @@ const Finances = {
       spending[year].months[month].days[day].total += amount;
 
       spending[year].months[month].days[day].transactions.push(transaction);
-    }
 
-    return spending;
+      return spending;
+    }, {});
   }
-};
+}
 
-export default Finances;
+export default Finance;
