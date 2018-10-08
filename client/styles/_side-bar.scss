@@ -14,16 +14,20 @@
     li {
       display: flex;
 
-      .category-name {
-        width: 180px;
-        overflow-x: hidden;
-        white-space: nowrap;
-        margin-right: 5px;
-      }
+      label {
+        display: flex;
 
-      .category-amount {
-        width: 70px;
-        text-align: right;
+        .category-name {
+          width: 140px;
+          overflow-x: hidden;
+          white-space: nowrap;
+          margin-right: 5px;
+        }
+
+        .category-amount {
+          width: 70px;
+          text-align: right;
+        }
       }
     }
   }

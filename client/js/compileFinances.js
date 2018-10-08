@@ -11,16 +11,53 @@ function Year(year) {
   }
 }
 
-function Month(month, year) {
-  this.month = month + 1;
-  this.name = monthNames[month];
-  this.total = 0;
-  this.days = [];
+class Month {
+  constructor(month, year) {
+    this.month = month + 1;
+    this.name = monthNames[month];
+    this.total = 0;
+    this.days = [];
+    this.categories = {};
 
-  const totalDays = new Date(year, this.month, 0).getDate();
-  // build days
-  for (let i = 1; i <= totalDays; i++) {
-    this.days.push(new Day(i));
+    const totalDays = new Date(year, this.month, 0).getDate();
+    // build days
+    for (let i = 1; i <= totalDays; i++) {
+      this.days.push(new Day(i));
+    }
+  }
+
+  addCategory({ category, amount }) {
+    if (this.categories.hasOwnProperty(category)) {
+      this.categories[category].amount += amount;
+    } else {
+      this.categories[category] = { amount, visible: true };
+    }
+  }
+
+  listCategories() {
+    return Object.keys(this.categories)
+      .map(name => {
+        return {
+          name,
+          amount: this.categories[name].amount,
+          visible: this.categories[name].visible
+        };
+      })
+      .sort((a, b) => {
+        return b.amount - a.amount;
+      });
+  }
+
+  updateDays() {
+    const excludeCategories = this.listCategories().filter(category => {
+      return !category.visible;
+    });
+
+    console.table(excludeCategories);
+
+    // this.days.forEach((day) => {
+    //   day.update(excludeCategories);
+    // })
   }
 }
 
@@ -93,6 +130,7 @@ const Finances = {
 
       spending[year].total += amount;
       spending[year].months[month].total += amount;
+      spending[year].months[month].addCategory(transaction);
       spending[year].months[month].days[day].total += amount;
 
       spending[year].months[month].days[day].transactions.push(transaction);

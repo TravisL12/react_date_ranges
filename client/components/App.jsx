@@ -30,6 +30,14 @@ class App extends React.Component {
     });
   }
 
+  updateCategories(event, monthSpending) {
+    const category = monthSpending.categories[event.target.id];
+    category.visible = !category.visible;
+
+    const spending = monthSpending.updateDays();
+    // this.setState({ spending });
+  }
+
   render() {
     if (!this.state.spending) {
       return (
@@ -41,7 +49,10 @@ class App extends React.Component {
 
     return (
       <div className="container">
-        <SideBar spending={this.state.spending} />
+        <SideBar
+          spending={this.state.spending}
+          updateCategories={this.updateCategories.bind(this)}
+        />
 
         <main className="spending-view">
           <Breadcrumbs />
