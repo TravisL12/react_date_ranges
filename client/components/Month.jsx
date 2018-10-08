@@ -41,7 +41,7 @@ class Month extends React.Component {
   render() {
     return (
       <div
-        className={"month-view " + monthNames[this.props.month].toLowerCase()}
+        className={`month-view ${monthNames[this.props.month].toLowerCase()}`}
       >
         <div>
           {dayNames.map(day => {

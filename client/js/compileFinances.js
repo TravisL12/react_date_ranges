@@ -81,18 +81,8 @@ const Finances = {
 
   buildSpending(data) {
     const spending = {};
-    const categories = {};
     for (const i in data) {
       const transaction = new Transaction(data[i]);
-
-      if (categories[transaction.category] === undefined) {
-        categories[transaction.category] = {
-          name: transaction.category,
-          value: true,
-          total: 0
-        };
-      }
-
       const date = new Date(transaction.date);
       const year = date.getFullYear();
       const month = date.getMonth();

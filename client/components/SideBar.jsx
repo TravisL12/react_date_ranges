@@ -1,13 +1,14 @@
 import React from "react";
 import { Route } from "react-router-dom";
 import currency from "../js/currencyFormat";
+import { months as monthNames } from "../js/monthDayNames";
 
 function sumCategories(daysSpending) {
   const categories = {};
 
   daysSpending.forEach(day => {
     day.transactions.forEach(transaction => {
-      if (categories[transaction.category]) {
+      if (categories.hasOwnProperty(transaction.category)) {
         categories[transaction.category] += transaction.amount;
       } else {
         categories[transaction.category] = transaction.amount;
@@ -35,14 +36,19 @@ function SideBar(props) {
         render={routeProps => {
           const { month, year } = routeProps.match.params;
           const categories = sumCategories(
-            props.spending[year].months[month].days
+            props.spending[year].months[month - 1].days
           );
           return (
             <ul className="side-bar--categories-list">
               {categories.map((category, idx) => {
                 return (
                   <li key={idx}>
-                    {category.name} - {currency(category.amount)}
+                    <span className="category-name" title={category.name}>
+                      {category.name}
+                    </span>{" "}
+                    <span className="category-amount">
+                      {currency(category.amount)}
+                    </span>
                   </li>
                 );
               })}
