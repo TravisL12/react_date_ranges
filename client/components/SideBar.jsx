@@ -17,11 +17,11 @@ function SideBar(props) {
           };
 
           const allOn = () => {
-            props.toggleCategories(true);
+            props.toggleAllCategories(true);
           };
 
           const allOff = () => {
-            props.toggleCategories();
+            props.toggleAllCategories();
           };
 
           return (

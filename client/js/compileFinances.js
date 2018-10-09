@@ -93,22 +93,23 @@ class Transaction {
 
 class Finance {
   constructor() {
-    this.excludedCategories = [];
+    this.excludedCategoryNames = [];
     this.transactions = [];
-    this.excludeAll = false;
+    this.categories = {};
   }
 
-  includeCategory(category) {
-    const idx = this.excludedCategories.indexOf(category);
-    this.excludedCategories.splice(idx, 1);
-
-    if (this.excludedCategories.indexOf(category) > -1) {
-      this.includeCategory(category);
+  toggleAllCategories(enableAll = false) {
+    for (let category in this.categories) {
+      this.categories[category] = enableAll;
     }
   }
 
   rawSpending(data) {
-    this.transactions = data.map(function(obj) {
+    this.transactions = data.map(obj => {
+      if (!this.categories.hasOwnProperty(obj.gsx$category.$t)) {
+        this.categories[obj.gsx$category.$t] = true;
+      }
+
       return new Transaction({
         category: obj.gsx$category.$t,
         subcategory: obj.gsx$subcategory.$t,
@@ -128,9 +129,7 @@ class Finance {
       const month = date.getMonth();
       const day = date.getDate() - 1;
       const amount = transaction.amount;
-      const isCategoryExcluded =
-        this.excludeAll ||
-        this.excludedCategories.includes(transaction.category);
+      const isCategoryExcluded = !this.categories[transaction.category];
 
       spending[year] = spending[year] || new Year(year);
       spending[year].total += amount;
