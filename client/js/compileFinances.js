@@ -97,6 +97,15 @@ class Finance {
     this.transactions = [];
   }
 
+  includeCategory(category) {
+    const idx = this.excludedCategories.indexOf(category);
+    this.excludedCategories.splice(idx, 1);
+
+    if (this.excludedCategories.indexOf(category) > -1) {
+      this.includeCategory(category);
+    }
+  }
+
   rawSpending(data) {
     this.transactions = data.map(function(obj) {
       return new Transaction({
@@ -112,10 +121,6 @@ class Finance {
 
   buildSpending() {
     return this.transactions.reduce((spending, transaction) => {
-      if (this.excludedCategories.includes(transaction.category)) {
-        return spending;
-      }
-
       const date = new Date(transaction.date);
       const year = date.getFullYear();
       const month = date.getMonth();
@@ -127,9 +132,11 @@ class Finance {
       spending[year].total += amount;
       spending[year].months[month].total += amount;
       spending[year].months[month].addCategory(transaction);
-      spending[year].months[month].days[day].total += amount;
 
-      spending[year].months[month].days[day].transactions.push(transaction);
+      if (!this.excludedCategories.includes(transaction.category)) {
+        spending[year].months[month].days[day].total += amount;
+        spending[year].months[month].days[day].transactions.push(transaction);
+      }
 
       return spending;
     }, {});

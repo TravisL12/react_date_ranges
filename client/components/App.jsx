@@ -31,7 +31,12 @@ class App extends React.Component {
   }
 
   updateCategories(event) {
-    this.finances.excludedCategories.push(event.target.id);
+    const category = event.target.id;
+    if (!this.finances.excludedCategories.includes(category)) {
+      this.finances.excludedCategories.push(category);
+    } else {
+      this.finances.includeCategory(category);
+    }
 
     this.setState({ spending: this.finances.buildSpending() });
   }
