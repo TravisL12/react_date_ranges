@@ -8,7 +8,45 @@
   color: $white;
 
   .side-bar--categories-list {
-    font-size: 12px;
+    font-size: 14px;
     color: black;
+
+    li {
+      display: flex;
+
+      input[type="checkbox"] {
+        display: none;
+
+        & + label {
+          background: lightgray;
+          border: none;
+        }
+
+        &:checked + label {
+          background: white;
+          border-left: 2px solid blue;
+        }
+      }
+
+      label {
+        display: flex;
+        padding: 5px 3px;
+        box-sizing: border-box;
+        width: 100%;
+        cursor: pointer;
+      }
+
+      .category-name {
+        width: 155px;
+        overflow-x: hidden;
+        white-space: nowrap;
+        margin-right: 5px;
+      }
+
+      .category-amount {
+        width: 70px;
+        text-align: right;
+      }
+    }
   }
 }

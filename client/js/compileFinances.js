@@ -11,16 +11,41 @@ function Year(year) {
   }
 }
 
-function Month(month, year) {
-  this.month = month + 1;
-  this.name = monthNames[month];
-  this.total = 0;
-  this.days = [];
+class Month {
+  constructor(month, year) {
+    this.month = month + 1;
+    this.name = monthNames[month];
+    this.total = 0;
+    this.days = [];
+    this.categories = {};
 
-  const totalDays = new Date(year, this.month, 0).getDate();
-  // build days
-  for (let i = 1; i <= totalDays; i++) {
-    this.days.push(new Day(i));
+    const totalDays = new Date(year, this.month, 0).getDate();
+    // build days
+    for (let i = 1; i <= totalDays; i++) {
+      this.days.push(new Day(i));
+    }
+  }
+
+  addCategory({ category, amount }, isHidden) {
+    if (this.categories.hasOwnProperty(category)) {
+      this.categories[category].amount += amount;
+    } else {
+      this.categories[category] = { amount, visible: !isHidden };
+    }
+  }
+
+  listCategories() {
+    return Object.keys(this.categories)
+      .map(name => {
+        return {
+          name,
+          amount: this.categories[name].amount,
+          visible: this.categories[name].visible
+        };
+      })
+      .sort((a, b) => {
+        return b.amount - a.amount;
+      });
   }
 }
 
@@ -66,50 +91,60 @@ class Transaction {
   }
 }
 
-const Finances = {
+class Finance {
+  constructor() {
+    this.excludedCategories = [];
+    this.transactions = [];
+    this.excludeAll = false;
+  }
+
+  includeCategory(category) {
+    const idx = this.excludedCategories.indexOf(category);
+    this.excludedCategories.splice(idx, 1);
+
+    if (this.excludedCategories.indexOf(category) > -1) {
+      this.includeCategory(category);
+    }
+  }
+
   rawSpending(data) {
-    const spending = data.map(function(obj) {
-      return {
-        category: obj.gsx$subcategory.$t || obj.gsx$category.$t,
+    this.transactions = data.map(function(obj) {
+      return new Transaction({
+        category: obj.gsx$category.$t,
+        subcategory: obj.gsx$subcategory.$t,
         date: obj.gsx$date.$t,
         description: obj.gsx$payee.$t || obj.gsx$description.$t,
         amount: obj.gsx$amount.$t
-      };
+      });
     });
-    return this.buildSpending(spending);
-  },
 
-  buildSpending(data) {
-    const spending = {};
-    const categories = {};
-    for (const i in data) {
-      const transaction = new Transaction(data[i]);
+    return;
+  }
 
-      if (categories[transaction.category] === undefined) {
-        categories[transaction.category] = {
-          name: transaction.category,
-          value: true,
-          total: 0
-        };
-      }
-
+  buildSpending() {
+    return this.transactions.reduce((spending, transaction) => {
       const date = new Date(transaction.date);
       const year = date.getFullYear();
       const month = date.getMonth();
       const day = date.getDate() - 1;
       const amount = transaction.amount;
+      const isCategoryExcluded =
+        this.excludeAll ||
+        this.excludedCategories.includes(transaction.category);
 
       spending[year] = spending[year] || new Year(year);
-
       spending[year].total += amount;
-      spending[year].months[month].total += amount;
-      spending[year].months[month].days[day].total += amount;
+      spending[year].months[month].addCategory(transaction, isCategoryExcluded);
 
-      spending[year].months[month].days[day].transactions.push(transaction);
-    }
+      if (!isCategoryExcluded) {
+        spending[year].months[month].total += amount;
+        spending[year].months[month].days[day].total += amount;
+        spending[year].months[month].days[day].transactions.push(transaction);
+      }
 
-    return spending;
+      return spending;
+    }, {});
   }
-};
+}
 
-export default Finances;
+export default Finance;

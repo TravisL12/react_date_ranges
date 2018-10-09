@@ -2,6 +2,10 @@ import React from "react";
 import currency from "../js/currencyFormat";
 
 function Day(props) {
+  const sortAmount = props.spending.transactions.sort((a, b) => {
+    return b.amount - a.amount;
+  });
+
   return (
     <div>
       <table>
@@ -14,7 +18,7 @@ function Day(props) {
           </tr>
         </thead>
         <tbody>
-          {props.spending.transactions.map((trans, idx) => (
+          {sortAmount.map((trans, idx) => (
             <tr key={idx}>
               <td>{trans.category}</td>
               <td>{trans.date}</td>

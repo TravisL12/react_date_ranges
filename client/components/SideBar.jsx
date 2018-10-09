@@ -2,51 +2,58 @@ import React from "react";
 import { Route } from "react-router-dom";
 import currency from "../js/currencyFormat";
 
-function sumCategories(daysSpending) {
-  const categories = {};
-
-  daysSpending.forEach(day => {
-    day.transactions.forEach(transaction => {
-      if (categories[transaction.category]) {
-        categories[transaction.category] += transaction.amount;
-      } else {
-        categories[transaction.category] = transaction.amount;
-      }
-    });
-  });
-
-  return Object.keys(categories)
-    .map(name => {
-      return { name, amount: categories[name] };
-    })
-    .sort((a, b) => {
-      return b.amount - a.amount;
-    });
-}
-
 function SideBar(props) {
   return (
     <aside className="side-bar">
-      <h1>side bar</h1>
-
       <Route
         exact
         path="/:year/:month"
         render={routeProps => {
           const { month, year } = routeProps.match.params;
-          const categories = sumCategories(
-            props.spending[year].months[month].days
-          );
+          const monthSpending = props.spending[year].months[month - 1];
+
+          const updateCategories = event => {
+            props.updateCategories(event, monthSpending);
+          };
+
+          const allOn = () => {
+            props.toggleCategories(true);
+          };
+
+          const allOff = () => {
+            props.toggleCategories();
+          };
+
           return (
-            <ul className="side-bar--categories-list">
-              {categories.map((category, idx) => {
-                return (
-                  <li key={idx}>
-                    {category.name} - {currency(category.amount)}
-                  </li>
-                );
-              })}
-            </ul>
+            <div>
+              <h1>Total: {currency(monthSpending.total)}</h1>
+              <div className="category-control-buttons">
+                <button onClick={allOn}>On</button>
+                <button onClick={allOff}>Off</button>
+              </div>
+              <ul className="side-bar--categories-list">
+                {monthSpending.listCategories().map((category, idx) => {
+                  return (
+                    <li key={idx}>
+                      <input
+                        type="checkbox"
+                        id={category.name}
+                        checked={category.visible}
+                        onChange={updateCategories}
+                      />
+                      <label htmlFor={category.name}>
+                        <span className="category-name" title={category.name}>
+                          {category.name}
+                        </span>{" "}
+                        <span className="category-amount">
+                          {currency(category.visible ? category.amount : 0)}
+                        </span>
+                      </label>
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
           );
         }}
       />

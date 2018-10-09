@@ -8,13 +8,14 @@ import SideBar from "./SideBar";
 
 import { Route } from "react-router-dom";
 import axios from "axios";
-import finances from "../js/compileFinances.js";
+import Finance from "../js/compileFinances.js";
 
 require("../styles/application.scss");
 
 class App extends React.Component {
   constructor(props) {
     super(props);
+    this.finances = new Finance();
     this.state = {
       spending: undefined
     };
@@ -24,10 +25,33 @@ class App extends React.Component {
     const url =
       "https://spreadsheets.google.com/feeds/list/1X05BAK1GSF4rbr-tSPWh2GBFk1zqg3jUPxrDcGivw9s/1/public/values?alt=json";
     axios.get(url).then(({ data: { feed: { entry } } }) => {
-      this.setState({
-        spending: finances.rawSpending(entry)
-      });
+      this.finances.rawSpending(entry);
+      this.setState({ spending: this.finances.buildSpending() });
     });
+  }
+
+  toggleCategories(resetAll) {
+    if (resetAll) {
+      this.finances.excludedCategories = [];
+    } else {
+      this.finances.excludeAll = true;
+    }
+
+    this.setState(
+      { spending: this.finances.buildSpending() },
+      (this.finances.excludeAll = false)
+    );
+  }
+
+  updateCategories(event) {
+    const category = event.target.id;
+    if (!this.finances.excludedCategories.includes(category)) {
+      this.finances.excludedCategories.push(category);
+    } else {
+      this.finances.includeCategory(category);
+    }
+
+    this.setState({ spending: this.finances.buildSpending() });
   }
 
   render() {
@@ -41,7 +65,11 @@ class App extends React.Component {
 
     return (
       <div className="container">
-        <SideBar spending={this.state.spending} />
+        <SideBar
+          spending={this.state.spending}
+          toggleCategories={this.toggleCategories.bind(this)}
+          updateCategories={this.updateCategories.bind(this)}
+        />
 
         <main className="spending-view">
           <Breadcrumbs />
