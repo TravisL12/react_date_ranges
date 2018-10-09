@@ -30,6 +30,19 @@ class App extends React.Component {
     });
   }
 
+  toggleCategories(resetAll) {
+    if (resetAll) {
+      this.finances.excludedCategories = [];
+    } else {
+      this.finances.excludeAll = true;
+    }
+
+    this.setState(
+      { spending: this.finances.buildSpending() },
+      (this.finances.excludeAll = false)
+    );
+  }
+
   updateCategories(event) {
     const category = event.target.id;
     if (!this.finances.excludedCategories.includes(category)) {
@@ -54,6 +67,7 @@ class App extends React.Component {
       <div className="container">
         <SideBar
           spending={this.state.spending}
+          toggleCategories={this.toggleCategories.bind(this)}
           updateCategories={this.updateCategories.bind(this)}
         />
 

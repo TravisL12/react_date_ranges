@@ -16,9 +16,21 @@ function SideBar(props) {
             props.updateCategories(event, monthSpending);
           };
 
+          const allOn = () => {
+            props.toggleCategories(true);
+          };
+
+          const allOff = () => {
+            props.toggleCategories();
+          };
+
           return (
             <div>
               <h1>Total: {currency(monthSpending.total)}</h1>
+              <div className="category-control-buttons">
+                <button onClick={allOn}>On</button>
+                <button onClick={allOff}>Off</button>
+              </div>
               <ul className="side-bar--categories-list">
                 {monthSpending.listCategories().map((category, idx) => {
                   return (
@@ -26,7 +38,7 @@ function SideBar(props) {
                       <input
                         type="checkbox"
                         id={category.name}
-                        defaultChecked={category.visible}
+                        checked={category.visible}
                         onChange={updateCategories}
                       />
                       <label htmlFor={category.name}>

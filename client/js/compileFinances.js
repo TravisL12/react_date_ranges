@@ -95,6 +95,7 @@ class Finance {
   constructor() {
     this.excludedCategories = [];
     this.transactions = [];
+    this.excludeAll = false;
   }
 
   includeCategory(category) {
@@ -109,7 +110,8 @@ class Finance {
   rawSpending(data) {
     this.transactions = data.map(function(obj) {
       return new Transaction({
-        category: obj.gsx$subcategory.$t || obj.gsx$category.$t,
+        category: obj.gsx$category.$t,
+        subcategory: obj.gsx$subcategory.$t,
         date: obj.gsx$date.$t,
         description: obj.gsx$payee.$t || obj.gsx$description.$t,
         amount: obj.gsx$amount.$t
@@ -126,9 +128,9 @@ class Finance {
       const month = date.getMonth();
       const day = date.getDate() - 1;
       const amount = transaction.amount;
-      const isCategoryExcluded = this.excludedCategories.includes(
-        transaction.category
-      );
+      const isCategoryExcluded =
+        this.excludeAll ||
+        this.excludedCategories.includes(transaction.category);
 
       spending[year] = spending[year] || new Year(year);
       spending[year].total += amount;
