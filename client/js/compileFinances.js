@@ -92,10 +92,13 @@ class Transaction {
 }
 
 class Category {
-  constructor(name) {
+  constructor(name, isSubcategory = false) {
     this.name = name;
     this.visible = true;
-    this.subcategories = {};
+
+    if (!isSubcategory) {
+      this.subcategories = {};
+    }
   }
 }
 
@@ -126,7 +129,8 @@ class Finance {
         !this.categories[category].subcategories[subcategory]
       ) {
         this.categories[category].subcategories[subcategory] = new Category(
-          subcategory
+          subcategory,
+          true
         );
       }
 
