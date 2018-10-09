@@ -40,6 +40,12 @@ function SideBar(props) {
                   </li>
                 );
               })}
+              <li key={"total"}>
+                <span className="category-name">Total</span>{" "}
+                <span className="category-amount">
+                  {currency(monthSpending.total)}
+                </span>
+              </li>
             </ul>
           );
         }}

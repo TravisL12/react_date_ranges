@@ -131,12 +131,11 @@ class Finance {
       );
 
       spending[year] = spending[year] || new Year(year);
-
       spending[year].total += amount;
-      spending[year].months[month].total += amount;
       spending[year].months[month].addCategory(transaction, isCategoryExcluded);
 
       if (!isCategoryExcluded) {
+        spending[year].months[month].total += amount;
         spending[year].months[month].days[day].total += amount;
         spending[year].months[month].days[day].transactions.push(transaction);
       }
