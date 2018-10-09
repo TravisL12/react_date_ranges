@@ -91,31 +91,51 @@ class Transaction {
   }
 }
 
+class Category {
+  constructor(name) {
+    this.name = name;
+    this.visible = true;
+    this.subcategories = {};
+  }
+}
+
 class Finance {
   constructor() {
-    this.excludedCategoryNames = [];
     this.transactions = [];
     this.categories = {};
   }
 
   toggleAllCategories(enableAll = false) {
     for (let category in this.categories) {
-      this.categories[category] = enableAll;
+      this.categories[category].visible = enableAll;
     }
   }
 
-  rawSpending(data) {
+  loadTransactions(data) {
     this.transactions = data.map(obj => {
-      if (!this.categories.hasOwnProperty(obj.gsx$category.$t)) {
-        this.categories[obj.gsx$category.$t] = true;
+      const category = obj.gsx$category.$t || "Uncategorized Payments";
+      const subcategory = obj.gsx$subcategory.$t;
+      const date = obj.gsx$date.$t;
+      const description = obj.gsx$payee.$t || obj.gsx$description.$t;
+      const amount = obj.gsx$amount.$t;
+
+      if (!this.categories[category]) {
+        this.categories[category] = new Category(category);
+      } else if (
+        subcategory &&
+        !this.categories[category].subcategories[subcategory]
+      ) {
+        this.categories[category].subcategories[subcategory] = new Category(
+          subcategory
+        );
       }
 
       return new Transaction({
-        category: obj.gsx$category.$t,
-        subcategory: obj.gsx$subcategory.$t,
-        date: obj.gsx$date.$t,
-        description: obj.gsx$payee.$t || obj.gsx$description.$t,
-        amount: obj.gsx$amount.$t
+        category,
+        subcategory,
+        date,
+        description,
+        amount
       });
     });
 
@@ -129,7 +149,7 @@ class Finance {
       const month = date.getMonth();
       const day = date.getDate() - 1;
       const amount = transaction.amount;
-      const isCategoryExcluded = !this.categories[transaction.category];
+      const isCategoryExcluded = !this.categories[transaction.category].visible;
 
       spending[year] = spending[year] || new Year(year);
       spending[year].total += amount;

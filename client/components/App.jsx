@@ -25,7 +25,7 @@ class App extends React.Component {
     const url =
       "https://spreadsheets.google.com/feeds/list/1X05BAK1GSF4rbr-tSPWh2GBFk1zqg3jUPxrDcGivw9s/1/public/values?alt=json";
     axios.get(url).then(({ data: { feed: { entry } } }) => {
-      this.finances.rawSpending(entry);
+      this.finances.loadTransactions(entry);
       this.setState({ spending: this.finances.buildSpending() });
     });
   }
@@ -36,8 +36,9 @@ class App extends React.Component {
   }
 
   updateCategories(event) {
-    const category = event.target.id;
-    this.finances.categories[category] = !this.finances.categories[category];
+    const target = event.target.id;
+    const category = this.finances.categories[target];
+    category.visible = !category.visible;
     this.setState({ spending: this.finances.buildSpending() });
   }
 
