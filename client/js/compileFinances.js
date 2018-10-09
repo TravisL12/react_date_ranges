@@ -26,11 +26,11 @@ class Month {
     }
   }
 
-  addCategory({ category, amount }) {
+  addCategory({ category, amount }, isHidden) {
     if (this.categories.hasOwnProperty(category)) {
       this.categories[category].amount += amount;
     } else {
-      this.categories[category] = { amount, visible: true };
+      this.categories[category] = { amount, visible: !isHidden };
     }
   }
 
@@ -126,14 +126,17 @@ class Finance {
       const month = date.getMonth();
       const day = date.getDate() - 1;
       const amount = transaction.amount;
+      const isCategoryExcluded = this.excludedCategories.includes(
+        transaction.category
+      );
 
       spending[year] = spending[year] || new Year(year);
 
       spending[year].total += amount;
       spending[year].months[month].total += amount;
-      spending[year].months[month].addCategory(transaction);
+      spending[year].months[month].addCategory(transaction, isCategoryExcluded);
 
-      if (!this.excludedCategories.includes(transaction.category)) {
+      if (!isCategoryExcluded) {
         spending[year].months[month].days[day].total += amount;
         spending[year].months[month].days[day].transactions.push(transaction);
       }
