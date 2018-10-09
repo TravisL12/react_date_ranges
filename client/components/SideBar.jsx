@@ -5,8 +5,6 @@ import currency from "../js/currencyFormat";
 function SideBar(props) {
   return (
     <aside className="side-bar">
-      <h1>side bar</h1>
-
       <Route
         exact
         path="/:year/:month"
@@ -19,34 +17,31 @@ function SideBar(props) {
           };
 
           return (
-            <ul className="side-bar--categories-list">
-              {monthSpending.listCategories().map((category, idx) => {
-                return (
-                  <li key={idx}>
-                    <input
-                      type="checkbox"
-                      id={category.name}
-                      defaultChecked={category.visible}
-                      onChange={updateCategories}
-                    />
-                    <label htmlFor={category.name}>
-                      <span className="category-name" title={category.name}>
-                        {category.name}
-                      </span>{" "}
-                      <span className="category-amount">
-                        {currency(category.visible ? category.amount : 0)}
-                      </span>
-                    </label>
-                  </li>
-                );
-              })}
-              <li key={"total"}>
-                <span className="category-name">Total</span>{" "}
-                <span className="category-amount">
-                  {currency(monthSpending.total)}
-                </span>
-              </li>
-            </ul>
+            <div>
+              <h1>Total: {currency(monthSpending.total)}</h1>
+              <ul className="side-bar--categories-list">
+                {monthSpending.listCategories().map((category, idx) => {
+                  return (
+                    <li key={idx}>
+                      <input
+                        type="checkbox"
+                        id={category.name}
+                        defaultChecked={category.visible}
+                        onChange={updateCategories}
+                      />
+                      <label htmlFor={category.name}>
+                        <span className="category-name" title={category.name}>
+                          {category.name}
+                        </span>{" "}
+                        <span className="category-amount">
+                          {currency(category.visible ? category.amount : 0)}
+                        </span>
+                      </label>
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
           );
         }}
       />

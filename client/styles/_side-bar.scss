@@ -16,22 +16,28 @@
 
       input[type="checkbox"] {
         display: none;
+
+        & + label {
+          background: lightgray;
+          border: none;
+        }
+
+        &:checked + label {
+          background: white;
+          border-left: 2px solid blue;
+        }
       }
 
       label {
         display: flex;
-      }
-
-      input[type="checkbox"] + label {
-        background: gray;
-      }
-
-      input[type="checkbox"]:checked + label {
-        background: pink;
+        padding: 5px 3px;
+        box-sizing: border-box;
+        width: 100%;
+        cursor: pointer;
       }
 
       .category-name {
-        width: 140px;
+        width: 155px;
         overflow-x: hidden;
         white-space: nowrap;
         margin-right: 5px;
