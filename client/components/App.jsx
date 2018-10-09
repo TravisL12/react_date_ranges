@@ -30,7 +30,7 @@ class App extends React.Component {
     });
   }
 
-  toggleCategories(enableAll) {
+  toggleAllCategories(enableAll) {
     this.finances.toggleAllCategories(enableAll);
     this.setState({ spending: this.finances.buildSpending() });
   }
@@ -55,7 +55,7 @@ class App extends React.Component {
       <div className="container">
         <SideBar
           spending={this.state.spending}
-          toggleAllCategories={this.toggleCategories.bind(this)}
+          toggleAllCategories={this.toggleAllCategories.bind(this)}
           updateCategories={this.updateCategories.bind(this)}
         />
 

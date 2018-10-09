@@ -26,26 +26,27 @@ class Month {
     }
   }
 
-  addCategory({ category, amount }, isHidden) {
-    if (this.categories.hasOwnProperty(category)) {
-      this.categories[category].amount += amount;
+  addCategory(amount, subCategoryName, { name, visible, subcategories }) {
+    if (this.categories.hasOwnProperty(name)) {
+      this.categories[name].amount += amount;
     } else {
-      this.categories[category] = { amount, visible: !isHidden };
+      this.categories[name] = {
+        amount,
+        name,
+        visible,
+        subcategories
+      };
     }
-  }
 
-  listCategories() {
-    return Object.keys(this.categories)
-      .map(name => {
-        return {
-          name,
-          amount: this.categories[name].amount,
-          visible: this.categories[name].visible
-        };
-      })
-      .sort((a, b) => {
-        return b.amount - a.amount;
-      });
+    if (subCategoryName) {
+      const subCategory = this.categories[name].subcategories[subCategoryName];
+
+      if (subCategory.hasOwnProperty("amount")) {
+        subCategory.amount += amount;
+      } else {
+        subCategory.amount = amount;
+      }
+    }
   }
 }
 
@@ -59,8 +60,9 @@ class Transaction {
   constructor(data) {
     this.data = data;
     this.category = data.category;
+    this.subcategory = data.subcategory;
     this.date = this.parseDate(data);
-    this.amount = parseFloat(data.amount);
+    this.amount = data.amount;
     this.description = this.parseDescription(data);
   }
 
@@ -120,11 +122,13 @@ class Finance {
       const subcategory = obj.gsx$subcategory.$t;
       const date = obj.gsx$date.$t;
       const description = obj.gsx$payee.$t || obj.gsx$description.$t;
-      const amount = obj.gsx$amount.$t;
+      const amount = parseFloat(obj.gsx$amount.$t);
 
       if (!this.categories[category]) {
         this.categories[category] = new Category(category);
-      } else if (
+      }
+
+      if (
         subcategory &&
         !this.categories[category].subcategories[subcategory]
       ) {
@@ -157,7 +161,11 @@ class Finance {
 
       spending[year] = spending[year] || new Year(year);
       spending[year].total += amount;
-      spending[year].months[month].addCategory(transaction, isCategoryExcluded);
+      spending[year].months[month].addCategory(
+        amount,
+        transaction.subcategory,
+        this.categories[transaction.category]
+      );
 
       if (!isCategoryExcluded) {
         spending[year].months[month].total += amount;
