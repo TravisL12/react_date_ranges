@@ -23,7 +23,7 @@ function SideBar(props) {
 
     if (category.subcategories) {
       hasSubcategories = (
-        <ul className="side-bar--sub-categories-list">
+        <ul className="sub-categories-list">
           {listCategories(category.subcategories).map((subcategory, idx) => {
             return categoryListItem(subcategory, idx, updateCategories);
           })}

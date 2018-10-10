@@ -19,33 +19,38 @@ class Month {
     this.days = [];
     this.categories = {};
 
-    const totalDays = new Date(year, this.month, 0).getDate();
     // build days
+    const totalDays = new Date(year, this.month, 0).getDate();
     for (let i = 1; i <= totalDays; i++) {
       this.days.push(new Day(i));
     }
   }
 
-  addCategory(amount, subCategoryName, { name, visible, subcategories }) {
+  addCategory(amount, subcategoryName, { name, visible }) {
     if (this.categories.hasOwnProperty(name)) {
       this.categories[name].amount += amount;
     } else {
-      this.categories[name] = {
+      this.categories[name] = new Category({
         amount,
         name,
-        visible,
-        subcategories
-      };
+        visible
+      });
     }
 
-    if (subCategoryName) {
-      const subCategory = this.categories[name].subcategories[subCategoryName];
+    if (subcategoryName) {
+      this.addSubcategory(amount, subcategoryName, this.categories[name]);
+    }
+  }
 
-      if (subCategory.hasOwnProperty("amount")) {
-        subCategory.amount += amount;
-      } else {
-        subCategory.amount = amount;
-      }
+  addSubcategory(amount, subcategoryName, { subcategories }) {
+    if (subcategories.hasOwnProperty(subcategoryName)) {
+      subcategories[subcategoryName].amount += amount;
+    } else {
+      subcategories[subcategoryName] = {
+        name: subcategoryName,
+        visible: true,
+        amount
+      };
     }
   }
 }
@@ -94,11 +99,13 @@ class Transaction {
 }
 
 class Category {
-  constructor(name, isSubcategory = false) {
-    this.name = name;
-    this.visible = true;
+  constructor(options) {
+    this.name = options.name;
+    this.amount = options.amount || 0;
+    this.visible = options.visible || true;
+    this.isSubcategory = options.isSubcategory || false;
 
-    if (!isSubcategory) {
+    if (!this.isSubcategory) {
       this.subcategories = {};
     }
   }
@@ -116,6 +123,15 @@ class Finance {
     }
   }
 
+  createSubcategory(category, subcategory) {
+    if (subcategory && !this.categories[category].subcategories[subcategory]) {
+      this.categories[category].subcategories[subcategory] = new Category({
+        name: subcategory,
+        isSubcategory: true
+      });
+    }
+  }
+
   loadTransactions(data) {
     this.transactions = data.map(obj => {
       const category = obj.gsx$category.$t || "Uncategorized Payments";
@@ -125,18 +141,10 @@ class Finance {
       const amount = parseFloat(obj.gsx$amount.$t);
 
       if (!this.categories[category]) {
-        this.categories[category] = new Category(category);
+        this.categories[category] = new Category({ name: category });
       }
 
-      if (
-        subcategory &&
-        !this.categories[category].subcategories[subcategory]
-      ) {
-        this.categories[category].subcategories[subcategory] = new Category(
-          subcategory,
-          true
-        );
-      }
+      this.createSubcategory(category, subcategory);
 
       return new Transaction({
         category,
@@ -161,6 +169,7 @@ class Finance {
 
       spending[year] = spending[year] || new Year(year);
       spending[year].total += amount;
+
       spending[year].months[month].addCategory(
         amount,
         transaction.subcategory,

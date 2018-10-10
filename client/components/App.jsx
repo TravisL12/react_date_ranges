@@ -8,7 +8,7 @@ import SideBar from "./SideBar";
 
 import { Route } from "react-router-dom";
 import axios from "axios";
-import Finance from "../js/compileFinances.js";
+import Finance from "../js/compileFinances";
 
 require("../styles/application.scss");
 
@@ -24,6 +24,7 @@ class App extends React.Component {
   componentDidMount() {
     const url =
       "https://spreadsheets.google.com/feeds/list/1X05BAK1GSF4rbr-tSPWh2GBFk1zqg3jUPxrDcGivw9s/1/public/values?alt=json";
+
     axios.get(url).then(({ data: { feed: { entry } } }) => {
       this.finances.loadTransactions(entry);
       this.setState({ spending: this.finances.buildSpending() });
