@@ -38,16 +38,17 @@ class Month {
     }
   }
 
-  addSubcategory(amount, subcategory, { name }) {
+  addSubcategory(amount, subcategory, { name, visible }) {
     const { subcategories } = this.categories[name];
 
     if (subcategories.hasOwnProperty(subcategory.name)) {
       subcategories[subcategory.name].amount += amount;
     } else {
+      const visibility = !visible ? visible : subcategory.visible;
       subcategories[subcategory.name] = new Category({
         name: subcategory.name,
         isSubcategory: true,
-        visible: subcategory.visible,
+        visible: visibility,
         amount
       });
     }
@@ -168,28 +169,27 @@ class Finance {
       const year = dateObj.getFullYear();
       const month = dateObj.getMonth();
       const day = dateObj.getDate() - 1;
+      const categoryObj = this.categories[category];
+      const subcategoryObj = categoryObj.subcategories[subcategory];
       const isCategoryExcluded =
-        !this.categories[category].visible ||
-        (subcategory &&
-          !this.categories[category].subcategories[subcategory].visible);
+        !categoryObj.visible || (subcategory && !subcategoryObj.visible);
 
-      spending[year] = spending[year] || new Year(year);
-      spending[year].total += amount;
+      if (!spending[year]) {
+        spending[year] = new Year(year);
+      }
 
-      spending[year].months[month].addCategory(
-        amount,
-        this.categories[category]
-      );
+      spending[year].months[month].addCategory(amount, categoryObj);
 
       if (subcategory) {
         spending[year].months[month].addSubcategory(
           amount,
-          this.categories[category].subcategories[subcategory],
-          this.categories[category]
+          subcategoryObj,
+          categoryObj
         );
       }
 
       if (!isCategoryExcluded) {
+        spending[year].total += amount;
         spending[year].months[month].total += amount;
         spending[year].months[month].days[day].total += amount;
         spending[year].months[month].days[day].transactions.push(transaction);
