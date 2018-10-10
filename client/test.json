@@ -1,0 +1,44 @@
+{
+  "data": [
+    {
+      "category": "good",
+      "subcategory": "subgood",
+      "date": "12/1/17",
+      "payee": "word",
+      "description": "word",
+      "amount": 5
+    },
+    {
+      "category": "good",
+      "subcategory": "subgood",
+      "date": "12/1/16",
+      "payee": "word",
+      "description": "word",
+      "amount": 5
+    },
+    {
+      "category": "good",
+      "subcategory": "subgood",
+      "date": "12/1/11",
+      "payee": "word",
+      "description": "word",
+      "amount": 5
+    },
+    {
+      "category": "bad",
+      "subcategory": "subbad",
+      "date": "12/1/12",
+      "payee": "word",
+      "description": "word",
+      "amount": 4
+    },
+    {
+      "category": "bad",
+      "subcategory": "subbad",
+      "date": "12/1/16",
+      "payee": "word",
+      "description": "word",
+      "amount": 3
+    }
+  ]
+}

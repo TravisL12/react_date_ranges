@@ -26,31 +26,30 @@ class Month {
     }
   }
 
-  addCategory(amount, subcategoryName, { name, visible }) {
+  addCategory(amount, { name, visible }) {
     if (this.categories.hasOwnProperty(name)) {
       this.categories[name].amount += amount;
     } else {
       this.categories[name] = new Category({
-        amount,
         name,
+        amount,
         visible
       });
     }
-
-    if (subcategoryName) {
-      this.addSubcategory(amount, subcategoryName, this.categories[name]);
-    }
   }
 
-  addSubcategory(amount, subcategoryName, { subcategories }) {
+  addSubcategory(amount, subcategoryName, { name }) {
+    const { subcategories } = this.categories[name];
+
     if (subcategories.hasOwnProperty(subcategoryName)) {
       subcategories[subcategoryName].amount += amount;
     } else {
-      subcategories[subcategoryName] = {
+      subcategories[subcategoryName] = new Category({
         name: subcategoryName,
+        isSubcategory: true,
         visible: true,
         amount
-      };
+      });
     }
   }
 }
@@ -102,7 +101,7 @@ class Category {
   constructor(options) {
     this.name = options.name;
     this.amount = options.amount || 0;
-    this.visible = options.visible || true;
+    this.visible = options.visible;
     this.isSubcategory = options.isSubcategory || false;
 
     if (!this.isSubcategory) {
@@ -127,6 +126,7 @@ class Finance {
     if (subcategory && !this.categories[category].subcategories[subcategory]) {
       this.categories[category].subcategories[subcategory] = new Category({
         name: subcategory,
+        visible: true,
         isSubcategory: true
       });
     }
@@ -141,7 +141,10 @@ class Finance {
       const amount = parseFloat(obj.gsx$amount.$t);
 
       if (!this.categories[category]) {
-        this.categories[category] = new Category({ name: category });
+        this.categories[category] = new Category({
+          name: category,
+          visible: true
+        });
       }
 
       this.createSubcategory(category, subcategory);
@@ -160,21 +163,28 @@ class Finance {
 
   buildSpending() {
     return this.transactions.reduce((spending, transaction) => {
-      const date = new Date(transaction.date);
-      const year = date.getFullYear();
-      const month = date.getMonth();
-      const day = date.getDate() - 1;
-      const amount = transaction.amount;
-      const isCategoryExcluded = !this.categories[transaction.category].visible;
+      const { date, amount, category, subcategory } = transaction;
+      const dateObj = new Date(date);
+      const year = dateObj.getFullYear();
+      const month = dateObj.getMonth();
+      const day = dateObj.getDate() - 1;
+      const isCategoryExcluded = !this.categories[category].visible;
 
       spending[year] = spending[year] || new Year(year);
       spending[year].total += amount;
 
       spending[year].months[month].addCategory(
         amount,
-        transaction.subcategory,
-        this.categories[transaction.category]
+        this.categories[category]
       );
+
+      if (subcategory) {
+        spending[year].months[month].addSubcategory(
+          amount,
+          subcategory,
+          this.categories[category]
+        );
+      }
 
       if (!isCategoryExcluded) {
         spending[year].months[month].total += amount;
