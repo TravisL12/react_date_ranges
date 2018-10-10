@@ -36,9 +36,16 @@ class App extends React.Component {
     this.setState({ spending: this.finances.buildSpending() });
   }
 
-  updateCategories(event) {
-    const target = event.target.id;
-    const category = this.finances.categories[target];
+  updateCategories({ target }) {
+    let category = this.finances.categories[target.id];
+
+    if (!category) {
+      const parentTarget = target.closest(".category").querySelector("input");
+      category = this.finances.categories[parentTarget.id].subcategories[
+        target.id
+      ];
+    }
+
     category.visible = !category.visible;
     this.setState({ spending: this.finances.buildSpending() });
   }

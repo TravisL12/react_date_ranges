@@ -57,13 +57,12 @@
     display: none;
 
     & + label {
-      background: lightgray;
-      border: none;
+      font-size: 13px;
     }
 
     &:checked + label {
       background: lightcyan;
-      border-left: 2px solid blue;
+      border-left: 2px solid transparent;
     }
   }
 }

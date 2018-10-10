@@ -5,12 +5,18 @@ import currency from "../js/currencyFormat";
 function listCategories(categories) {
   return Object.keys(categories)
     .map(name => {
-      return {
+      const object = {
         name,
         amount: categories[name].amount,
         visible: categories[name].visible,
-        subcategories: categories[name].subcategories
+        isSubcategory: categories[name].isSubcategory
       };
+
+      if (categories[name].subcategories) {
+        object.subcategories = categories[name].subcategories;
+      }
+
+      return object;
     })
     .sort((a, b) => {
       return b.amount - a.amount;
@@ -32,7 +38,10 @@ function SideBar(props) {
     }
 
     return (
-      <li key={idx}>
+      <li
+        className={category.isSubcategory ? "subcategory" : "category"}
+        key={idx}
+      >
         <input
           type="checkbox"
           id={category.name}

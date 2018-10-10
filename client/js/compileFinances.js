@@ -38,16 +38,16 @@ class Month {
     }
   }
 
-  addSubcategory(amount, subcategoryName, { name }) {
+  addSubcategory(amount, subcategory, { name }) {
     const { subcategories } = this.categories[name];
 
-    if (subcategories.hasOwnProperty(subcategoryName)) {
-      subcategories[subcategoryName].amount += amount;
+    if (subcategories.hasOwnProperty(subcategory.name)) {
+      subcategories[subcategory.name].amount += amount;
     } else {
-      subcategories[subcategoryName] = new Category({
-        name: subcategoryName,
+      subcategories[subcategory.name] = new Category({
+        name: subcategory.name,
         isSubcategory: true,
-        visible: true,
+        visible: subcategory.visible,
         amount
       });
     }
@@ -168,7 +168,10 @@ class Finance {
       const year = dateObj.getFullYear();
       const month = dateObj.getMonth();
       const day = dateObj.getDate() - 1;
-      const isCategoryExcluded = !this.categories[category].visible;
+      const isCategoryExcluded =
+        !this.categories[category].visible ||
+        (subcategory &&
+          !this.categories[category].subcategories[subcategory].visible);
 
       spending[year] = spending[year] || new Year(year);
       spending[year].total += amount;
@@ -181,7 +184,7 @@ class Finance {
       if (subcategory) {
         spending[year].months[month].addSubcategory(
           amount,
-          subcategory,
+          this.categories[category].subcategories[subcategory],
           this.categories[category]
         );
       }
