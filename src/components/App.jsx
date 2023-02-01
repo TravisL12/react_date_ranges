@@ -17,17 +17,23 @@ class App extends React.Component {
     super(props);
     this.finances = new Finance();
     this.state = {
-      spending: undefined
+      spending: undefined,
     };
   }
 
   componentDidMount() {
     const url =
-      "https://spreadsheets.google.com/feeds/list/1X05BAK1GSF4rbr-tSPWh2GBFk1zqg3jUPxrDcGivw9s/1/public/values?alt=json";
-    axios.get(url).then(({ data: { feed: { entry } } }) => {
-      this.finances.loadTransactions(entry);
-      this.setState({ spending: this.finances.buildSpending() });
-    });
+      "docs.google.com/spreadsheets/d/1X05BAK1GSF4rbr-tSPWh2GBFk1zqg3jUPxrDcGivw9s";
+    axios.get(url).then(
+      ({
+        data: {
+          feed: { entry },
+        },
+      }) => {
+        this.finances.loadTransactions(entry);
+        this.setState({ spending: this.finances.buildSpending() });
+      }
+    );
   }
 
   toggleCategories(enableAll) {
@@ -65,7 +71,7 @@ class App extends React.Component {
           <Route
             exact
             path="/"
-            render={props => {
+            render={(props) => {
               return <LandingPage {...props} spending={this.state.spending} />;
             }}
           />
@@ -73,7 +79,7 @@ class App extends React.Component {
           <Route
             exact
             path="/:year"
-            render={props => {
+            render={(props) => {
               const { year } = props.match.params;
 
               return (
@@ -89,7 +95,7 @@ class App extends React.Component {
           <Route
             exact
             path="/:year/:month"
-            render={props => {
+            render={(props) => {
               const { month, year } = props.match.params;
               const monthZeroIdx = +month - 1;
 
@@ -107,7 +113,7 @@ class App extends React.Component {
           <Route
             exact
             path="/:year/:month/:day"
-            render={props => {
+            render={(props) => {
               const { day, month, year } = props.match.params;
               const monthZeroIdx = +month - 1;
 
